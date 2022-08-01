@@ -1,0 +1,29 @@
+.background {
+    background-color: #21409a;
+    color: white;
+    height: calc(100vh - 56px);
+    overflow: hidden;
+}
+
+.jumbotron-blur {
+    background-color: #80808000;
+}
+
+.login-box {
+    min-width: 500px;
+    /* background-color: white; */
+    background-color: #ffffff99;
+    padding: 1em;
+    border-radius: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.login-box input[type="text"],
+.login-box input[type="password"] {
+    background-color: #ffffff99;
+}

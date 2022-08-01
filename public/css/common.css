@@ -1,0 +1,60 @@
+body {
+    font-family: sans-serif;
+}
+
+.separate-right {
+    margin-right: 2em;
+}
+
+.table-content {
+    padding: 1em;
+}
+
+.btn {
+    min-width: fit-content;
+}
+
+.status-select {
+    width: fit-content;
+}
+
+.title {
+    color: black;
+    text-align: center;
+}
+
+.white-box {
+    background-color: white;
+    border-radius: 0.5em;
+    padding: 1em;
+}
+
+.pagination-bar {
+    float: right;
+}
+
+.perpage-input {
+    width: 5rem;
+}
+
+.perpage-input input {
+    border-radius: 0;
+}
+
+h2,
+h3,
+h4 {
+    text-transform: capitalize;
+}
+
+.accordion-button {
+    display: block;
+}
+
+img {
+    max-width: 100%;
+}
+
+.select2-selection {
+    min-height: 38px !important;
+}
