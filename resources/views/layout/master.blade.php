@@ -20,7 +20,7 @@
     <div>
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1"><p class="text">{{ $NavName }}</p></span>
+            <span class="navbar-brand mb-0 h1"><p class="text">@yield('nav-name-title')</p></span>
             </div>
         </nav>
     </div>
@@ -28,19 +28,21 @@
     <div>
         <div class="split-block">
 
-            {{-- <div class="box">
-            @foreach ($list as $item)
-                <div>
-                    <button class="but"><a class="text" href="/user-management">{{ $item }}</a></button>
-                </div>
-            @endforeach
-            </div> --}}
-
             {{-- Phần sidebars bên cạnh --}}
             <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; height:1080px;">
                 <ul class="nav nav-pills flex-column mb-auto">
-
-                  <li class="btn-toggle-nav">
+                 @foreach (["Quản lý người dùng" => 'honepage',
+                            "Quản lý khu làm việc" => 'WorkSM',
+                            "Quản lý mặt hàng mới" => 'NewAM',
+                            "Nhập hàng" => 'honepage',
+                            "Danh sách đơn hàng" => 'honepage',] as $namepage => $link)
+                 <li class="btn-toggle-nav">
+                    <a href="{{ route($link) }}" class="nav-link link-dark">
+                        {{ $namepage }}
+                    </a>
+                  </li>
+                 @endforeach
+                  {{-- <li class="btn-toggle-nav">
                     <a href="{{ route('honepage') }}" class="nav-link link-dark">
                         Quản lý người dùng
                     </a>
@@ -68,7 +70,7 @@
                     <a href="/" class="nav-link link-dark">
                       Danh sách đơn hàng
                     </a>
-                  </li>
+                  </li> --}}
 
                 </ul>
             </div>

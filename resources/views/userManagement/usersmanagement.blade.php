@@ -1,9 +1,8 @@
 @extends('layout.master')
 @section('title', 'User Management')
-
+@section('nav-name-title', __('title.user-management'))
 
 @section('content')
-
 {{-- Thanh search và các button --}}
 <div>
 

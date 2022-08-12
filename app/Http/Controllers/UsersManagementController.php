@@ -8,26 +8,24 @@ class UsersManagementController extends Controller
 {
 
     public function viewUM() {
-        $NavName = "Quản lý người dùng";
-        return view('userManagement.usersmanagement', compact('NavName'));
+
+        return view('userManagement.usersmanagement');
     }
 
     public function viewAddUser() {
-        $NavName = "Quản lý người dùng";
         $title = "Thêm Người Dùng";
-        return view('userManagement.adduser', compact('NavName', 'title'));
+        return view('userManagement.adduser', compact('title'));
     }
 
     public function viewModUser() {
-        $NavName = "Quản lý người dùng";
         $title = "Sửa Thông Tin Người Dùng";
-        return view('userManagement.moduser', compact('NavName', 'title'));
+        return view('userManagement.moduser', compact('title'));
     }
 
     public function viewDetailUser() {
-        $NavName = "Quản lý người dùng";
         $title = "Chi Tiết Người Dùng";
-        return view('userManagement.detailuser', compact('NavName', 'title'));
+        $unknown = "Unknown";
+        return view('userManagement.detailuser', compact('title'));
     }
 
 }

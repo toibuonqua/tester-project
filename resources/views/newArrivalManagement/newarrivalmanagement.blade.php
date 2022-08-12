@@ -1,6 +1,6 @@
 @extends('layout.master')
 @section('title', 'New Arrival Management')
-
+@section('nav-name-title', __('title.arrival-management'))
 
 @section('content')
 <div class="container">

@@ -1,6 +1,6 @@
 @extends('layout.master')
 @section('title', 'Modify User')
-
+@section('nav-name-title', __('title.user-management'))
 @section('content')
 
     <div>

@@ -1,8 +1,6 @@
 @extends('layout.master')
 @section('title', 'Detail User')
-
-{{ $unknown = "Unknown" }}
-
+@section('nav-name-title', __('title.user-management'))
 
 @section('content')
 
