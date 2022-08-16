@@ -22,9 +22,7 @@ use App\Http\Controllers\NewArrivalManagementController;
 
 // Route::get('/login', [AccountController::class, 'home'])->name('login');
 
-Route::get('/', function (){
-    return view('welcome');
-});
+Route::get('/', [LoginController::class, 'login']) -> name('login');
 
 Route::get('/login', [LoginController::class, 'login']) -> name('login');
 

@@ -42,36 +42,6 @@
                     </a>
                   </li>
                  @endforeach
-                  {{-- <li class="btn-toggle-nav">
-                    <a href="{{ route('honepage') }}" class="nav-link link-dark">
-                        Quản lý người dùng
-                    </a>
-                  </li>
-
-                  <li class="btn-toggle-nav">
-                    <a href="{{ route('WorkSM') }}" class="nav-link link-dark">
-                        Quản lý khu làm việc
-                    </a>
-                  </li>
-
-                  <li class="btn-toggle-nav">
-                    <a href="{{ route('NewAM') }}" class="nav-link link-dark">
-                        Quản lý hàng mới về
-                    </a>
-                  </li>
-
-                  <li class="btn-toggle-nav">
-                    <a href="/" class="nav-link link-dark">
-                        Nhập hàng
-                    </a>
-                  </li>
-
-                  <li class="btn-toggle-nav">
-                    <a href="/" class="nav-link link-dark">
-                      Danh sách đơn hàng
-                    </a>
-                  </li> --}}
-
                 </ul>
             </div>
 

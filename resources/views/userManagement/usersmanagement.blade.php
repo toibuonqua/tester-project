@@ -14,7 +14,7 @@
           </form>
 
           <div class="fix-space">
-            <button type="button" class="btn btn-success">Thêm mới</button>
+            <a href="{{ route('adduser') }}"><button type="button" class="btn btn-success">Thêm mới</button></a>
           </div>
 
           <div class="fix-space">
@@ -23,7 +23,7 @@
         </div>
     </nav>
 
-    @include('common.block.table')
+    @include('common.block.table1')
 
 </div>
 
