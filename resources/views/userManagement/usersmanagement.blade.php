@@ -14,7 +14,7 @@
           </form>
 
           <div class="fix-space">
-            <a href="{{ route('adduser') }}"><button type="button" class="btn btn-success">Thêm mới</button></a>
+            <a href="{{ route('user.add') }}"><button type="button" class="btn btn-success">Thêm mới</button></a>
           </div>
 
           <div class="fix-space">
@@ -23,7 +23,24 @@
         </div>
     </nav>
 
-    @include('common.block.table1')
+    {{-- @include('common.block.table1') --}}
+
+    @include('common.block.table', [
+        'fields' => [
+            'fullname' => 'username',
+            'email' => 'email',
+            'department' => 'department_id',
+            'role' => 'role_id',
+            'work-area' => 'workarea_id',
+            'modify' => 'pattern.modified',
+            'view' => 'pattern.view',
+            'status' => 'pattern.status',
+        ],
+        'items' => $accounts,
+        'edit_route' => 'user.modify',
+        'view_route' => 'user.detail',
+        'status_route' => 'homepage',
+    ]);
 
 </div>
 

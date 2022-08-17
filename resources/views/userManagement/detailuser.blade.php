@@ -21,7 +21,7 @@
                 <label>Họ và tên:</label>
                 </div>
                 <div class="col-auto">
-                <label>{{ $unknown }}</label>
+                <label>{{ $acc->username }}</label>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
                 <label>Phòng ban:</label>
                 </div>
                 <div class="col-auto">
-                <label>{{ $unknown }}</label>
+                <label>{{ $acc->department_id }}</label>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
                 <label>Email:</label>
                 </div>
                 <div class="col-auto">
-                <label>{{ $unknown }}</label>
+                <label>{{ $acc->email }}</label>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
                 <label>Chức danh:</label>
                 </div>
                 <div class="col-auto">
-                <label>{{ $unknown }}</label>
+                <label>{{ $acc->role_id }}</label>
                 </div>
             </div>
         </div>
@@ -77,7 +77,7 @@
                 <label>SĐT:</label>
                 </div>
                 <div class="col-auto">
-                <label>{{ $unknown }}</label>
+                <label>{{ $acc->phone_number }}</label>
                 </div>
             </div>
         </div>
@@ -89,7 +89,7 @@
                 <label>Mã người dùng:</label>
                 </div>
                 <div class="col-auto">
-                <label>{{ $unknown }}</label>
+                <label>{{ $acc->code_user }}</label>
                 </div>
             </div>
         </div>
@@ -105,9 +105,13 @@
                 </div>
                 <div class="col-auto">
                     <label class="switch">
-                        <input type="checkbox" checked>
+                        @if ($acc->status === 'active')
+                            <input type="checkbox" checked>
+                        @else
+                            <input type="checkbox">
+                        @endif
                         <span class="slider round"></span>
-                      </label>
+                    </label>
                 </div>
             </div>
         </div>

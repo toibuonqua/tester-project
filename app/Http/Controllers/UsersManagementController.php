@@ -3,65 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Accounts;
 
 class UsersManagementController extends Controller
 {
 
-    public function viewUM() {
+    public function index() {
 
         // $accounts[0]['name'];
         // $accounts[0]->name;
 
-        $accounts = [
-            new Account([
-                'name' => 'Mark Quinn',
-                'email' => 'abc@gmail.com',
-                'email_verified_at' => '2022-08-16 10:00:00',
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'remember_token' => 'dasdasd',
-            ]),
-            new Account([
-                'name' => 'thanhCV',
-                'email' => '@def@gmail.com',
-                'email_verified_at' => '2022-08-16 10:00:00',
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'remember_token' => 'sdasdasdas',
-            ]),
-            new Account([
-                'name' => 'TienMA',
-                'email' => '@def@gmail.com',
-                'email_verified_at' => '2022-08-16 10:00:00',
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'remember_token' => 'sdasdasdas',
-            ]),
-            new Account([
-                'name' => 'TienNT',
-                'email' => '@def@gmail.com',
-                'email_verified_at' => '2022-08-16 10:00:00',
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'remember_token' => 'sdasdasdas',
-            ])
-            ];
-
-        $accounts = Account::factory
+        $accounts = Accounts::all();
 
         return view('userManagement.usersmanagement', ['accounts' => $accounts]);
     }
 
-    public function viewAddUser() {
+    public function add() {
         $title = "Thêm Người Dùng";
         return view('userManagement.adduser', compact('title'));
     }
 
-    public function viewModUser() {
+    public function modify($id) {
+
+        $acc = Accounts::find($id);
         $title = "Sửa Thông Tin Người Dùng";
-        return view('userManagement.moduser', compact('title'));
+        return view('userManagement.moduser', compact('title', 'acc'));
     }
 
-    public function viewDetailUser() {
+    public function detail($id) {
+
+        $acc = Accounts::find($id);
         $title = "Chi Tiết Người Dùng";
-        $unknown = "Unknown";
-        return view('userManagement.detailuser', compact('title'));
+        return view('userManagement.detailuser', compact('title', 'acc'));
     }
 
 }

@@ -22,20 +22,20 @@ use App\Http\Controllers\NewArrivalManagementController;
 
 // Route::get('/login', [AccountController::class, 'home'])->name('login');
 
-Route::get('/', [LoginController::class, 'login']) -> name('login');
+Route::get('/', [LoginController::class, 'login']) -> name('home');
 
 Route::get('/login', [LoginController::class, 'login']) -> name('login');
 
-Route::prefix('user-management')->group(function ()
+Route::prefix('user')->group(function ()
 
 {
-    Route::get('/', [UsersManagementController::class, 'viewUM'])->name('honepage');
+    Route::get('/', [UsersManagementController::class, 'index'])->name('homepage');
 
-    Route::get('/add-user', [UsersManagementController::class, 'viewAddUser'])->name('adduser');
+    Route::get('/add', [UsersManagementController::class, 'add'])->name('user.add');
 
-    Route::get('/modify-user', [UsersManagementController::class, 'viewModUser'])->name('modifyuser');
+    Route::get('/modify/{id}', [UsersManagementController::class, 'modify'])->name('user.modify');
 
-    Route::get('/detail-user', [UsersManagementController::class, 'viewDetailUser']) ->name('detailuser');
+    Route::get('/detail/{id}', [UsersManagementController::class, 'detail']) ->name('user.detail');
 
 });
 

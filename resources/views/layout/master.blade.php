@@ -31,11 +31,11 @@
             {{-- Phần sidebars bên cạnh --}}
             <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; height:1080px;">
                 <ul class="nav nav-pills flex-column mb-auto">
-                 @foreach (["Quản lý người dùng" => 'honepage',
+                 @foreach (["Quản lý người dùng" => 'homepage',
                             "Quản lý khu làm việc" => 'WorkSM',
                             "Quản lý mặt hàng mới" => 'NewAM',
-                            "Nhập hàng" => 'honepage',
-                            "Danh sách đơn hàng" => 'honepage',] as $namepage => $link)
+                            "Nhập hàng" => 'homepage',
+                            "Danh sách đơn hàng" => 'homepage',] as $namepage => $link)
                  <li class="btn-toggle-nav">
                     <a href="{{ route($link) }}" class="nav-link link-dark">
                         {{ $namepage }}

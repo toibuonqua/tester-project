@@ -17,10 +17,10 @@
         <div class="config-posi">
             <div class="row">
                 <div class="col-6 col-md-4">
-                <label>Họ và tên</label>
+                <label>Họ và tên:</label>
                 </div>
                 <div class="col-md-8">
-                <input type="text" class="form-control">
+                <input type="text" value="{{ $acc->username }}" class="form-control">
                 </div>
             </div>
         </div>
@@ -33,6 +33,7 @@
                 </div>
                 <div class="col-auto">
                     <select class="form-select">
+                      <option>Phòng ban {{ $acc->department_id }}</option>
                       <option>Phòng ban 1</option>
                       <option>Phòng ban 2</option>
                     </select>
@@ -51,7 +52,7 @@
                 <label>Email</label>
                 </div>
                 <div class="col-md-8">
-                <input type="text" class="form-control">
+                <input type="text" value="{{ $acc->email }}" class="form-control">
                 </div>
             </div>
         </div>
@@ -64,6 +65,7 @@
                 </div>
                 <div class="col-auto">
                     <select class="form-select">
+                      <option>Chức danh {{ $acc->role_id }}</option>
                       <option>Chức danh 1</option>
                       <option>Chức danh 2</option>
                     </select>
@@ -82,7 +84,7 @@
                 <label>SĐT</label>
                 </div>
                 <div class="col-md-8">
-                <input type="text" class="form-control">
+                <input type="text" value="{{ $acc->phone_number }}" class="form-control">
                 </div>
             </div>
         </div>
@@ -94,7 +96,7 @@
                 <label class="col-form-label">Mã người dùng</label>
                 </div>
                 <div class="col-md-8">
-                <input type="text" class="form-control">
+                <input type="text" value="{{ $acc->code_user }}" class="form-control">
                 </div>
             </div>
         </div>
@@ -109,6 +111,22 @@
                 <label>Trạng thái</label>
                 </div>
                 <div class="col-auto">
+
+                  @if ($acc->status === 'active')
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                        Hoạt động
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                        Không hoạt động
+                        </label>
+                    </div>
+
+                  @else
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                         <label class="form-check-label" for="flexRadioDefault1">
@@ -121,6 +139,8 @@
                         Không hoạt động
                         </label>
                     </div>
+
+                  @endif
                 </div>
             </div>
         </div>

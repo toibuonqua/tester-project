@@ -21,7 +21,22 @@
                 @elseif ($value === 'pattern.modified')
                     <td><a href="{{ route($edit_route ?? 'home', [$id_param ?? 'id' => $item->id]) }}"
                            {{-- Them parameter moi --}}
-                           class="btn btn-primary">{{ __('title.' . ($edit_text ?? 'edit')) }}</a>
+                           class="btn btn-success">{{ __('title.' . ($edit_text ?? 'edit')) }}</a>
+                    </td>
+                @elseif ($value === 'pattern.view')
+                    <td><a href="{{ route($view_route ?? 'home', [$id_param ?? 'id' => $item->id]) }}"
+                           {{-- Them parameter moi --}}
+                           class="btn btn-success">{{ __('title.' . ($view_text ?? 'view')) }}</a>
+                    </td>
+                @elseif ($value === 'pattern.status')
+                    <td><a href="{{ route($status_route ?? 'home', [$id_param ?? 'id' => $item->id]) }}"
+                           {{-- Them parameter moi --}}
+                           class="btn btn-success">{{ __('title.' . ($status_text ?? 'action')) }}</a>
+                    </td>
+                @elseif ($value === 'pattern.reset')
+                    <td><a href="{{ route($status_route ?? 'home', [$id_param ?? 'id' => $item->id]) }}"
+                           {{-- Them parameter moi --}}
+                           class="btn btn-success">{{ __('title.' . ($status_text ?? 'reset-pw')) }}</a>
                     </td>
                 @elseif ($value === 'pattern.image')
                     <td>

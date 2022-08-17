@@ -2,7 +2,7 @@
 
         <thead>
         <tr>
-            @foreach (['name', 'email', 'password', 'remember_token'] as $title)
+            @foreach (['username', 'email', 'department_id', 'role_id', 'workarea_id','created_at', 'action'] as $title)
             <th scope="col">{{ $title }}</th>
             @endforeach
         </tr>
@@ -12,8 +12,8 @@
     @foreach ($accounts as $account)
         <tbody>
             <tr>
-                @foreach (['name', 'email', 'password', 'remember_token'] as $key)
-                <td>{{ $account[$key] }}</td>
+                @foreach (['username', 'email', 'department_id', 'role_id', 'workarea_id','created_at', 'action'] as $key)
+                <td>{{ $account->$key }}</td>
                 @endforeach
             </tr>
         </tbody>
