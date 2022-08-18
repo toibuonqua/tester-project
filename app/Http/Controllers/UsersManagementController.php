@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Accounts;
 use App\Models\Department;
 use App\Models\Role;
-use App\Models\Work_area;
+use App\Models\Workarea;
 
 
 class UsersManagementController extends Controller
@@ -20,7 +20,7 @@ class UsersManagementController extends Controller
         $accounts = Accounts::all();
         $departments = Department::with('accounts')->get();
         $roles = Role::with('accounts')->get();
-        $workareas = Work_area::with('accounts')->get();
+        $workareas = Workarea::with('accounts')->get();
         dd($departments);
 
         return view('userManagement.usersmanagement', compact('accounts', 'departments', 'roles', 'workareas'));
