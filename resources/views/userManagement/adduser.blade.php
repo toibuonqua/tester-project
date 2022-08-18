@@ -3,13 +3,7 @@
 @section('nav-name-title', __('title.user-management'))
 @section('content')
 
-    <div>
-        <nav>
-            <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1"><p class="text-child-page" >{{ $title }}</p></span>
-            </div>
-        </nav>
-    </div>
+    @include('common.block.title1')
 
     <div class="display-child-page">
 
@@ -33,6 +27,7 @@
                 </div>
                 <div class="col-auto">
                     <select class="form-select">
+                      <option>{{  __('title.select') }}</option>
                       <option>Phòng ban 1</option>
                       <option>Phòng ban 2</option>
                     </select>
@@ -64,8 +59,10 @@
                 </div>
                 <div class="col-auto">
                     <select class="form-select">
-                      <option>Chức danh 1</option>
-                      <option>Chức danh 2</option>
+                      <option>{{  __('title.select') }}</option>
+                      <option>Admin/IT</option>
+                      <option>Quản lý nhập hàng</option>
+                      <option>Quản lý xuất hàng</option>
                     </select>
                 </div>
             </div>

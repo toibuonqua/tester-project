@@ -5,11 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Accounts extends Model
+class Role extends Model
 {
     use HasFactory;
 
-    protected $table = 'accounts';
+    protected $table = 'role';
 
-    
+    public function accounts()
+    {
+        return $this->hasMany(Accounts::class);
+    }
 }

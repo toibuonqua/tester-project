@@ -34,9 +34,9 @@
                            class="btn btn-success">{{ __('title.' . ($status_text ?? 'action')) }}</a>
                     </td>
                 @elseif ($value === 'pattern.reset')
-                    <td><a href="{{ route($status_route ?? 'home', [$id_param ?? 'id' => $item->id]) }}"
+                    <td><a href="{{ route($reset_route ?? 'home', [$id_param ?? 'id' => $item->id]) }}"
                            {{-- Them parameter moi --}}
-                           class="btn btn-success">{{ __('title.' . ($status_text ?? 'reset-pw')) }}</a>
+                           class="btn btn-success">{{ __('title.' . ($reset_text ?? 'reset-pw')) }}</a>
                     </td>
                 @elseif ($value === 'pattern.image')
                     <td>

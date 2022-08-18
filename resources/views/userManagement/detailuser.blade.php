@@ -1,16 +1,9 @@
 @extends('layout.master')
 @section('title', 'Detail User')
 @section('nav-name-title', __('title.user-management'))
-
 @section('content')
 
-    <div>
-        <nav>
-            <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1"><p class="text-child-page" >{{ $title }}</p></span>
-            </div>
-        </nav>
-    </div>
+    @include('common.block.title1')
 
     <div class="display-child-page">
 
@@ -33,7 +26,7 @@
                 <label>Phòng ban:</label>
                 </div>
                 <div class="col-auto">
-                <label>{{ $acc->department_id }}</label>
+                <label>{{ $department->name }}</label>
                 </div>
             </div>
         </div>
@@ -61,7 +54,7 @@
                 <label>Chức danh:</label>
                 </div>
                 <div class="col-auto">
-                <label>{{ $acc->role_id }}</label>
+                <label>{{ $role->name }}</label>
                 </div>
             </div>
         </div>

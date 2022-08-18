@@ -19,12 +19,12 @@ return new class extends Migration
             $table->string('password');
             $table->string('username');
             $table->string('status');
-            $table->unsignedInteger('role_id');
-            $table->unsignedInteger('workarea_id');
+            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('workarea_id');
             $table->integer('code_user');
             $table->integer('phone_number');
-            $table->unsignedInteger('manager_id')->nullable();
-            $table->unsignedInteger('department_id');
+            $table->unsignedBigInteger('manager_id')->nullable();
+            $table->unsignedBigInteger('department_id');
             $table->timestamps();
         });
     }

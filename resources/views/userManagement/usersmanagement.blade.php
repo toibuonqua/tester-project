@@ -23,8 +23,7 @@
         </div>
     </nav>
 
-    {{-- @include('common.block.table1') --}}
-
+    {{-- show table accounts --}}
     @include('common.block.table', [
         'fields' => [
             'fullname' => 'username',
@@ -35,11 +34,13 @@
             'modify' => 'pattern.modified',
             'view' => 'pattern.view',
             'status' => 'pattern.status',
+            'db-password' => 'pattern.reset',
         ],
         'items' => $accounts,
         'edit_route' => 'user.modify',
         'view_route' => 'user.detail',
         'status_route' => 'homepage',
+        'reset_route' => 'homepage',
     ]);
 
 </div>
