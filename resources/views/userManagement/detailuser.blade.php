@@ -14,7 +14,7 @@
                 <label>Họ và tên:</label>
                 </div>
                 <div class="col-auto">
-                <label>{{ $acc->username }}</label>
+                <label>{{ $account->username }}</label>
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
                 <label>Email:</label>
                 </div>
                 <div class="col-auto">
-                <label>{{ $acc->email }}</label>
+                <label>{{ $account->email }}</label>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
                 <label>SĐT:</label>
                 </div>
                 <div class="col-auto">
-                <label>{{ $acc->phone_number }}</label>
+                <label>{{ $account->phone_number }}</label>
                 </div>
             </div>
         </div>
@@ -82,7 +82,7 @@
                 <label>Mã người dùng:</label>
                 </div>
                 <div class="col-auto">
-                <label>{{ $acc->code_user }}</label>
+                <label>{{ $account->code_user }}</label>
                 </div>
             </div>
         </div>
@@ -98,7 +98,7 @@
                 </div>
                 <div class="col-auto">
                     <label class="switch">
-                        @if ($acc->status === 'active')
+                        @if ($account->status === 'active')
                             <input type="checkbox" checked>
                         @else
                             <input type="checkbox">

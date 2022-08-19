@@ -11,6 +11,8 @@ class Workarea extends Model
 
     protected $table = 'workarea';
 
+    protected $fillable = ['id', 'name', 'work_areas_code'];
+
     public function accounts()
     {
         return $this->hasMany(Accounts::class);

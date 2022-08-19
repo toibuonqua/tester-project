@@ -35,10 +35,15 @@ Route::prefix('user')->group(function ()
 
     Route::get('/modify/{id}', [UsersManagementController::class, 'modify'])->name('user.modify');
 
-    Route::get('/detail/{id}', [UsersManagementController::class, 'detail']) ->name('user.detail');
+    Route::get('/detail/{id}', [UsersManagementController::class, 'detail'])->name('user.detail');
+
+    Route::post('/modify/{id}', [UsersManagementController::class, 'update'])->name('user.update');
 
 });
 
+Route::post('users/{id}', function ($id) {
+
+});
 
 Route::get('/new-arrival-management', [NewArrivalManagementController::class, 'index']) -> name('NewAM');
 

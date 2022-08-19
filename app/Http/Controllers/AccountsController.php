@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Accounts;
 
 class AccountsController extends Controller
 {
@@ -54,9 +55,9 @@ class AccountsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Accounts $accounts)
     {
-        //
+        return view('userManagement.moduser', compact('accounts'));
     }
 
     /**

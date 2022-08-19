@@ -121,6 +121,8 @@ return [
     'new-tag' => 'Thẻ mới',
     'note' => 'Ghi chú',
     'not-complete' => 'Chưa hoàn thành',
+    'notice-add' => 'Bạn có thực sự muốn thêm người dùng này',
+    'notice-update' => 'Bạn có thực sự muốn sửa người dùng này',
     'num-attempts' => 'Số lượt làm bài',
     'num-of-fail' => 'Số học viên trượt',
     'num-of-pass' => 'Số học viên qua',

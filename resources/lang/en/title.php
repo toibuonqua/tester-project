@@ -122,6 +122,8 @@ return [
     'new-tag' => 'New Tag',
     'note' => 'Note',
     'not-complete' => 'Not completed',
+    'notice-add' => 'Are you sure you want to add this user?',
+    'notice-update' => 'Are you sure you want to edit this user?',
     'num-attempts' => 'Number of attempts',
     'num-of-fail' => 'Number of fail attempts',
     'num-of-pass' => 'Number of pass attempts',

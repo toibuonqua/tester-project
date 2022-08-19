@@ -14,25 +14,19 @@
                 <label>Họ và tên</label>
                 </div>
                 <div class="col-md-8">
-                <input type="text" class="form-control">
+                <input type="text" name="username" class="form-control">
                 </div>
             </div>
         </div>
 
         {{-- Phòng ban --}}
         <div class="config-posi">
-            <div class="row">
-                <div class="col-auto">
-                <label>Phòng ban</label>
-                </div>
-                <div class="col-auto">
-                    <select class="form-select">
-                      <option>{{  __('title.select') }}</option>
-                      <option>Phòng ban 1</option>
-                      <option>Phòng ban 2</option>
-                    </select>
-                </div>
-            </div>
+            @include('common.block.select', [
+                'name' => 'department',
+                'options' => $departments ?? [],
+                'valueField' => 'id',
+                'displayField' => 'name',
+            ])
         </div>
 
     </div>
@@ -46,26 +40,19 @@
                 <label>Email</label>
                 </div>
                 <div class="col-md-8">
-                <input type="text" class="form-control">
+                <input type="text" name="email" class="form-control">
                 </div>
             </div>
         </div>
 
         {{-- Chức danh --}}
         <div class="config-posi">
-            <div class="row">
-                <div class="col-auto">
-                <label class="col-form-label">Chức danh</label>
-                </div>
-                <div class="col-auto">
-                    <select class="form-select">
-                      <option>{{  __('title.select') }}</option>
-                      <option>Admin/IT</option>
-                      <option>Quản lý nhập hàng</option>
-                      <option>Quản lý xuất hàng</option>
-                    </select>
-                </div>
-            </div>
+            @include('common.block.select', [
+                'name' => 'role',
+                'options' => $roles ?? [],
+                'valueField' => 'id',
+                'displayField' => 'name',
+            ])
         </div>
 
     </div>
@@ -79,7 +66,7 @@
                 <label>SĐT</label>
                 </div>
                 <div class="col-md-8">
-                <input type="text" class="form-control">
+                <input type="text" name='phone_number' class="form-control">
                 </div>
             </div>
         </div>
@@ -91,7 +78,7 @@
                 <label class="col-form-label">Mã người dùng</label>
                 </div>
                 <div class="col-md-8">
-                <input type="text" class="form-control">
+                <input type="text" name="code_user" class="form-control">
                 </div>
             </div>
         </div>
@@ -105,7 +92,7 @@
         </div>
 
         <div style="margin-top: 50px" class="display-child-page">
-            <button style="width: 180px" class="btn btn-outline-success" type="submit">Lưu</button>
+            <button style="width: 180px" class="btn btn-outline-success" onclick="return confirm('{{ __('title.notice-add') }}')" type="submit">Lưu</button>
         </div>
 
     </div>

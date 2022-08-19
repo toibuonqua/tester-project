@@ -5,6 +5,9 @@
 
     @include('common.block.title1')
 
+
+<form method="post" action="{{ route('user.update', ['id' => $account->id]) }}">
+    @csrf
     <div class="display-child-page">
 
         {{-- Field Họ và tên --}}
@@ -14,25 +17,20 @@
                 <label>Họ và tên:</label>
                 </div>
                 <div class="col-md-8">
-                <input type="text" value="{{ $acc->username }}" class="form-control">
+                <input type="text" name="username" value="{{ $account->username }}" class="form-control">
                 </div>
             </div>
         </div>
 
         {{-- Phòng ban --}}
         <div class="config-posi">
-            <div class="row">
-                <div class="col-auto">
-                <label>Phòng ban</label>
-                </div>
-                <div class="col-auto">
-                    <select class="form-select">
-                      <option>{{ $department->name }}</option>
-                      <option>Phòng ban 1</option>
-                      <option>Phòng ban 2</option>
-                    </select>
-                </div>
-            </div>
+            @include('common.block.select', [
+                'name' => 'department',
+                'options' => $departments ?? [],
+                'valueField' => 'id',
+                'displayField' => 'name',
+                'select' => $account->department->id,
+            ])
         </div>
 
     </div>
@@ -46,26 +44,20 @@
                 <label>Email</label>
                 </div>
                 <div class="col-md-8">
-                <input type="text" value="{{ $acc->email }}" class="form-control">
+                <input type="text" name="email" value="{{ $account->email }}" class="form-control">
                 </div>
             </div>
         </div>
 
         {{-- Chức danh --}}
         <div class="config-posi">
-            <div class="row">
-                <div class="col-auto">
-                <label class="col-form-label">Chức danh</label>
-                </div>
-                <div class="col-auto">
-                    <select class="form-select">
-                      <option>{{ $role->name }}</option>
-                      <option>Admin/IT</option>
-                      <option>Quản lý nhập hàng</option>
-                      <option>Quản lý xuất hàng</option>
-                    </select>
-                </div>
-            </div>
+            @include('common.block.select', [
+                'name' => 'role',
+                'options' => $roles ?? [],
+                'valueField' => 'id',
+                'displayField' => 'name',
+                'select' => $account->role->id,
+            ])
         </div>
 
     </div>
@@ -79,7 +71,7 @@
                 <label>SĐT</label>
                 </div>
                 <div class="col-md-8">
-                <input type="text" value="{{ $acc->phone_number }}" class="form-control">
+                <input type="text" name="phone_number" value="{{ $account->phone_number }}" class="form-control">
                 </div>
             </div>
         </div>
@@ -91,7 +83,7 @@
                 <label class="col-form-label">Mã người dùng</label>
                 </div>
                 <div class="col-md-8">
-                <input type="text" value="{{ $acc->code_user }}" class="form-control">
+                <input type="text" name="code_user" value="{{ $account->code_user }}" class="form-control">
                 </div>
             </div>
         </div>
@@ -107,7 +99,7 @@
                 </div>
                 <div class="col-auto">
 
-                  @if ($acc->status === 'active')
+                  @if ($account->status === 'active')
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
                         <label class="form-check-label" for="flexRadioDefault1">
@@ -145,14 +137,15 @@
     <div class="display-but">
 
         <div style="margin-top: 50px" class="display-child-page">
-            <button style="width: 180px" class="btn btn-outline-success" type="submit">Hủy</button>
+            <a href="{{ route('homepage') }}"><button style="width: 180px" class="btn btn-outline-success" type=submit>Hủy</button></a>
         </div>
 
         <div style="margin-top: 50px" class="display-child-page">
-            <button style="width: 180px" class="btn btn-outline-success" type="submit">Lưu</button>
+            <button style="width: 180px" class="btn btn-outline-success" onclick="return confirm('{{ __('title.notice-update') }}')" type="submit">Lưu</button>
         </div>
 
     </div>
 
+</form>
 
 @endsection
