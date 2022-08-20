@@ -5,6 +5,10 @@
 
     @include('common.block.title1')
 
+<form method="post" action="{{ route('user.store') }}">
+
+    @csrf
+
     <div class="display-child-page">
 
         {{-- Field Họ và tên --}}
@@ -22,7 +26,7 @@
         {{-- Phòng ban --}}
         <div class="config-posi">
             @include('common.block.select', [
-                'name' => 'department',
+                'name' => 'department_id',
                 'options' => $departments ?? [],
                 'valueField' => 'id',
                 'displayField' => 'name',
@@ -48,7 +52,7 @@
         {{-- Chức danh --}}
         <div class="config-posi">
             @include('common.block.select', [
-                'name' => 'role',
+                'name' => 'role_id',
                 'options' => $roles ?? [],
                 'valueField' => 'id',
                 'displayField' => 'name',
@@ -74,10 +78,10 @@
         {{-- Mã người dùng --}}
         <div class="config-posi">
             <div class="row">
-                <div class="col-6 col-md-4">
+                <div class="col-md-6">
                 <label class="col-form-label">Mã người dùng</label>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-6">
                 <input type="text" name="code_user" class="form-control">
                 </div>
             </div>
@@ -96,5 +100,7 @@
         </div>
 
     </div>
+
+</form>
 
 @endsection

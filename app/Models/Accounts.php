@@ -11,7 +11,11 @@ class Accounts extends Model
 
     protected $table = 'accounts';
 
-    protected $fillable = ['id', 'username', 'email', 'phone_number', 'workarea_id', 'code_user', 'role_id', 'department_id'];
+    protected $fillable = ['id', 'username', 'password', 'email', 'phone_number', 'workarea_id', 'code_user', 'role_id', 'department_id', 'status'];
+
+    protected $hidden = [     // giấu field không hiển thị khi lấy array
+        'password',
+    ];
 
     public function role()
     {

@@ -33,6 +33,8 @@ Route::prefix('user')->group(function ()
 
     Route::get('/add', [UsersManagementController::class, 'add'])->name('user.add');
 
+    Route::post('/add', [UsersManagementController::class, 'store'])->name('user.store');
+
     Route::get('/modify/{id}', [UsersManagementController::class, 'modify'])->name('user.modify');
 
     Route::get('/detail/{id}', [UsersManagementController::class, 'detail'])->name('user.detail');
@@ -41,9 +43,6 @@ Route::prefix('user')->group(function ()
 
 });
 
-Route::post('users/{id}', function ($id) {
-
-});
 
 Route::get('/new-arrival-management', [NewArrivalManagementController::class, 'index']) -> name('NewAM');
 

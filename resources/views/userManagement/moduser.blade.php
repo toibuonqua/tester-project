@@ -7,6 +7,7 @@
 
 
 <form method="post" action="{{ route('user.update', ['id' => $account->id]) }}">
+    
     @csrf
     <div class="display-child-page">
 
@@ -25,7 +26,7 @@
         {{-- Phòng ban --}}
         <div class="config-posi">
             @include('common.block.select', [
-                'name' => 'department',
+                'name' => 'department_id',
                 'options' => $departments ?? [],
                 'valueField' => 'id',
                 'displayField' => 'name',
@@ -52,7 +53,7 @@
         {{-- Chức danh --}}
         <div class="config-posi">
             @include('common.block.select', [
-                'name' => 'role',
+                'name' => 'role_id',
                 'options' => $roles ?? [],
                 'valueField' => 'id',
                 'displayField' => 'name',
@@ -79,10 +80,10 @@
         {{-- Mã người dùng --}}
         <div class="config-posi">
             <div class="row">
-                <div class="col-6 col-md-4">
+                <div class="col-md-6">
                 <label class="col-form-label">Mã người dùng</label>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-6">
                 <input type="text" name="code_user" value="{{ $account->code_user }}" class="form-control">
                 </div>
             </div>
@@ -101,13 +102,13 @@
 
                   @if ($account->status === 'active')
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                        <input name='status' value="active" class="form-check-input" type="radio" checked>
                         <label class="form-check-label" for="flexRadioDefault1">
                         Hoạt động
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                        <input name='status' value="deactive" class="form-check-input" type="radio">
                         <label class="form-check-label" for="flexRadioDefault2">
                         Không hoạt động
                         </label>
@@ -115,13 +116,13 @@
 
                   @else
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <input name='status' value="active" class="form-check-input" type="radio">
                         <label class="form-check-label" for="flexRadioDefault1">
                         Hoạt động
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                        <input name='status' value="deactive" class="form-check-input" type="radio" checked>
                         <label class="form-check-label" for="flexRadioDefault2">
                         Không hoạt động
                         </label>

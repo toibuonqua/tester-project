@@ -99,9 +99,9 @@
                 <div class="col-auto">
                     <label class="switch">
                         @if ($account->status === 'active')
-                            <input type="checkbox" checked>
+                            <input name='status' type="checkbox" checked>
                         @else
-                            <input type="checkbox">
+                            <input name='status' type="checkbox">
                         @endif
                         <span class="slider round"></span>
                     </label>
@@ -114,7 +114,7 @@
     <div class="display-but">
 
         <div style="margin-top: 50px" class="display-child-page">
-            <button style="width: 180px" class="btn btn-outline-success" type="submit">Hủy</button>
+            <a href="{{ route('homepage') }}"><button style="width: 180px" class="btn btn-outline-success" type=submit>Hủy</button></a>
         </div>
 
         <div style="margin-top: 50px" class="display-child-page">

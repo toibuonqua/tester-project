@@ -17,12 +17,8 @@ class UsersManagementController extends Controller
         // $accounts[0]['name'];
         // $accounts[0]->name;
 
-        $accounts = Accounts::all();
-        $departments = Department::with('accounts')->get();
-        $roles = Role::with('accounts')->get();
-        $workareas = Workarea::with('accounts')->get();
-
-        return view('userManagement.usersmanagement', compact('accounts', 'departments', 'roles', 'workareas'));
+        $accounts = Accounts::with('role', 'department','workarea')->get();
+        return view('userManagement.usersmanagement', compact('accounts'));
     }
 
     public function add() {
@@ -60,9 +56,27 @@ class UsersManagementController extends Controller
     public function update($id, Request $request)
     {
         $account = Accounts::query()->findOrFail($id);
-        $data = $request->only('username', 'email', 'phone_number', 'code_user');
+        $data = $request->only('username', 'email', 'phone_number', 'status', 'code_user', 'department_id', 'role_id');
         $account->update($data);
 
+        return redirect()->route('homepage');
+    }
+
+    public function store(Request $request)
+    {
+
+        // Không có input cho khu vực làm việc
+        $account = new Accounts;
+        $account->username = $request->input('username');
+        $account->email = $request->input('email');
+        $account->phone_number = $request->input('phone_number');
+        $account->code_user = $request->input('code_user');
+        $account->department_id = $request->input('department_id');
+        $account->role_id = $request->input('role_id');
+        $account->status = 'deactive';
+        $account->password = '123';
+        $account->workarea_id = '1';
+        $account->save();
         return redirect()->route('homepage');
     }
 

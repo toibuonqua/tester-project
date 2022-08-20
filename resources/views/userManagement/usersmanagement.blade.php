@@ -31,6 +31,7 @@
             'department' => 'department_id',
             'role' => 'role_id',
             'work-area' => 'workarea_id',
+            'time_create' => 'created_at',
             'modify' => 'pattern.modified',
             'view' => 'pattern.view',
             'status' => 'pattern.status',
