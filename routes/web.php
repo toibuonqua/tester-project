@@ -31,6 +31,8 @@ Route::prefix('user')->group(function ()
 {
     Route::get('/', [UsersManagementController::class, 'index'])->name('homepage');
 
+    Route::get('/search', [UsersManagementController::class, 'search'])->name('user.search');
+
     Route::get('/add', [UsersManagementController::class, 'add'])->name('user.add');
 
     Route::post('/add', [UsersManagementController::class, 'store'])->name('user.store');

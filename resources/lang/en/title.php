@@ -187,6 +187,7 @@ return [
     'update-category' => 'Update category',
     'update-tag' => 'Update tag',
     'updated-at' => 'Updated at',
+    'unvalued_key' => 'Unvalue Key',
     'user' => 'User',
     'user-create' => 'Create new user',
     'user-management' => 'User management',

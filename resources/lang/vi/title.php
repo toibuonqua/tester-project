@@ -186,6 +186,7 @@ return [
     'update-category' => 'Cập nhật danh mục',
     'update-tag' => 'Cập nhật thẻ',
     'updated-at' => 'Cập nhật lúc',
+    'unvalued_key' => 'Không tìm thấy từ khóa',
     'user' => 'Người dùng thường',
     'user-create' => 'Tạo tài khoản mới',
     'user-management' => 'Quản lý người dùng',

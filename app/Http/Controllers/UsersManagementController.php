@@ -18,6 +18,19 @@ class UsersManagementController extends Controller
         // $accounts[0]->name;
 
         $accounts = Accounts::with('role', 'department','workarea')->get();
+
+        foreach($accounts as $account){
+            $account['role_name'] = $account->role->name;
+        };
+
+        foreach($accounts as $account){
+            $account['department_name'] = $account->department->name;
+        };
+
+        foreach($accounts as $account){
+            $account['workarea_code'] = $account->workarea->work_areas_code;
+        };
+
         return view('userManagement.usersmanagement', compact('accounts'));
     }
 
@@ -78,6 +91,28 @@ class UsersManagementController extends Controller
         $account->workarea_id = '1';
         $account->save();
         return redirect()->route('homepage');
+    }
+
+    public function search(Request $request)
+    {
+        $search_text = $request->input("query");
+        $accounts = Accounts::where('username', 'like', '%'.$search_text.'%')->with('role', 'department','workarea')->get();
+        // dd($accounts);
+        foreach($accounts as $account){
+            $account['role_name'] = $account->role->name;
+        };
+
+        foreach($accounts as $account){
+            $account['department_name'] = $account->department->name;
+        };
+
+        foreach($accounts as $account){
+            $account['workarea_code'] = $account->workarea->work_areas_code;
+        };
+
+        // dd($accounts);
+
+        return view('userManagement.usersmanagement', compact('accounts'));
     }
 
 }
