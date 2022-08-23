@@ -32,8 +32,8 @@
             <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; height:1080px;">
                 <ul class="nav nav-pills flex-column mb-auto">
                  @foreach (["Quản lý người dùng" => 'homepage',
-                            "Quản lý khu làm việc" => 'WorkSM',
-                            "Quản lý mặt hàng mới" => 'NewAM',
+                            "Quản lý khu làm việc" => 'worksm.homepage',
+                            "Quản lý mặt hàng mới" => 'newam.homepage',
                             "Nhập hàng" => 'homepage',
                             "Danh sách đơn hàng" => 'homepage',] as $namepage => $link)
                  <li class="btn-toggle-nav">

@@ -46,6 +46,20 @@ Route::prefix('user')->group(function ()
 });
 
 
-Route::get('/new-arrival-management', [NewArrivalManagementController::class, 'index']) -> name('NewAM');
+Route::prefix('work-space-management')->group( function()
+{
 
-Route::get('/work-space-management', [WorkSpaceManagementController::class,'index']) -> name('WorkSM');
+    Route::get('/', [WorkSpaceManagementController::class,'index']) -> name('worksm.homepage');
+
+    Route::get('/search', [WorkSpaceManagementController::class, 'search'])->name('worksm.search');
+
+    Route::get('/add', [WorkSpaceManagementController::class,'add']) -> name('worksm.add');
+
+    Route::get('/modify', [WorkSpaceManagementController::class,'modify']) -> name('worksm.modify');
+
+    Route::get('/detail', [WorkSpaceManagementController::class,'detail']) -> name('worksm.detail');
+
+});
+
+
+Route::get('/new-arrival-management', [NewArrivalManagementController::class, 'index']) -> name('newam.homepage');

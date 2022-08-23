@@ -55,6 +55,14 @@
             'status_route' => 'homepage',
             'reset_route' => 'homepage',
         ]);
+        <div class="display-pagi">
+            {{ $accounts->links() }}
+        </div>
+        {{-- @include('common.block.pagination-box', [
+            'currentPage' => $currentPage,
+            'limit' => $limit,
+            'totalPage' => $totalPage,
+        ]) --}}
 
     @endif
 

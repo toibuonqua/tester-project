@@ -12,23 +12,18 @@ use App\Models\Workarea;
 class UsersManagementController extends Controller
 {
 
-    public function index() {
+    public function index(Request $request) {
 
         // $accounts[0]['name'];
         // $accounts[0]->name;
 
-        $accounts = Accounts::with('role', 'department','workarea')->get();
+        $accounts = Accounts::with('role', 'department','workarea')->paginate(3);
+        // $data = $accounts->links();
 
         foreach($accounts as $account){
-            $account['role_name'] = $account->role->name;
-        };
-
-        foreach($accounts as $account){
-            $account['department_name'] = $account->department->name;
-        };
-
-        foreach($accounts as $account){
-            $account['workarea_code'] = $account->workarea->work_areas_code;
+            $account->role_name = $account->role->name;
+            $account->department_name = $account->department->name;
+            $account->workarea_code = $account->workarea->work_areas_code;
         };
 
         return view('userManagement.usersmanagement', compact('accounts'));
@@ -96,18 +91,14 @@ class UsersManagementController extends Controller
     public function search(Request $request)
     {
         $search_text = $request->input("query");
-        $accounts = Accounts::where('username', 'like', '%'.$search_text.'%')->with('role', 'department','workarea')->get();
+        $accounts = Accounts::where('username', 'like', '%'.$search_text.'%')->with('role', 'department','workarea')->paginate(3);;
         // dd($accounts);
-        foreach($accounts as $account){
-            $account['role_name'] = $account->role->name;
-        };
+
 
         foreach($accounts as $account){
-            $account['department_name'] = $account->department->name;
-        };
-
-        foreach($accounts as $account){
-            $account['workarea_code'] = $account->workarea->work_areas_code;
+            $account->role_name = $account->role->name;
+            $account->department_name = $account->department->name;
+            $account->workarea_code = $account->workarea->work_areas_code;
         };
 
         // dd($accounts);

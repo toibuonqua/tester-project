@@ -28,6 +28,11 @@
                            {{-- Them parameter moi --}}
                            class="btn btn-success">{{ __('title.' . ($view_text ?? 'view')) }}</a>
                     </td>
+                @elseif ($value === 'pattern.delete')
+                    <td><a href="{{ route($delete_route ?? 'home', [$id_param ?? 'id' => $item->id]) }}"
+                           {{-- Them parameter moi --}}
+                           class="btn btn-success">{{ __('title.' . ($delete_text ?? 'delete')) }}</a>
+                    </td>
                 @elseif ($value === 'pattern.status')
                     <td><a href="{{ route($status_route ?? 'home', [$id_param ?? 'id' => $item->id]) }}"
                            {{-- Them parameter moi --}}
