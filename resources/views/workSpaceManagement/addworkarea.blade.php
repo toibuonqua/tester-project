@@ -9,6 +9,10 @@
 
     @csrf
 
+    {{-- @if ($e != isEmpty())
+        {{ $e -> getMessage() }}
+    @endif --}}
+
     <div class="display-child-page">
 
         {{-- Mã KVLV --}}

@@ -8,7 +8,6 @@ use App\Models\Department;
 use App\Models\Role;
 use App\Models\Workarea;
 
-
 class WorkSpaceManagementController extends Controller
 {
     public function index() {
@@ -61,10 +60,12 @@ class WorkSpaceManagementController extends Controller
             $workarea->save();
             return redirect()->route('worksm.homepage');
         }
-        catch(Throwable $error) {
-            dd($error);
+        catch(Exception $e) {
+            return "a";
         }
-
+        catch(\Illuminate\Database\QueryException $e) {
+            return back();
+        }
     }
 
     public function search(Request $request)
