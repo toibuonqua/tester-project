@@ -7,7 +7,7 @@
 
 
 <form method="post" action="{{ route('user.update', ['id' => $account->id]) }}">
-    
+
     @csrf
     <div class="display-child-page">
 
@@ -138,11 +138,11 @@
     <div class="display-but">
 
         <div style="margin-top: 50px" class="display-child-page">
-            <a href="{{ route('homepage') }}"><button style="width: 180px" class="btn btn-outline-success" type=submit>Hủy</button></a>
+            <a href="{{ route('homepage') }}" style="width: 180px" class="btn btn-outline-success">Hủy</a>
         </div>
 
         <div style="margin-top: 50px" class="display-child-page">
-            <button style="width: 180px" class="btn btn-outline-success" onclick="return confirm('{{ __('title.notice-update') }}')" type="submit">Lưu</button>
+            <button style="width: 180px" class="btn btn-outline-success" onclick="return confirm('{{ __('title.notice-update-user') }}')" type="submit">Lưu</button>
         </div>
 
     </div>

@@ -114,7 +114,7 @@
     <div class="display-but">
 
         <div style="margin-top: 50px" class="display-child-page">
-            <a href="{{ route('homepage') }}"><button style="width: 180px" class="btn btn-outline-success" type=submit>Hủy</button></a>
+            <a href="{{ route('homepage') }}" style="width: 180px" class="btn btn-outline-success">Hủy</a>
         </div>
 
         <div style="margin-top: 50px" class="display-child-page">

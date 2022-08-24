@@ -55,9 +55,15 @@ Route::prefix('work-space-management')->group( function()
 
     Route::get('/add', [WorkSpaceManagementController::class,'add']) -> name('worksm.add');
 
-    Route::get('/modify', [WorkSpaceManagementController::class,'modify']) -> name('worksm.modify');
+    Route::post('/add', [WorkSpaceManagementController::class, 'store'])->name('worksm.store');
 
-    Route::get('/detail', [WorkSpaceManagementController::class,'detail']) -> name('worksm.detail');
+    Route::delete('/delete/{id}', [WorkSpaceManagementController::class,'delete']) -> name('worksm.delete');
+
+    Route::get('/modify/{id}', [WorkSpaceManagementController::class,'modify']) -> name('worksm.modify');
+
+    Route::post('/modify/{id}', [WorkSpaceManagementController::class, 'update']) -> name('worksm.update');
+
+    Route::get('/detail/{id}', [WorkSpaceManagementController::class,'detail']) -> name('worksm.detail');
 
 });
 

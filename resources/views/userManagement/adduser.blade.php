@@ -92,11 +92,11 @@
     <div class="display-but">
 
         <div style="margin-top: 50px" class="display-child-page">
-            <button style="width: 180px" class="btn btn-outline-success" type="submit">Hủy</button>
+            <a href="{{ route('homepage') }}" style="width: 180px" class="btn btn-outline-success">Hủy</a>
         </div>
 
         <div style="margin-top: 50px" class="display-child-page">
-            <button style="width: 180px" class="btn btn-outline-success" onclick="return confirm('{{ __('title.notice-add') }}')" type="submit">Lưu</button>
+            <button style="width: 180px" class="btn btn-outline-success" onclick="return confirm('{{ __('title.notice-add-user') }}')" type="submit">Lưu</button>
         </div>
 
     </div>

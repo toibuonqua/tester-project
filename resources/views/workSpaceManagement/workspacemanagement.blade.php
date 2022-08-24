@@ -49,7 +49,7 @@
             'items' => $workareas,
             'view_route' => 'worksm.detail',
             'edit_route' => 'worksm.modify',
-            'delete_route' => 'worksm.homepage'
+            'delete_route' => 'worksm.delete'
         ]);
         <div class="display-pagi">
             {{ $workareas->links() }}

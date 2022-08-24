@@ -29,9 +29,15 @@
                            class="btn btn-success">{{ __('title.' . ($view_text ?? 'view')) }}</a>
                     </td>
                 @elseif ($value === 'pattern.delete')
-                    <td><a href="{{ route($delete_route ?? 'home', [$id_param ?? 'id' => $item->id]) }}"
-                           {{-- Them parameter moi --}}
-                           class="btn btn-success">{{ __('title.' . ($delete_text ?? 'delete')) }}</a>
+                    <td>
+                        {{-- <a href="{{ route($delete_route ?? 'home', [$id_param ?? 'id' => $item->id]) }}"
+                           class="btn btn-success">{{ __('title.' . ($delete_text ?? 'delete')) }}
+                        </a> --}}
+                        <form method="post" action="{{ route($delete_route, [$id_param ?? 'id' => $item->id]) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-success" onclick="return confirm('{{ __('title.notice-delete-work-area') }}')" type="submit">{{ __('title.' . ($delete_text ?? 'delete')) }}</button>
+                        </form>
                     </td>
                 @elseif ($value === 'pattern.status')
                     <td><a href="{{ route($status_route ?? 'home', [$id_param ?? 'id' => $item->id]) }}"
