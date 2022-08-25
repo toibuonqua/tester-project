@@ -49,11 +49,21 @@
             'items' => $workareas,
             'view_route' => 'worksm.detail',
             'edit_route' => 'worksm.modify',
-            'delete_route' => 'worksm.delete'
+            'delete_route' => 'worksm.delete',
+            $notice_delete = __('title.notice-delete-work-area')
         ]);
         <div class="display-pagi">
             {{ $workareas->links() }}
         </div>
+
+        @if ($exception)
+
+            @include('common.singleMessage', [
+                $message = $exception,
+                $homepage = 'worksm.homepage'
+            ])
+
+        @endif
 
     @endif
 

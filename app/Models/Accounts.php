@@ -32,4 +32,17 @@ class Accounts extends Model
     {
         return $this->belongsTo(Workarea::class);
     }
+
+    const DEFAULT_PAGINATION = 3;
+    const STATUS_DEACTIVATED = 'deactive';
+    const STATUS_ACTIVATED = 'active';
+    const DEFAULT_PASSWORD = '123';
+    const DEFAULT_WORKAREA_ID = 1;
+
+    protected $attributes = [
+        'workarea_id' => self::DEFAULT_WORKAREA_ID,
+        'password' => self::DEFAULT_PASSWORD,
+        'status' => self::STATUS_DEACTIVATED,
+    ];
+
 }

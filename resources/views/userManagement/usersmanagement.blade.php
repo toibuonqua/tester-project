@@ -43,26 +43,24 @@
                 'department' => 'department_name',
                 'role' => 'role_name',
                 'work-area' => 'workarea_code',
+                'status' => 'status',
                 'time_create' => 'created_at',
                 'modify' => 'pattern.modified',
                 'view' => 'pattern.view',
-                'status' => 'pattern.status',
+                'action' => 'pattern.status',
                 'db-password' => 'pattern.reset',
             ],
             'items' => $accounts,
             'edit_route' => 'user.modify',
             'view_route' => 'user.detail',
-            'status_route' => 'homepage',
-            'reset_route' => 'homepage',
+            'status_route' => 'user.active',
+            'reset_route' => 'user.resetpw',
+            $notice_active = __('title.notice-change-active'),
+            $notice_reset_pw = __('title.notice-reset-password'),
         ]);
         <div class="display-pagi">
             {{ $accounts->links() }}
         </div>
-        {{-- @include('common.block.pagination-box', [
-            'currentPage' => $currentPage,
-            'limit' => $limit,
-            'totalPage' => $totalPage,
-        ]) --}}
 
     @endif
 

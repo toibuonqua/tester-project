@@ -43,6 +43,10 @@ Route::prefix('user')->group(function ()
 
     Route::post('/modify/{id}', [UsersManagementController::class, 'update'])->name('user.update');
 
+    Route::post('/active/{id}', [UsersManagementController::class, 'active'])->name('user.active');
+
+    Route::post('/reset_pw/{id}', [UsersManagementController::class, 'resetpw'])->name('user.resetpw');
+
 });
 
 

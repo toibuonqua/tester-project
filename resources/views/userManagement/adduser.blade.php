@@ -9,6 +9,7 @@
 
     @csrf
 
+
     <div class="display-child-page">
 
         {{-- Field Họ và tên --}}
@@ -102,5 +103,7 @@
     </div>
 
 </form>
+
+@include('common.block.flash-message')
 
 @endsection

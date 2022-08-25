@@ -13,8 +13,9 @@ class WorkSpaceManagementController extends Controller
     public function index() {
 
         $workareas = Workarea::paginate(5);
+        $exception = '';
 
-        return view('workSpaceManagement.workspacemanagement', compact('workareas'));
+        return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
     }
 
     public function add() {
@@ -52,20 +53,27 @@ class WorkSpaceManagementController extends Controller
     public function store(Request $request)
     {
 
+        $validatedDatas = $request->validate([
+            'work_areas_code' => 'required|unique:workarea',
+            'name' => 'required',
+        ]);
+
         $workarea = new Workarea;
         $workarea->name = $request->input('name');
         $workarea->work_areas_code = $request->input('work_areas_code');
         $workarea->status = 'ok';
-        try {
-            $workarea->save();
-            return redirect()->route('worksm.homepage');
-        }
-        catch(Exception $e) {
-            return "a";
-        }
-        catch(\Illuminate\Database\QueryException $e) {
-            return back();
-        }
+        $workarea->save();
+        return redirect()->route('worksm.homepage');
+        // try {
+        //     $workarea->save();
+        //     return redirect()->route('worksm.homepage');
+        // }
+        // catch(Exception $e) {
+        //     return "a";
+        // }
+        // catch(\Illuminate\Database\QueryException $e) {
+        //     return back();
+        // }
     }
 
     public function search(Request $request)
@@ -79,9 +87,15 @@ class WorkSpaceManagementController extends Controller
     public function delete($id)
     {
         $workarea = Workarea::find($id);
-        // dd($workarea);
-        $workarea->delete();
 
+        try {
+            $workarea->delete();
+        }
+        catch(\Illuminate\Database\QueryException $exception){
+            $workareas = Workarea::paginate(5);
+            $exception = 'Khu vực vẫn còn cư dân sinh sống không thể phá hủy!!!';
+            return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
+        }
         return redirect()->route('worksm.homepage');
     }
 

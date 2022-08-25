@@ -13,6 +13,12 @@ class Workarea extends Model
 
     protected $fillable = ['id', 'name', 'work_areas_code'];
 
+    const DEFAULT_STATUS = 'ok';
+
+    protected $attributes = [
+        'status' => self::DEFAULT_STATUS,
+    ];
+
     public function accounts()
     {
         return $this->hasMany(Accounts::class);
