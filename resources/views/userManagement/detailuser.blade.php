@@ -114,11 +114,11 @@
     <div class="display-but">
 
         <div style="margin-top: 50px" class="display-child-page">
-            <a href="{{ route('homepage') }}" style="width: 180px" class="btn btn-outline-success">Hủy</a>
+            <a href="{{ route('homepage') }}" style="width: 180px" class="btn btn-outline-success">{{ __('title.cancel') }}</a>
         </div>
 
         <div style="margin-top: 50px" class="display-child-page">
-            <button style="width: 180px" class="btn btn-outline-success" type="submit">Lưu</button>
+            <button style="width: 180px" class="btn btn-outline-success" type="submit">{{ __('title.save') }}</button>
         </div>
 
     </div>

@@ -42,10 +42,10 @@
         <div class="config-posi">
             <div class="row">
                 <div class="col-6 col-md-4">
-                <label>Email</label>
+                <label>Email:</label>
                 </div>
                 <div class="col-md-8">
-                <input type="text" name="email" value="{{ $account->email }}" class="form-control">
+                <label>{{ $account->email }}</label>
                 </div>
             </div>
         </div>
@@ -69,7 +69,7 @@
         <div class="config-posi">
             <div class="row">
                 <div class="col-6 col-md-4">
-                <label>SĐT</label>
+                <label>SĐT:</label>
                 </div>
                 <div class="col-md-8">
                 <input type="text" name="phone_number" value="{{ $account->phone_number }}" class="form-control">
@@ -81,7 +81,7 @@
         <div class="config-posi">
             <div class="row">
                 <div class="col-md-6">
-                <label class="col-form-label">Mã người dùng</label>
+                <label class="col-form-label">Mã người dùng:</label>
                 </div>
                 <div class="col-md-6">
                 <input type="text" name="code_user" value="{{ $account->code_user }}" class="form-control">
@@ -96,7 +96,7 @@
         <div style="justify-content: flex-start" class="config-posi">
             <div class="row">
                 <div class="col-auto">
-                <label>Trạng thái</label>
+                <label>Trạng thái:</label>
                 </div>
                 <div class="col-auto">
 
@@ -138,11 +138,11 @@
     <div class="display-but">
 
         <div style="margin-top: 50px" class="display-child-page">
-            <a href="{{ route('homepage') }}" style="width: 180px" class="btn btn-outline-success">Hủy</a>
+            <a href="{{ route('homepage') }}" style="width: 180px" class="btn btn-outline-success">{{ __('title.cancel') }}</a>
         </div>
 
         <div style="margin-top: 50px" class="display-child-page">
-            <button style="width: 180px" class="btn btn-outline-success" onclick="return confirm('{{ __('title.notice-update-user') }}')" type="submit">Lưu</button>
+            <button style="width: 180px" class="btn btn-outline-success" onclick="return confirm('{{ __('title.notice-update-user') }}')" type="submit">{{ __('title.save') }}</button>
         </div>
 
     </div>

@@ -7,20 +7,29 @@ use App\Models\Accounts;
 use App\Models\Department;
 use App\Models\Role;
 use App\Models\Workarea;
+use App\Http\Controllers\Web\WebResponseTrait;
+use App\Common\ExportExceptOnScreen;
 
 class WorkSpaceManagementController extends Controller
 {
+    use WebResponseTrait, ExportExceptOnScreen;
     public function index() {
 
-        $workareas = Workarea::paginate(5);
+        $workareas = Workarea::paginate(Workarea::DEFAUL_PAGINATION);
         $exception = '';
 
         return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
     }
 
-    public function add() {
+    public function add(Request $request) {
 
         $title = __('title.add-work-area');
+
+        $error = $request->session()->get('errors');
+
+        if ($error) {
+            $this->updateFailMessage($request, $this->backString($request, $error));
+        }
         return view('workSpaceManagement.addworkarea', compact('title'));
     }
 
@@ -42,18 +51,24 @@ class WorkSpaceManagementController extends Controller
 
     public function update($id, Request $request)
     {
-        $workarea = Workarea::query()->findOrFail($id);
-        $workarea->name = $request->input('name');
-        $workarea->work_areas_code = $request->input('work_areas_code');
-        $workarea->save();
-
-        return redirect()->route('worksm.homepage');
+        try {
+            $workarea = Workarea::query()->findOrFail($id);
+            $workarea->name = $request->input('name');
+            $workarea->work_areas_code = $request->input('work_areas_code');
+            $workarea->save();
+            return redirect()->route('worksm.homepage');
+        }
+        catch(\Illuminate\Database\QueryException $exception){
+            $workareas = Workarea::paginate(Workarea::DEFAUL_PAGINATION);
+            $exception = 'Mã khu vực đã tồn tại, thao tác sửa không thành công';
+            return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
+        }
     }
 
     public function store(Request $request)
     {
 
-        $validatedDatas = $request->validate([
+        $request->validate([
             'work_areas_code' => 'required|unique:workarea',
             'name' => 'required',
         ]);
@@ -64,24 +79,15 @@ class WorkSpaceManagementController extends Controller
         $workarea->status = 'ok';
         $workarea->save();
         return redirect()->route('worksm.homepage');
-        // try {
-        //     $workarea->save();
-        //     return redirect()->route('worksm.homepage');
-        // }
-        // catch(Exception $e) {
-        //     return "a";
-        // }
-        // catch(\Illuminate\Database\QueryException $e) {
-        //     return back();
-        // }
     }
 
     public function search(Request $request)
     {
         $search_text = $request->input("query");
-        $workareas = Workarea::where('name', 'like', '%'.$search_text.'%')->paginate(5);;
+        $workareas = Workarea::where('name', 'like', '%'.$search_text.'%')->paginate(Workarea::DEFAUL_PAGINATION);;
+        $exception = '';
 
-        return view('workSpaceManagement.workspacemanagement', compact('workareas'));
+        return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
     }
 
     public function delete($id)
@@ -92,7 +98,7 @@ class WorkSpaceManagementController extends Controller
             $workarea->delete();
         }
         catch(\Illuminate\Database\QueryException $exception){
-            $workareas = Workarea::paginate(5);
+            $workareas = Workarea::paginate(Workarea::DEFAUL_PAGINATION);
             $exception = 'Khu vực vẫn còn cư dân sinh sống không thể phá hủy!!!';
             return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
         }

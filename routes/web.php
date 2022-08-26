@@ -26,6 +26,8 @@ Route::get('/', [LoginController::class, 'login']) -> name('home');
 
 Route::get('/login', [LoginController::class, 'login']) -> name('login');
 
+Route::get('/change_pw', [UsersManagementController::class, 'changePassword'])->name('account.changepw');
+
 Route::prefix('user')->group(function ()
 
 {

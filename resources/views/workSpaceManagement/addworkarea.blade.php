@@ -58,4 +58,6 @@
 
 </form>
 
+@include('common.block.flash-message')
+
 @endsection

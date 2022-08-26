@@ -7,21 +7,19 @@ use App\Models\Accounts;
 use App\Models\Department;
 use App\Models\Role;
 use App\Models\Workarea;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Controllers\Web\WebResponseTrait;
+use App\Common\ExportExceptOnScreen;
 
 
 class UsersManagementController extends Controller
 {
 
-    use WebResponseTrait;
+    use WebResponseTrait, ExportExceptOnScreen;
     public function index(Request $request) {
 
-        // $accounts[0]['name'];
-        // $accounts[0]->name;
-
         $accounts = Accounts::with('role', 'department','workarea')->paginate(Accounts::DEFAULT_PAGINATION);
-        // $data = $accounts->links();
 
         foreach($accounts as $account){
             $account->role_name = $account->role->name;
@@ -33,21 +31,14 @@ class UsersManagementController extends Controller
     }
 
     public function add(Request $request) {
-        $title = "Thêm Người Dùng";
+        $title = __('title.add-user');
         $departments = Department::all();
         $roles = Role::all();
 
-        // $request->session()->put('message', null);
         $error = $request->session()->get('errors');
 
         if ($error) {
-            // dd($error->getMessages());
-            $request->session()->put('errors', null);
-            $errorMes = "";
-            foreach ($error->getMessages() as $key => $value) {
-                $errorMes .= "<br>".join("", $value);
-            }
-            $this->updateFailMessage($request, $errorMes);
+            $this->updateFailMessage($request, $this->backString($request, $error));
         }
 
         return view('userManagement.adduser', compact('title', 'departments', 'roles'));
@@ -60,7 +51,7 @@ class UsersManagementController extends Controller
 
         $account = Accounts::with(['role', 'department'])->find($id);
         $workarea = Workarea::find($account->workarea_id);
-        $title = 'Sửa thông tin người dùng';
+        $title = __('title.modify-info-user');
 
         return view('userManagement.moduser', compact('title', 'account', 'workarea', 'departments', 'roles'));
     }
@@ -71,7 +62,7 @@ class UsersManagementController extends Controller
         $department = Department::find($account->department_id);
         $role = Role::find($account->role_id);
         $workarea = Workarea::find($account->workarea_id);
-        $title = "Chi Tiết Người Dùng";
+        $title = __('title.detail-user');
 
         return view('userManagement.detailuser', compact('title', 'account', 'department', 'workarea', 'role'));
     }
@@ -89,7 +80,7 @@ class UsersManagementController extends Controller
     {
 
 
-            $error = $request->validate([
+            $request->validate([
                 'email' => 'required|email|unique:accounts',
                 'username' => 'required',
                 'phone_number' => 'required',
@@ -114,9 +105,7 @@ class UsersManagementController extends Controller
     public function search(Request $request)
     {
         $search_text = $request->input("query");
-        $accounts = Accounts::where('username', 'like', '%'.$search_text.'%')->with('role', 'department','workarea')->paginate(Accounts::DEFAULT_PAGINATION);;
-        // dd($accounts);
-
+        $accounts = Accounts::where('username', 'like', '%'.$search_text.'%')->with('role', 'department','workarea')->paginate(Accounts::DEFAULT_PAGINATION);
 
         foreach($accounts as $account){
             $account->role_name = $account->role->name;
@@ -124,7 +113,6 @@ class UsersManagementController extends Controller
             $account->workarea_code = $account->workarea->work_areas_code;
         };
 
-        // dd($accounts);
 
         return view('userManagement.usersmanagement', compact('accounts'));
     }
@@ -147,6 +135,11 @@ class UsersManagementController extends Controller
         $account->password = Accounts::DEFAULT_PASSWORD;
         $account->save();
         return redirect()->route('homepage');
+    }
+
+    public function changePassword(){
+
+        return view('ChangePassword.changepassword');
     }
 
 }
