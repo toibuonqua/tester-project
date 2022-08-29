@@ -11,7 +11,7 @@ trait QueryDataBase
     {
         $email = $request->input('email');
         $password = $request->input('password');
-        $check_account = Accounts::where('email', '=', $email);
+        $check_account = Accounts::where('email', '=', $email)->first();
         if ($check_account)
         {
             if($password === $check_account->password)
@@ -23,6 +23,5 @@ trait QueryDataBase
         {
             return "error";
         }
-
     }
 }
