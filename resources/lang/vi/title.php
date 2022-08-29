@@ -191,6 +191,7 @@ return [
     'take-exam' => 'Làm bài thi',
     'take-exam-time' => 'Thời gian thi',
     'test-connection' => 'Kiểm tra kết nối',
+    'text-under-login' => 'Đăng nhập để truy cập vào hệ thống kho hàng',
     'time-left' => 'Thời gian còn lại',
     'to' => 'Đến',
     'total' => 'Tổng số',

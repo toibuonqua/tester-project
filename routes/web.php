@@ -18,13 +18,11 @@ use App\Http\Controllers\NewArrivalManagementController;
 |
 */
 
-// Route::get('/', [AccountController::class, 'home'])->name('home');
-
-// Route::get('/login', [AccountController::class, 'home'])->name('login');
-
 Route::get('/', [LoginController::class, 'login']) -> name('home');
 
-Route::get('/login', [LoginController::class, 'login']) -> name('login');
+// Route::get('/login', [LoginController::class, 'login']) -> name('login');
+
+Route::post('/', [LoginController::class, 'checkLogin'])->name('auth.login');
 
 Route::get('/change_pw', [UsersManagementController::class, 'changePassword'])->name('account.changepw');
 

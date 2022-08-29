@@ -192,6 +192,7 @@ return [
     'take-exam' => 'Take exam',
     'take-exam-time' => 'Take exam time',
     'test-connection' => 'Test connection',
+    'text-under-login' => 'Log in to access the warehouse system',
     'th' => 'th',
     'time-left' => 'Time left',
     'to' => 'To',
