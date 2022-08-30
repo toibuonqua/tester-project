@@ -10,4 +10,9 @@
         </div>
     </div>
 </div>
+<div>
+    @if (session('error'))
+        <h2 style="color: red; font-family: 'Nunito', sans-serif;">{{ session('error') }}</h2>
+    @endif
+</div>
 @endsection

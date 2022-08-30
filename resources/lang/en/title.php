@@ -3,6 +3,7 @@
 return [
     'access-permission' => 'Access permission',
     'account' => 'Account',
+    'account-not-active' => 'Account not activated',
     'activate' => 'Activate account',
     'active' => 'Activated',
     'action' => 'Action',
@@ -79,6 +80,7 @@ return [
     'do-exam-time' => 'Maximum do-exam time in a day',
     'edit' => 'Edit',
     'email' => 'Email',
+    'error' => 'Email or password were wrong',
     'exam' => 'Exam',
     'end-time' => 'Finish time',
     'exam-again' => 'Exam again',

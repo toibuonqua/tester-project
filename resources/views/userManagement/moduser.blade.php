@@ -3,7 +3,7 @@
 @section('nav-name-title', __('title.user-management'))
 @section('content')
 
-    @include('common.block.title1')
+@include('common.block.title1', [$title = __('title.modify-info-user')])
 
 
 <form method="post" action="{{ route('user.update', ['id' => $account->id]) }}">

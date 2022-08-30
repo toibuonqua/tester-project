@@ -3,7 +3,7 @@
 @section('nav-name-title', __('title.user-management'))
 @section('content')
 
-    @include('common.block.title1')
+    @include('common.block.title1', [$title = __('title.detail-user')])
 
     <div class="display-child-page">
 

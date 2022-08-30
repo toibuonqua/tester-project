@@ -3,6 +3,7 @@
 return [
     'access-permission' => 'Quyền truy cập',
     'account' => 'Tài khoản',
+    'account-not-active' => 'Tài khoản chưa được kích hoạt',
     'activate' => 'Kích hoạt tài khoản',
     'active' => 'Đã kích hoạt',
     'action' => 'Hoạt động',
@@ -80,6 +81,7 @@ return [
     'edit' => 'Sửa',
     'email' => 'Email',
     'end-time' => 'Thời gian kết thúc',
+    'error' => 'Tài khoản hoặc mật khẩu đã sai',
     'exam' => 'Đề thi',
     'exam-again' => 'Thi lại',
     'exam-attempt' => 'Lượt thi',

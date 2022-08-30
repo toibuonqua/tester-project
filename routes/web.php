@@ -18,15 +18,17 @@ use App\Http\Controllers\NewArrivalManagementController;
 |
 */
 
-Route::get('/', [LoginController::class, 'login']) -> name('home');
+Route::get('/', [LoginController::class, 'login'])->name('home');
 
 // Route::get('/login', [LoginController::class, 'login']) -> name('login');
 
 Route::post('/', [LoginController::class, 'checkLogin'])->name('auth.login');
 
+Route::get('/logout', [LoginController::class, 'logout'])->name('user.logout');
+
 Route::get('/change_pw', [UsersManagementController::class, 'changePassword'])->name('account.changepw');
 
-Route::prefix('user')->group(function ()
+Route::prefix('user')->middleware('check.admin')->group(function ()
 
 {
     Route::get('/', [UsersManagementController::class, 'index'])->name('homepage');
@@ -50,7 +52,7 @@ Route::prefix('user')->group(function ()
 });
 
 
-Route::prefix('work-space-management')->group( function()
+Route::prefix('work-space-management')->middleware('check.admin')->group( function()
 {
 
     Route::get('/', [WorkSpaceManagementController::class,'index']) -> name('worksm.homepage');

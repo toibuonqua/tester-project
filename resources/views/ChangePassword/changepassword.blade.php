@@ -14,7 +14,7 @@
                 <label>Email:</label>
                 </div>
                 <div class="col-auto">
-                <label>None</label>
+                <label>{{ $email }}</label>
                 </div>
             </div>
         </div>

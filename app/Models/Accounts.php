@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\User as BaseAccount;
 
-class Accounts extends Model
+class Accounts extends BaseAccount
 {
     use HasFactory;
 
@@ -25,7 +27,6 @@ class Accounts extends Model
     public function department()
     {
         return $this->belongsTo(Department::class);
-
     }
 
     public function workarea()
@@ -33,11 +34,12 @@ class Accounts extends Model
         return $this->belongsTo(Workarea::class);
     }
 
-    const DEFAULT_PAGINATION = 3;
+    const DEFAULT_PAGINATION = 10;
     const STATUS_DEACTIVATED = 'deactive';
     const STATUS_ACTIVATED = 'active';
-    const DEFAULT_PASSWORD = '123';
+    const DEFAULT_PASSWORD = "123";
     const DEFAULT_WORKAREA_ID = 1;
+
 
     protected $attributes = [
         'workarea_id' => self::DEFAULT_WORKAREA_ID,
@@ -45,4 +47,9 @@ class Accounts extends Model
         'status' => self::STATUS_DEACTIVATED,
     ];
 
+    public function hashPassword()
+    {
+        $this->password = Hash::make($this->password);
+        return $this;
+    }
 }
