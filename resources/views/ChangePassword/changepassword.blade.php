@@ -14,10 +14,10 @@
         {{-- Email --}}
         <div class="config-posi">
             <div class="row">
-                <div class="col-auto">
+                <div class="col-md-5">
                 <label>{{ __('title.email') }}:</label>
                 </div>
-                <div class="col-auto">
+                <div class="col-md-7">
                 <label>{{ $email }}</label>
                 </div>
             </div>
@@ -30,10 +30,10 @@
         {{-- Mật khẩu cũ --}}
         <div class="config-posi">
             <div class="row">
-                <div class="col-auto">
+                <div class="col-md-5">
                 <label>{{ __('title.old-password') }}:</label>
                 </div>
-                <div class="col-auto">
+                <div class="col-md-7">
                 <input type="password" name="old-password" class="form-control">
                 @if (session('error-old-pw'))
                     <p class="text-error">{{ session('error-old-pw') }}</p>
@@ -49,10 +49,10 @@
         {{-- Mật khẩu mới --}}
         <div class="config-posi">
             <div class="row">
-                <div class="col-auto">
+                <div class="col-md-5">
                 <label>{{ __('title.new-password') }}:</label>
                 </div>
-                <div class="col-auto">
+                <div class="col-md-7">
                 <input type="password" name="new-password" class="form-control">
                 </div>
             </div>
@@ -65,10 +65,10 @@
         {{-- Xác nhận mật khẩu mới --}}
         <div class="config-posi">
             <div class="row">
-                <div class="col-auto">
+                <div class="col-md-5">
                 <label>{{ __('title.confirm-password') }}:</label>
                 </div>
-                <div class="col-auto">
+                <div class="col-md-7">
                 <input type="password" name="confirm-new-password" class="form-control">
                 @if (session('error-confirm'))
                     <p class="text-error">{{ session('error-confirm') }}</p>
@@ -81,11 +81,11 @@
 
     <div class="display-but">
 
-        <div style="margin-top: 50px" class="display-child-page">
+        <div style="margin-top: 50px">
             <a href="{{ route('homepage') }}" style="width: 180px" class="btn btn-outline-success">{{ __('title.cancel') }}</a>
         </div>
 
-        <div style="margin-top: 50px" class="display-child-page">
+        <div style="margin-top: 50px">
             <button style="width: 180px" class="btn btn-outline-success" onclick="return confirm('{{ __('title.notice-change-password') }}')" type="submit">{{ __('title.change-password') }}</button>
         </div>
 

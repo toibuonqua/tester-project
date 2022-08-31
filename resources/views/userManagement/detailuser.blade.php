@@ -3,124 +3,75 @@
 @section('nav-name-title', __('title.user-management'))
 @section('content')
 
-    @include('common.block.title1', [$title = __('title.detail-user')])
+@include('common.block.title1', [$title = __('title.detail-user')])
 
-    <div class="display-child-page">
+<div style="max-width: 100%, margin-left: 20%" class="container">
 
-        {{-- Field Họ và tên --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-auto">
-                <label>Họ và tên:</label>
-                </div>
-                <div class="col-auto">
-                <label>{{ $account->username }}</label>
-                </div>
-            </div>
+    {{-- Field họ tên và phòng ban --}}
+    <div class="row">
+        <div style="display: flex" class="col-md-6">
+            <p>{{ __('title.fullname') }}:</p>
+            <p style="margin-left: 5%">{{ $account->username }}</p>
         </div>
-
-        {{-- Phòng ban --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-auto">
-                <label>Phòng ban:</label>
-                </div>
-                <div class="col-auto">
-                <label>{{ $department->name }}</label>
-                </div>
-            </div>
+        <div style="display: flex" class="col-md-6">
+            <p>{{ __('title.department') }}:</p>
+            <p style="margin-left: 5%">{{ $account->department->name }}</p>
         </div>
-
     </div>
 
-    <div class="display-child-page">
-
-        {{-- Email --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-auto">
-                <label>Email:</label>
-                </div>
-                <div class="col-auto">
-                <label>{{ $account->email }}</label>
-                </div>
-            </div>
+    <div class="row">
+        <div style="display: flex" class="col-md-6">
+            <p>{{ __('title.email') }}:</p>
+            <p style="margin-left: 5%">{{ $account->email }}</p>
         </div>
-
-        {{-- Chức danh --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-auto">
-                <label>Chức danh:</label>
-                </div>
-                <div class="col-auto">
-                <label>{{ $role->name }}</label>
-                </div>
-            </div>
+        <div style="display: flex" class="col-md-6">
+            <p>{{ __('title.role') }}:</p>
+            <p style="margin-left: 5%">{{ $account->role->name }}</p>
         </div>
-
     </div>
 
-    <div class="display-child-page">
-
-        {{-- SDT --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-auto">
-                <label>SĐT:</label>
-                </div>
-                <div class="col-auto">
-                <label>{{ $account->phone_number }}</label>
-                </div>
-            </div>
+    <div class="row">
+        <div style="display: flex" class="col-md-6">
+            <p>{{ __('title.phone-number') }}:</p>
+            <p style="margin-left: 5%">{{ $account->phone_number }}</p>
         </div>
-
-        {{-- Mã người dùng --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-auto">
-                <label>Mã người dùng:</label>
-                </div>
-                <div class="col-auto">
-                <label>{{ $account->code_user }}</label>
-                </div>
-            </div>
+        <div style="display: flex" class="col-md-6">
+            <p>{{ __('title.code-user') }}:</p>
+            <p style="margin-left: 5%">{{ $account->code_user }}</p>
         </div>
-
     </div>
 
-    <div class="display-child-page">
-
-        <div style="justify-content: flex-start" class="config-posi">
-            <div class="row">
-                <div class="col-auto">
-                <label>Trạng thái</label>
-                </div>
-                <div class="col-auto">
-                    <label class="switch">
-                        @if ($account->status === 'active')
-                            <input name='status' type="checkbox" checked>
-                        @else
-                            <input name='status' type="checkbox">
-                        @endif
-                        <span class="slider round"></span>
-                    </label>
-                </div>
+    <div class="row">
+        <div style="display: flex" class="col-md-6">
+            <div class="col-auto">
+                <label>{{ __('title.status') }}:</label>
+            </div>
+            <div class="col-auto">
+                <label style="margin-left: 20px" class="switch">
+                @if ($account->status === 'active')
+                    <input name='status' type="checkbox" checked>
+                @else
+                    <input name='status' type="checkbox">
+                @endif
+                    <span class="slider round"></span>
+                </label>
             </div>
         </div>
-
     </div>
 
-    <div class="display-but">
+</div>
 
-        <div style="margin-top: 50px">
-            <a href="{{ route('homepage') }}" style="width: 180px" class="btn btn-outline-success">{{ __('title.cancel') }}</a>
-        </div>
 
-        <div style="margin-top: 50px">
-            <button style="width: 180px" class="btn btn-outline-success" type="submit">{{ __('title.save') }}</button>
-        </div>
+<div class="display-but">
 
+    <div style="margin-top: 50px">
+        <a href="{{ route('homepage') }}" style="width: 180px" class="btn btn-outline-success">{{ __('title.cancel') }}</a>
     </div>
+
+    <div style="margin-top: 50px">
+        <button style="width: 180px" class="btn btn-outline-success" type="submit">{{ __('title.save') }}</button>
+    </div>
+
+</div>
 
 @endsection

@@ -39,11 +39,11 @@
 
     <div class="display-but">
 
-        <div style="margin-top: 50px; margin-left: 50px" class="display-child-page">
+        <div style="margin-top: 50px; margin-left: 50px">
             <a href="{{ route('worksm.homepage') }}"><button style="width: 180px" class="btn btn-outline-success" type=submit>{{ __('title.back') }}</button></a>
         </div>
 
-        <div style="margin-top: 50px; margin-left: 50px" class="display-child-page">
+        <div style="margin-top: 50px; margin-left: 50px">
             <a href="{{ route('worksm.modify', ['id' => $workarea->id]) }}"><button style="width: 180px" class="btn btn-outline-success" type="submit">{{ __('title.modify') }}</button></a>
         </div>
 

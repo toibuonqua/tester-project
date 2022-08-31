@@ -58,13 +58,9 @@ class UsersManagementController extends Controller
 
     public function detail($id)
     {
+        $account = Accounts::with('role', 'department', 'workarea')->find($id);
 
-        $account = Accounts::find($id);
-        $department = Department::find($account->department_id);
-        $role = Role::find($account->role_id);
-        $workarea = Workarea::find($account->workarea_id);
-
-        return view('userManagement.detailuser', compact('account', 'department', 'workarea', 'role'));
+        return view('userManagement.detailuser', compact('account'));
     }
 
     public function update($id, Request $request)

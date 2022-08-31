@@ -7,7 +7,7 @@
     display:flex
 }
 .text-des{
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-family: 'Nunito', sans-serif;
     color: black;
 }
@@ -57,14 +57,14 @@
 }
 
 .config-posi{
-    margin-top: 20px;
-    margin-left: 90px;
+    margin-top: 2.5%;
+    margin-left: 5%;
 }
 
 .display-child-page {
     width: 100%;
     display:flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
 }
 
 .display-but{

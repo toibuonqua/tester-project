@@ -39,6 +39,7 @@ return [
     'class-name' => 'Tên lớp học',
     'class-student' => 'Danh sách học viên',
     'close' => 'Đóng',
+    'code-user' => 'Mã người dùng',
     'code-work-area' => 'Mã KVLV',
     'complete-in' => 'Hoàn thành trong',
     'confirm' => 'Xác nhận',

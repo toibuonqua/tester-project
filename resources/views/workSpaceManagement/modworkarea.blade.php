@@ -43,11 +43,11 @@
 
     <div class="display-but">
 
-        <div style="margin-top: 50px" class="display-child-page">
+        <div style="margin-top: 50px">
             <a href="{{ route('worksm.homepage') }}" style="width: 180px" class="btn btn-outline-success">Hủy</a>
         </div>
 
-        <div style="margin-top: 50px" class="display-child-page">
+        <div style="margin-top: 50px">
             <button style="width: 180px" class="btn btn-outline-success" onclick="return confirm('{{ __('title.notice-update-user') }}')" type="submit">Lưu</button>
         </div>
 

@@ -39,6 +39,7 @@ return [
     'class-name' => 'Class name',
     'class-student' => 'Class students',
     'close' => 'Close',
+    'code-user' => 'Code user',
     'code-work-area' => 'Code Work Area',
     'complete-in' => 'Completed in',
     'confirm' => 'Confirm',

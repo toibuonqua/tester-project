@@ -10,20 +10,22 @@
     @csrf
 
 
-    <div class="display">
+    <div class="display-child-page">
 
         {{-- Field Họ và tên --}}
-        <div class="row">
-            <div class="col-md-5">
-            <label>Họ và tên:</label>
-            </div>
-            <div style="width: 180px" class="col-md-3">
-            <input type="text" name="username" class="form-control">
+        <div class="config-posi">
+            <div class="row">
+                <div class="col-md-4">
+                <label>Họ và tên:</label>
+                </div>
+                <div class="col-md-8">
+                <input type="text" name="username" class="form-control">
+                </div>
             </div>
         </div>
 
         {{-- Phòng ban --}}
-        <div>
+        <div class="config-posi">
             @include('common.block.select', [
                 'name' => 'department_id',
                 'options' => $departments ?? [],
@@ -34,20 +36,22 @@
 
     </div>
 
-    <div class="display">
+    <div class="display-child-page">
 
         {{-- Email --}}
-        <div class="row">
-            <div class="col-md-4">
-            <label>Email:</label>
-            </div>
-            <div class="col-md-8">
-            <input type="text" name="email" class="form-control">
+        <div class="config-posi">
+            <div class="row">
+                <div class="col-md-4">
+                <label>Email:</label>
+                </div>
+                <div class="col-md-8">
+                <input type="text" name="email" class="form-control">
+                </div>
             </div>
         </div>
 
         {{-- Chức danh --}}
-        <div>
+        <div class="config-posi">
             @include('common.block.select', [
                 'name' => 'role_id',
                 'options' => $roles ?? [],
@@ -58,10 +62,10 @@
 
     </div>
 
-    <div class="display">
+    <div class="display-child-page">
 
         {{-- SDT --}}
-        <div>
+        <div class="config-posi">
             <div class="row">
                 <div class="col-md-4">
                 <label>SĐT:</label>
@@ -73,12 +77,12 @@
         </div>
 
         {{-- Mã người dùng --}}
-        <div>
+        <div class="config-posi">
             <div class="row">
                 <div class="col-md-4">
                 <label class="col-form-label">Mã người dùng:</label>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-5">
                 <input type="text" name="code_user" class="form-control">
                 </div>
             </div>

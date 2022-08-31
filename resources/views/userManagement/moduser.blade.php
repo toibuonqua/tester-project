@@ -17,7 +17,7 @@
                 <div class="col-6 col-md-4">
                 <label>Họ và tên:</label>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
                 <input type="text" name="username" value="{{ $account->username }}" class="form-control">
                 </div>
             </div>
@@ -40,7 +40,7 @@
 
         {{-- Email --}}
         <div class="config-posi">
-            <div class="row">
+            <div style="margin-right: 40px" class="row">
                 <div class="col-6 col-md-4">
                 <label>Email:</label>
                 </div>
@@ -51,7 +51,7 @@
         </div>
 
         {{-- Chức danh --}}
-        <div class="config-posi">
+        <div style="margin-top: 2.5%; margin-left:14%">
             @include('common.block.select', [
                 'name' => 'role_id',
                 'options' => $roles ?? [],
@@ -80,7 +80,7 @@
         {{-- Mã người dùng --}}
         <div class="config-posi">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                 <label class="col-form-label">Mã người dùng:</label>
                 </div>
                 <div class="col-md-6">
