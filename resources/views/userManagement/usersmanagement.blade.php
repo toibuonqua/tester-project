@@ -7,12 +7,12 @@
 <div>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="display-search">
+        <div style="width: 100%" class="display-search">
 
           <div class="row">
             <form class="d-flex" method="get" action="{{ route('user.search') }}">
             @csrf
-                <input class="form-control me-2" name="query" type="text" placeholder="Tìm kiếm">
+                <input style="width: 100%" class="form-control me-2" name="query" type="text" placeholder="Tìm kiếm">
                 <button style="width: 180px" class="btn btn-outline-success" type="submit">Tìm kiếm</button>
             </form>
           </div>

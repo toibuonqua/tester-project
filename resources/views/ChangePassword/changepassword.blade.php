@@ -4,6 +4,10 @@
 
 @section('content')
 
+<form method="POST" action="{{ route('password.update') }}">
+
+    @csrf
+    @method('POST')
 
     <div class="display-child-page">
 
@@ -11,7 +15,7 @@
         <div class="config-posi">
             <div class="row">
                 <div class="col-auto">
-                <label>Email:</label>
+                <label>{{ __('title.email') }}:</label>
                 </div>
                 <div class="col-auto">
                 <label>{{ $email }}</label>
@@ -27,10 +31,13 @@
         <div class="config-posi">
             <div class="row">
                 <div class="col-auto">
-                <label>Mật khẩu cũ: </label>
+                <label>{{ __('title.old-password') }}:</label>
                 </div>
                 <div class="col-auto">
-                <input type="text" name="old-password" class="form-control">
+                <input type="password" name="old-password" class="form-control">
+                @if (session('error-old-pw'))
+                    <p class="text-error">{{ session('error-old-pw') }}</p>
+                @endif
                 </div>
             </div>
         </div>
@@ -43,10 +50,10 @@
         <div class="config-posi">
             <div class="row">
                 <div class="col-auto">
-                <label>Mật khẩu mới: </label>
+                <label>{{ __('title.new-password') }}:</label>
                 </div>
                 <div class="col-auto">
-                <input type="text" name="new-password" class="form-control">
+                <input type="password" name="new-password" class="form-control">
                 </div>
             </div>
         </div>
@@ -59,10 +66,13 @@
         <div class="config-posi">
             <div class="row">
                 <div class="col-auto">
-                <label>Xác nhận mật khẩu mới: </label>
+                <label>{{ __('title.confirm-password') }}:</label>
                 </div>
                 <div class="col-auto">
-                <input type="text" name="confirm-new-password" class="form-control">
+                <input type="password" name="confirm-new-password" class="form-control">
+                @if (session('error-confirm'))
+                    <p class="text-error">{{ session('error-confirm') }}</p>
+                @endif
                 </div>
             </div>
         </div>
@@ -80,5 +90,9 @@
         </div>
 
     </div>
+
+</form>
+
+@include('common.block.flash-message')
 
 @endsection

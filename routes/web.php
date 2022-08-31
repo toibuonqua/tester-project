@@ -26,7 +26,13 @@ Route::post('/', [LoginController::class, 'checkLogin'])->name('auth.login');
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('user.logout');
 
+Route::get('/info-account', [LoginController::class, 'infoAccount'])->name('account.info');
+
 Route::get('/change_pw', [UsersManagementController::class, 'changePassword'])->name('account.changepw');
+
+Route::post('/change_pw', [UsersManagementController::class, 'passwordUpdate'])->name('password.update');
+
+Route::get('/notice-login', [UsersManagementController::class, 'noticeLogin'])->name('back.login');
 
 Route::prefix('user')->middleware('check.admin')->group(function ()
 

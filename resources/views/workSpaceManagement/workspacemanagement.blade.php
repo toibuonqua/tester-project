@@ -8,7 +8,7 @@
 <div>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="display-search">
+        <div style="width: 100%" class="display-search">
 
           <div class="row">
             <form class="d-flex" method="get" action="{{ route('worksm.search') }}">
@@ -60,7 +60,8 @@
 
             @include('common.singleMessage', [
                 $message = $exception,
-                $homepage = 'worksm.homepage'
+                $homepage = 'worksm.homepage',
+                $text = __('title.back')
             ])
 
         @endif

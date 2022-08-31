@@ -30,17 +30,23 @@ class LoginController extends Controller
         Log::error($checklogin);
         if ($checklogin) {
             $user = Auth::user();
-            if ($user->status == 'active') 
+            if ($user->status == 'active')
             {
-                return redirect()->route('homepage');
-            } 
-            else 
+                return redirect()->route('account.info');
+            }
+            else
             {
                 $request->session()->flush();
-                 Auth::logout();
+                Auth::logout();
                 return redirect()->route('home')->with('error', __('title.account-not-active'));
             }
         } else return redirect()->route('home')->with('error', __('title.error'));
+    }
+
+    public function infoAccount(Request $request)
+    {
+        $account = Auth::user();
+        return view('infoAccount', compact('account'));
     }
 
     public function logout(Request $request)

@@ -6,6 +6,11 @@
 .split-block {
     display:flex
 }
+.text-des{
+    font-size: 2rem;
+    font-family: 'Nunito', sans-serif;
+    color: black;
+}
 
 .box {
     background-color: white;
@@ -41,7 +46,7 @@
 
 .display-search {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 .text-child-page {
@@ -59,14 +64,19 @@
 .display-child-page {
     width: 100%;
     display:flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .display-but{
     width: 100%;
     display:flex;
-    justify-content: space-around;
-    margin-left: 20%;
+    justify-content: space-evenly;
+}
+
+.text-error {
+    font-size: 1em;
+    font-family: 'Nunito', sans-serif;
+    color: red;
 }
 
 /* ============================================ */

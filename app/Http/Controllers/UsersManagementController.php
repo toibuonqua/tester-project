@@ -141,6 +141,52 @@ class UsersManagementController extends Controller
     public function changePassword(Request $request)
     {
         $email = Auth::user()->email;
+
+        $error = $request->session()->get('errors');
+
+        if ($error) {
+            $this->updateFailMessage($request, $this->backString($request, $error));
+        }
+
         return view('ChangePassword.changepassword', compact('email'));
     }
+
+    public function passwordUpdate(Request $request)
+    {
+
+        $request->validate([
+            'old-password' => 'required',
+            'new-password' => 'required',
+            'confirm-new-password' => 'required',
+
+        ]);
+
+        if(Auth::attempt(['email' => Auth::user()->email,'password' => $request->input('old-password')]))
+        {
+            $newPw = $request->input('new-password');
+            $confirmNewPw = $request->input('confirm-new-password');
+            if($newPw == $confirmNewPw)
+            {
+                $account = Accounts::find(Auth::id());
+                $account->password = Hash::make($newPw);
+                $account->save();
+                return redirect()->route('back.login')->with('notice-login', 'Mật khẩu mới đã đổi thành công, hãy dùng mật khẩu mới để đăng nhập');
+            }
+            else
+            {
+                return redirect()->route('account.changepw')->with('error-confirm', __('title.new-password-not-match'));
+            }
+        }
+        else
+        {
+            return redirect()->route('account.changepw')->with('error-old-pw', __('title.error-old-password'));
+        }
+
+    }
+
+    public function noticeLogin()
+    {
+        return view('ChangePassword.noticeLogout');
+    }
+
 }

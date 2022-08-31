@@ -5,6 +5,6 @@
     {{ $message ?? '' }}
 </div>
 <div class="text-center">
-    <a href="{{ route($homepage) }}" class="btn btn-success">Back to homepage</a>
+    <a href="{{ route($homepage) }}" class="btn btn-success">{{ $text }}</a>
 </div>
 @endsection

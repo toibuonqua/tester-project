@@ -99,7 +99,7 @@ class WorkSpaceManagementController extends Controller
         }
         catch(\Illuminate\Database\QueryException $exception){
             $workareas = Workarea::paginate(Workarea::DEFAUL_PAGINATION);
-            $exception = 'Khu vực vẫn còn cư dân sinh sống không thể phá hủy!!!';
+            $exception = 'Khu vực hiện vẫn còn nhân viên, không thể xóa!!!';
             return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
         }
         return redirect()->route('worksm.homepage');
