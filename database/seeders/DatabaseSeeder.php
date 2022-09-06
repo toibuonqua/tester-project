@@ -20,13 +20,13 @@ class DatabaseSeeder extends Seeder
     {
         DB::table('accounts')->insert(
             [
-                'username' => 'TienMA',
-                'email' => 'tienma@gmail.com',
+                'username' => 'admin',
+                'email' => 'admin@gmail.com',
                 'password' => Hash::make('123'),
                 'status' => 'active',
                 'role_id' => 1,
                 'workarea_id' => 1,
-                'code_user' => 1002,
+                'code_user' => 1001,
                 'phone_number' => 19001900,
                 'manager_id' => 1,
                 'department_id' => 1,
