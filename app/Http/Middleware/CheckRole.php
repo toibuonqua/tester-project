@@ -4,8 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Throwable;
+use App\Models\Accounts;
 
 class checkRole
 {
@@ -19,8 +19,8 @@ class checkRole
     public function handle(Request $request, Closure $next)
     {
         try{
-            $role = Auth::user()->role->name;
-            if ($role == 'Admin/IT'){
+            $check_admin = new Accounts;
+            if ($check_admin->isAdmin()){
                 return $next($request);
             }
             else

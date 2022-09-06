@@ -92,6 +92,7 @@ class UsersManagementController extends Controller
         $account->code_user = $request->input('code_user');
         $account->department_id = $request->input('department_id');
         $account->role_id = $request->input('role_id');
+        $account->manager_id = Auth::user()->id;
         $account->hashPassword();
         $account->save();
         return redirect()->route('homepage');
