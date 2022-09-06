@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('user_manage_permission');
             $table->string('workplace_permission');
-            $table->string('status');
             $table->string('change_password');
             $table->string('login_logout');
             $table->string('import_goods');
@@ -29,7 +28,6 @@ return new class extends Migration
             $table->string('create_internal_purchase_orders');
             $table->string('delete_import_info');
             $table->string('create_internal_sales_oders');
-            $table->string('manage_access');
             $table->timestamps();
         });
     }
