@@ -28,6 +28,7 @@ return [
     'by-category' => 'Theo danh mục',
     'by-exam' => 'Theo đề thi thật',
     'cancel' => 'Hủy',
+    'cant-define-user' => "Không xác định được người dùng",
     'category' => 'Danh mục',
     'category-management' => 'Quản lý danh mục',
     'category-rate-in-exam' => 'Tỷ lệ danh mục trong đề thi',

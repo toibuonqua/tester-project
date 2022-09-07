@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Accounts;
 use App\Common\QueryDataBase;
+use Exception;
 use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Contracts\Session;
@@ -25,27 +26,35 @@ class LoginController extends Controller
             'email' => $request->email,
             'password' => $request->password,
         ];
-        Log::error($credentials);
+
         $checklogin = Auth::attempt($credentials);
-        Log::error($checklogin);
-        if ($checklogin) {
-            $user = Auth::user();
-            if ($user->status == 'active')
-            {
-                return redirect()->route('account.info');
-            }
-            else
-            {
-                $request->session()->flush();
-                Auth::logout();
-                return redirect()->route('home')->with('error', __('title.account-not-active'));
-            }
-        } else return redirect()->route('home')->with('error', __('title.error'));
+
+        if (!$checklogin) {
+            return redirect()->route('home')->with('error', __('title.error'));
+        }
+
+        $user = Auth::user();
+        if ($user->status == 'active') {
+            return redirect()->route('account.info');
+        }
+
+        if ($user->status == 'deactive')
+        {
+            $request->session()->flush();
+            Auth::logout();
+            return redirect()->route('home')->with('error', __('title.account-not-active'));
+        }
+
+        Log::error("Status is not handled: {$user->id} has the status {$user->status}");
+        $request->session()->flush();
+        Auth::logout();
+        return redirect()->route('home')->with('error', __('title.cant-define-user'));
+
     }
 
     public function infoAccount(Request $request)
     {
-        $account = Auth::user();
+        $account = Accounts::with('role', 'department', 'workarea')->find(Auth::id());
         return view('infoAccount', compact('account'));
     }
 

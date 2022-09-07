@@ -28,6 +28,7 @@ return [
     'by-category' => 'By category',
     'by-exam' => 'By exam',
     'cancel' => 'Cancel',
+    'cant-define-user' => "Can't define user",
     'category' => 'Category',
     'category-management' => 'Category Management',
     'category-rate-in-exam' => 'Category rate in exam',

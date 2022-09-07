@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\User as BaseAccount;
+use Illuminate\Support\Facades\Auth;
 
 class Accounts extends BaseAccount
 {
@@ -13,7 +14,7 @@ class Accounts extends BaseAccount
 
     protected $table = 'accounts';
 
-    protected $fillable = ['id', 'username', 'password', 'email', 'phone_number', 'workarea_id', 'code_user', 'role_id', 'department_id', 'status'];
+    protected $fillable = ['id', 'username', 'password', 'email', 'phone_number', 'workarea_id', 'code_user', 'role_id', 'department_id', 'manager_id', 'status'];
 
     protected $hidden = [     // giấu field không hiển thị khi lấy array
         'password',
@@ -39,6 +40,7 @@ class Accounts extends BaseAccount
     const STATUS_ACTIVATED = 'active';
     const DEFAULT_PASSWORD = "123";
     const DEFAULT_WORKAREA_ID = 1;
+    const TYPE_ADMIN = 'Admin/IT';
 
 
     protected $attributes = [
@@ -51,5 +53,10 @@ class Accounts extends BaseAccount
     {
         $this->password = Hash::make($this->password);
         return $this;
+    }
+
+    public function isAdmin()
+    {
+        return $this->role->name == self::TYPE_ADMIN;
     }
 }
