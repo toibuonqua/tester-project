@@ -35,13 +35,11 @@ class AccountSeeder extends Seeder
                 'workarea_id' => Arr::random($workareas),
                 'code_user' => 1000,
                 'phone_number' => "0123456789",
-                'manager_id' => 1,
+                'manager_id' => null,
                 'department_id' => Arr::random($departments),
             ]
         );
 
-        Accounts::factory(10)->create([
-            'role_id' => 2,
-        ]);
+        Accounts::factory(14)->create();
     }
 }

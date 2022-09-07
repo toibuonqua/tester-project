@@ -40,6 +40,7 @@ class Accounts extends BaseAccount
     const STATUS_ACTIVATED = 'active';
     const DEFAULT_PASSWORD = "123";
     const DEFAULT_WORKAREA_ID = 1;
+    const TYPE_ADMIN = 'Admin/IT';
 
 
     protected $attributes = [
@@ -56,13 +57,6 @@ class Accounts extends BaseAccount
 
     public function isAdmin()
     {
-        if (Auth::user()->role->name == "Admin/IT")
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        } 
+        return $this->role->name == self::TYPE_ADMIN;
     }
 }

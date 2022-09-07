@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Throwable;
 use App\Models\Accounts;
+use Illuminate\Support\Facades\Auth;
 
 class checkRole
 {
@@ -19,8 +20,8 @@ class checkRole
     public function handle(Request $request, Closure $next)
     {
         try{
-            $check_admin = new Accounts;
-            if ($check_admin->isAdmin()){
+            $user = Accounts::with('role')->find(Auth::id());
+            if ($user->isAdmin()){
                 return $next($request);
             }
             else

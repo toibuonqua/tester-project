@@ -30,6 +30,8 @@ class RoleSeeder extends Seeder
                 'create_internal_purchase_orders' => 1,
                 'delete_import_info' => 1,
                 'create_internal_sales_oders' => 1,
+                'status' => 'active',
+
             ],
             [
                 'name' => 'Quản lý nhập hàng',
@@ -45,6 +47,7 @@ class RoleSeeder extends Seeder
                 'create_internal_purchase_orders' => 0,
                 'delete_import_info' => 1,
                 'create_internal_sales_oders' => 0,
+                'status' => 'active',
             ],
             [
                 'name' => 'Quản lý xuất hàng',
@@ -60,6 +63,7 @@ class RoleSeeder extends Seeder
                 'create_internal_purchase_orders' => 0,
                 'delete_import_info' => 0,
                 'create_internal_sales_oders' => 1,
+                'status' => 'active',
             ],
             [
                 'name' => 'Nhân viên nhập hàng',
@@ -75,6 +79,7 @@ class RoleSeeder extends Seeder
                 'create_internal_purchase_orders' => 0,
                 'delete_import_info' => 0,
                 'create_internal_sales_oders' => 0,
+                'status' => 'active',
             ],
             [
                 'name' => 'Nhân viên xuất hàng',
@@ -90,6 +95,7 @@ class RoleSeeder extends Seeder
                 'create_internal_purchase_orders' => 0,
                 'delete_import_info' => 0,
                 'create_internal_sales_oders' => 0,
+                'status' => 'active',
             ],
             [
                 'name' => 'Nhân viên đóng hàng',
@@ -105,6 +111,7 @@ class RoleSeeder extends Seeder
                 'create_internal_purchase_orders' => 0,
                 'delete_import_info' => 0,
                 'create_internal_sales_oders' => 0,
+                'status' => 'active',
             ],
         ];
         foreach ($roles as $key => $value) {

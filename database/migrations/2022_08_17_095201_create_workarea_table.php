@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('work_areas_code')->unique();
             $table->unsignedBigInteger('createrId')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }

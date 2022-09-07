@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Models\Workarea;
 use App\Http\Controllers\Web\WebResponseTrait;
 use App\Common\ExportExceptOnScreen;
+use Illuminate\Support\Facades\Auth;
 
 class WorkSpaceManagementController extends Controller
 {
@@ -76,7 +77,7 @@ class WorkSpaceManagementController extends Controller
         $workarea = new Workarea;
         $workarea->name = $request->input('name');
         $workarea->work_areas_code = $request->input('work_areas_code');
-        $workarea->status = 'ok';
+        $workarea->createrId = Auth::id();
         $workarea->save();
         return redirect()->route('worksm.homepage');
     }
