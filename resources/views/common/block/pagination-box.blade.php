@@ -4,7 +4,7 @@
             @php
                 $queries = Request::all()
             @endphp
-       
+
             <li class="page-item"><a class="page-link"
                     href="{{ route(Route::currentRouteName(), array_merge($queries, $params ?? [], ['page' => 1])) }}">{{ __('title.first') }}</a>
             </li>
@@ -44,3 +44,11 @@
     </nav>
 
 </div>
+
+{{-- 
+@include('common.block.pagination-box',[
+                    'currentPage' => $currentPage,
+                    'limit' => $limit,
+                    'totalPage' => $totalPage,
+                    'params' => [ request()->route('id') ?? 'id' => request()->route('id') ]
+                ]) --}}

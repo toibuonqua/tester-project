@@ -27,9 +27,10 @@ class Account extends Authenticatable
     /**
      * The attributes that are mass assignable.
      *
+     *
      * @var array
      */
-    protected $fillable = [
+    protected $fillable = [     // filter field trước khi lưu vào DB.
         'username',
         'email',
         'password',
@@ -48,7 +49,7 @@ class Account extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
+    protected $hidden = [     // giấu field không hiển thị khi lấy array
         'password',
     ];
 
@@ -96,19 +97,8 @@ class Account extends Authenticatable
     ];
 
     /**
-     * The "booted" method of the model.
      *
-     * @return void
      */
-    protected static function booted()
-    {
-        static::updating(function ($user) {
-            if (!$user->updated_at->isToday()) {
-                $user->resetExamCreateLimit();
-            }
-        });
-    }
-
     public function resetExamCreateLimit()
     {
         $this->today_exam_created = 0;

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 trait WebResponseTrait
 {
     /**
-     * Extract message from session (only 1 time). After extract, message in the 
+     * Extract message from session (only 1 time). After extract, message in the
      * session should be deleted unless sset otherwise
      *
      * @param Request $request
@@ -53,22 +53,32 @@ trait WebResponseTrait
         $this->updateMessage($request, $message, 'success');
     }
 
+    // public function backString(Request $request, $error)
+    // {
+    //     $request->session()->put('errors', null);
+    //         $errorMes = "";
+    //         foreach ($error->getMessages() as $key => $value) {
+    //             $errorMes .= "<br>".join("", $value);
+    //         }
+    //         return $errorMes;
+    // }
+
 
     /**
      * Generate Validate message array map for validator
-     * Using as **$mesesage** of 
-     * 
+     * Using as **$mesesage** of
+     *
      * ```
      * Validator::make($request->all(), $rules, $message, $customAttribute)
      * ```
-     * 
+     *
      * Ex:
      * ```
      * genValidateMessage(['abc', 'def'])
-     * => 
+     * =>
      * ['abc' => __('validate.abc'), 'def' => __('validate.abc')]
      * ```
-     * 
+     *
      * @param array $messageKeyList See the list of possible keys in `lang/xx/validate.php`
      * @return array
      */
@@ -83,22 +93,22 @@ trait WebResponseTrait
 
     /**
      * Generate Attribubte array map for Validator.
-     * Using as **$customAttribute** of 
-     * 
+     * Using as **$customAttribute** of
+     *
      * ```
      * Validator::make($request->all(), $rules, $message, $customAttribute)
      * ```
-     * 
+     *
      * Ex:
      * ```
      * genAttributeKey(['abc', 'def'])
-     * => 
+     * =>
      * ['abc' => __('title.abc'), 'def' => __('title.abc')]
      * ```
-     * 
+     *
      * See the list of possible keys in `lang/xx/title.php`
-     * 
-     * @param array $attributeKeyList 
+     *
+     * @param array $attributeKeyList
      * @return array
      */
     public function genAttributeKey(array $attributeKeyList)

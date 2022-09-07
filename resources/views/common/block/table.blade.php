@@ -21,7 +21,36 @@
                 @elseif ($value === 'pattern.modified')
                     <td><a href="{{ route($edit_route ?? 'home', [$id_param ?? 'id' => $item->id]) }}"
                            {{-- Them parameter moi --}}
-                           class="btn btn-primary">{{ __('title.' . ($edit_text ?? 'edit')) }}</a>
+                           class="btn btn-success">{{ __('title.' . ($edit_text ?? 'edit')) }}</a>
+                    </td>
+                @elseif ($value === 'pattern.view')
+                    <td><a href="{{ route($view_route ?? 'home', [$id_param ?? 'id' => $item->id]) }}"
+                           {{-- Them parameter moi --}}
+                           class="btn btn-success">{{ __('title.' . ($view_text ?? 'view')) }}</a>
+                    </td>
+                @elseif ($value === 'pattern.delete')
+                    <td>
+                        <form method="post" action="{{ route($delete_route, [$id_param ?? 'id' => $item->id]) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-success" onclick="return confirm('{{ $notice_delete }}')" type="submit">{{ __('title.' . ($delete_text ?? 'delete')) }}</button>
+                        </form>
+                    </td>
+                @elseif ($value === 'pattern.status')
+                    <td>
+                        <form method="post" action="{{ route($status_route, [$id_param ?? 'id' => $item->id]) }}">
+                            @csrf
+                            @method('POST')
+                            <button class="btn btn-success" onclick="return confirm('{{ $notice_active }}')" type="submit">{{ __('title.' . ($status_text ?? 'action')) }}</button>
+                        </form>
+                    </td>
+                @elseif ($value === 'pattern.reset')
+                    <td>
+                        <form method="post" action="{{ route($reset_route, [$id_param ?? 'id' => $item->id]) }}">
+                            @csrf
+                            @method('POST')
+                            <button class="btn btn-success" onclick="return confirm('{{ $notice_reset_pw }}')" type="submit">{{ __('title.' . ($reset_text ?? 'reset-pw')) }}</button>
+                        </form>
                     </td>
                 @elseif ($value === 'pattern.image')
                     <td>
