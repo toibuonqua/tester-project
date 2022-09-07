@@ -76,7 +76,6 @@ class WorkSpaceManagementController extends Controller
         $workarea = new Workarea;
         $workarea->name = $request->input('name');
         $workarea->work_areas_code = $request->input('work_areas_code');
-        $workarea->status = 'ok';
         $workarea->save();
         return redirect()->route('worksm.homepage');
     }

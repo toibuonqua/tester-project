@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('workarea', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('status');
             $table->string('work_areas_code')->unique();
             $table->unsignedBigInteger('createrId')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }

@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('delete_import_info');
             $table->string('create_internal_sales_oders');
             $table->string('manage_access');
+            $table->string('status');
             $table->timestamps();
         });
     }

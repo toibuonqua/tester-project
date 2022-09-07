@@ -23,6 +23,7 @@ return [
     'avatar' => 'Ảnh đại diện',
     'available-exam' => 'Bài thi có thể làm',
     'back' => 'Quay lại',
+    'back-login' => 'Quay lại đăng nhập',
     'belongs-to-course' => 'Thuộc khóa học',
     'by-category' => 'Theo danh mục',
     'by-exam' => 'Theo đề thi thật',

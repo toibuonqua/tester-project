@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('role_id');
             $table->unsignedBigInteger('workarea_id');
             $table->integer('code_user');
-            $table->integer('phone_number');
+            $table->string('phone_number');
             $table->unsignedBigInteger('manager_id')->nullable();
             $table->unsignedBigInteger('department_id');
             $table->timestamps();

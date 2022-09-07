@@ -23,6 +23,7 @@ return [
     'arrival-management' => 'New Arrival Management',
     'available-exam' => 'Available exam',
     'back' => 'Back',
+    'back-login' => 'Back Login',
     'belongs-to-course' => 'Belongs to course',
     'by-category' => 'By category',
     'by-exam' => 'By exam',
