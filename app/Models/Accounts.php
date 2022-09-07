@@ -55,6 +55,31 @@ class Accounts extends BaseAccount
         return $this;
     }
 
+    public function setPassword($newPw)
+    {
+        $this->password = Hash::make($newPw);
+        return $this;
+    }
+
+    public function activate()
+    {
+        if ($this->status == Accounts::STATUS_ACTIVATED)
+        {
+            $this->status = Accounts::STATUS_DEACTIVATED;
+        }
+        else
+        {
+            $this->status = Accounts::STATUS_ACTIVATED;
+        }
+        return $this;
+    }
+
+    public function resetPassword()
+    {
+        $this->password = Hash::make(self::DEFAULT_PASSWORD);
+        return $this;
+    }
+
     public function isAdmin()
     {
         return $this->role->name == self::TYPE_ADMIN;

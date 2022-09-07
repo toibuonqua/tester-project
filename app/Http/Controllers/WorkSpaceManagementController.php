@@ -10,6 +10,7 @@ use App\Models\Workarea;
 use App\Http\Controllers\Web\WebResponseTrait;
 use App\Common\ExportExceptOnScreen;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class WorkSpaceManagementController extends Controller
 {
@@ -60,8 +61,9 @@ class WorkSpaceManagementController extends Controller
             return redirect()->route('worksm.homepage');
         }
         catch(\Illuminate\Database\QueryException $exception){
+            Log::error('code work area was exist');
             $workareas = Workarea::paginate(Workarea::DEFAUL_PAGINATION);
-            $exception = 'Mã khu vực đã tồn tại, thao tác sửa không thành công';
+            $exception = __('title.code-workarea-exist');
             return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
         }
     }

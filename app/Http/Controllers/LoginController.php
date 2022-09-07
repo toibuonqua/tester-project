@@ -34,11 +34,11 @@ class LoginController extends Controller
         }
 
         $user = Auth::user();
-        if ($user->status == 'active') {
+        if ($user->status == Accounts::STATUS_ACTIVATED) {
             return redirect()->route('account.info');
         }
 
-        if ($user->status == 'deactive')
+        if ($user->status == Accounts::STATUS_DEACTIVATED)
         {
             $request->session()->flush();
             Auth::logout();

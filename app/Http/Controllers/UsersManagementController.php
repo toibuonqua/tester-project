@@ -17,6 +17,8 @@ class UsersManagementController extends Controller
 {
 
     use WebResponseTrait, ExportExceptOnScreen;
+
+    // view Index
     public function index(Request $request)
     {
 
@@ -31,6 +33,7 @@ class UsersManagementController extends Controller
         return view('userManagement.usersmanagement', compact('accounts'));
     }
 
+    // View add
     public function add(Request $request)
     {
         $departments = Department::all();
@@ -45,6 +48,7 @@ class UsersManagementController extends Controller
         return view('userManagement.adduser', compact('departments', 'roles'));
     }
 
+    // View modify
     public function modify($id)
     {
         $departments = Department::all();
@@ -56,6 +60,7 @@ class UsersManagementController extends Controller
         return view('userManagement.moduser', compact('account', 'workarea', 'departments', 'roles'));
     }
 
+    // View detail
     public function detail($id)
     {
         $account = Accounts::with('role', 'department', 'workarea')->find($id);
@@ -63,6 +68,7 @@ class UsersManagementController extends Controller
         return view('userManagement.detailuser', compact('account'));
     }
 
+    // update user info
     public function update($id, Request $request)
     {
         $account = Accounts::query()->findOrFail($id);
@@ -72,6 +78,7 @@ class UsersManagementController extends Controller
         return redirect()->route('homepage');
     }
 
+    // Add new user
     public function store(Request $request)
     {
         $request->validate([
@@ -98,6 +105,7 @@ class UsersManagementController extends Controller
         return redirect()->route('homepage');
     }
 
+    // search bar
     public function search(Request $request)
     {
         $search_text = $request->input("query");
@@ -113,28 +121,23 @@ class UsersManagementController extends Controller
         return view('userManagement.usersmanagement', compact('accounts'));
     }
 
+    // Change status user
     public function active($id)
     {
         $account = Accounts::find($id);
-
-        if ($account->status === Accounts::STATUS_ACTIVATED) {
-            $account->status = Accounts::STATUS_DEACTIVATED;
-        } else {
-            $account->status = Accounts::STATUS_ACTIVATED;
-        }
-        $account->save();
-
+        $account->activate()->save();
         return redirect()->route('homepage');
     }
 
+    // reset password user
     public function resetpw($id)
     {
         $account = Accounts::find($id);
-        $account->password = Hash::make(Accounts::DEFAULT_PASSWORD);
-        $account->save();
+        $account->resetPassword()->save();
         return redirect()->route('homepage');
     }
 
+    // view change password
     public function changePassword(Request $request)
     {
         $email = Auth::user()->email;
@@ -148,9 +151,11 @@ class UsersManagementController extends Controller
         return view('ChangePassword.changepassword', compact('email'));
     }
 
+    // Change password
     public function passwordUpdate(Request $request)
     {
 
+        // Validate field in view change password
         $request->validate([
             'old-password' => 'required',
             'new-password' => 'required',
@@ -158,29 +163,27 @@ class UsersManagementController extends Controller
 
         ]);
 
-        if(Auth::attempt(['email' => Auth::user()->email,'password' => $request->input('old-password')]))
-        {
-            $newPw = $request->input('new-password');
-            $confirmNewPw = $request->input('confirm-new-password');
-            if($newPw == $confirmNewPw)
-            {
-                $account = Accounts::find(Auth::id());
-                $account->password = Hash::make($newPw);
-                $account->save();
-                return redirect()->route('back.login')->with('notice-login', 'Mật khẩu mới đã đổi thành công, hãy dùng mật khẩu mới để đăng nhập');
-            }
-            else
-            {
-                return redirect()->route('account.changepw')->with('error-confirm', __('title.new-password-not-match'));
-            }
-        }
-        else
+        // Check old password.
+        if(!Auth::attempt(['email' => Auth::user()->email,'password' => $request->input('old-password')]))
         {
             return redirect()->route('account.changepw')->with('error-old-pw', __('title.error-old-password'));
         }
 
+        // Check confirm new password.
+        $newPw = $request->input('new-password');
+        $confirmNewPw = $request->input('confirm-new-password');
+        if(!($newPw == $confirmNewPw))
+        {
+            return redirect()->route('account.changepw')->with('error-confirm', __('title.new-password-not-match'));
+        }
+
+        // Change password and login.
+        $account = Accounts::find(Auth::id());
+        $account->setPassword($newPw)->save();
+        return redirect()->route('back.login')->with('notice-login', 'Mật khẩu mới đã đổi thành công, hãy dùng mật khẩu mới để đăng nhập');
     }
 
+    // Notice about reLogin.
     public function noticeLogin()
     {
         return view('ChangePassword.noticeLogout');
