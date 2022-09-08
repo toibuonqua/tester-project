@@ -49,6 +49,7 @@ class Accounts extends BaseAccount
         'status' => self::STATUS_DEACTIVATED,
     ];
 
+
     public function hashPassword()
     {
         $this->password = Hash::make($this->password);

@@ -101,8 +101,9 @@ class WorkSpaceManagementController extends Controller
             $workarea->delete();
         }
         catch(\Illuminate\Database\QueryException $exception){
+            Log::error("Data still in use, foreign key constraints has work area name: {$workarea->name}");
             $workareas = Workarea::paginate(Workarea::DEFAUL_PAGINATION);
-            $exception = 'Khu vực hiện vẫn còn nhân viên, không thể xóa!!!';
+            $exception = __('title.error-constraints-foreign-key');
             return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
         }
         return redirect()->route('worksm.homepage');
