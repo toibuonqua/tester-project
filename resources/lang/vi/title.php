@@ -13,6 +13,7 @@ return [
     'add-class' => 'Thêm lớp học',
     'add-course' => 'Thêm khóa học',
     'add-exam' => 'Tạo đề thi',
+    'add-new' => 'Thêm mới',
     'add-user' => 'Thêm người dùng',
     'add-work-area' => 'Thêm mới khu vực làm việc',
     'admin' => 'Admin',

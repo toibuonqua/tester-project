@@ -14,6 +14,7 @@ return [
     'admin' => 'Admin',
     'add-course' => 'Add Course',
     'add-exam' => 'Add exam',
+    'add-new' => 'Add new',
     'add-user' => 'Add user',
     'add-work-area' => 'Add New Work Area',
     'all' => 'All',
