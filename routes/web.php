@@ -41,6 +41,8 @@ Route::prefix('user')->middleware('check.admin')->group(function ()
 
     Route::get('/search', [UsersManagementController::class, 'search'])->name('user.search');
 
+    Route::get('/export', [UsersManagementController::class, 'export'])->name('user.export');
+
     Route::get('/add', [UsersManagementController::class, 'add'])->name('user.add');
 
     Route::post('/add', [UsersManagementController::class, 'store'])->name('user.store');

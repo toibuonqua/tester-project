@@ -12,6 +12,8 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Controllers\Web\WebResponseTrait;
 use App\Common\ExportExceptOnScreen;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\AccountsExport;
 
 class UsersManagementController extends Controller
 {
@@ -120,6 +122,13 @@ class UsersManagementController extends Controller
 
         return view('userManagement.usersmanagement', compact('accounts'));
     }
+
+    // Export excel file
+    public function export()
+    {
+        return Excel::download(new AccountsExport, 'accounts.xlsx');
+    }
+
 
     // Change status user
     public function active($id)
