@@ -48,7 +48,7 @@
         </div>
 
         <div style="margin-top: 50px">
-            <button style="width: 180px" class="btn btn-outline-success" onclick="return confirm('{{ __('title.notice-update-user') }}')" type="submit">Lưu</button>
+            <button style="width: 180px" class="btn btn-outline-success" onclick="return confirm('{{ __('title.notice-update-work-area') }}')" type="submit">Lưu</button>
         </div>
 
     </div>

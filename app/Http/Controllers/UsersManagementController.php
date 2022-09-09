@@ -85,7 +85,7 @@ class UsersManagementController extends Controller
             'email' => 'required|email|unique:accounts',
             'username' => 'required',
             'phone_number' => 'required',
-            'code_user' => 'required',
+            'code_user' => 'required|integer',
             'department_id' => 'required',
             'role_id' => 'required',
         ]);

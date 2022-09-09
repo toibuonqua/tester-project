@@ -45,7 +45,7 @@ class LoginController extends Controller
             return redirect()->route('home')->with('error', __('title.account-not-active'));
         }
 
-        Log::error("Status is not handled: {$user->id} has the status {$user->status}");
+        Log::error("Status is not handled: {$user->id} has the status: {$user->status}");
         $request->session()->flush();
         Auth::logout();
         return redirect()->route('home')->with('error', __('title.cant-define-user'));

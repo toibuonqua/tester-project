@@ -86,6 +86,7 @@ return [
     'edit' => 'Edit',
     'email' => 'Email',
     'error' => 'Email or password were wrong',
+    'error-constraints-foreign-key' => 'Data still in use, foreign key constraints',
     'error-old-password' => 'Old password is not correct',
     'exam' => 'Exam',
     'end-time' => 'Finish time',
