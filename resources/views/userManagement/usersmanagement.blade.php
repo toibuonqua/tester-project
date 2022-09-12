@@ -3,6 +3,14 @@
 @section('nav-name-title', __('title.user-management'))
 
 @section('content')
+
+{{-- flasher message --}}
+@if (session()->has('success'))
+    <div class="fixed bg-green-600 text-white py-2 px-4 rounded-xl bottom-3 right-3 text-sm">
+        <p>{{ session()->get('success') }}</p>
+    </div>
+@endif
+
 {{-- Thanh search và các button --}}
 <div>
 

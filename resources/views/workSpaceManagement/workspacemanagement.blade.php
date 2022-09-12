@@ -14,16 +14,16 @@
             <form class="d-flex" method="get" action="{{ route('worksm.search') }}">
             @csrf
                 <input class="form-control me-2" name="query" type="text" placeholder="Tìm kiếm">
-                <button style="width: 180px" class="btn btn-outline-success" type="submit">Tìm kiếm</button>
+                <button style="width: 180px" class="btn btn-outline-success" type="submit">{{ __('title.search') }}</button>
             </form>
           </div>
 
           <div class="fix-space">
-                <a href="{{ route('worksm.add') }}"><button type="button" class="btn btn-success">Thêm mới</button></a>
+                <a href="{{ route('worksm.add') }}"><button type="button" class="btn btn-success">{{ __('title.add-new') }}</button></a>
           </div>
 
           <div class="fix-space">
-                <button type="button" class="btn btn-success">Xuất file</button>
+                <button type="button" class="btn btn-success">{{ __('title.export-excel') }}</button>
           </div>
 
 

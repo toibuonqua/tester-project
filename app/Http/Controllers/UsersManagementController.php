@@ -14,6 +14,8 @@ use App\Common\ExportExceptOnScreen;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AccountsExport;
+use Flasher\Toastr\Prime\ToastrFactory;
+
 
 class UsersManagementController extends Controller
 {
@@ -71,17 +73,18 @@ class UsersManagementController extends Controller
     }
 
     // update user info
-    public function update($id, Request $request)
+    public function update($id, Request $request, ToastrFactory $flasher)
     {
         $account = Accounts::query()->findOrFail($id);
         $data = $request->only('username', 'email', 'phone_number', 'status', 'code_user', 'department_id', 'role_id');
         $account->update($data);
+        $flasher->addSuccess(__('title.notice-modify-user-success'));
 
         return redirect()->route('homepage');
     }
 
     // Add new user
-    public function store(Request $request)
+    public function store(Request $request, ToastrFactory $flasher)
     {
         $request->validate([
             'email' => 'required|email|unique:accounts',
@@ -104,6 +107,7 @@ class UsersManagementController extends Controller
         $account->manager_id = Auth::user()->id;
         $account->hashPassword();
         $account->save();
+        $flasher->addSuccess(__('title.notice-add-user-success'));
         return redirect()->route('homepage');
     }
 
@@ -131,18 +135,27 @@ class UsersManagementController extends Controller
 
 
     // Change status user
-    public function active($id)
+    public function active($id, ToastrFactory $flasher)
     {
         $account = Accounts::find($id);
         $account->activate()->save();
+        if ($account->status == Accounts::STATUS_ACTIVATED)
+        {
+            $flasher->addSuccess(__('title.active-user'));
+        }
+        else
+        {
+            $flasher->addSuccess(__('title.deactive-user'));
+        }
         return redirect()->route('homepage');
     }
 
     // reset password user
-    public function resetpw($id)
+    public function resetpw($id, ToastrFactory $flasher)
     {
         $account = Accounts::find($id);
         $account->resetPassword()->save();
+        $flasher->addSuccess(__('title.notice-reset-password-succcess'));
         return redirect()->route('homepage');
     }
 

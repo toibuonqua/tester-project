@@ -11,10 +11,13 @@ use App\Http\Controllers\Web\WebResponseTrait;
 use App\Common\ExportExceptOnScreen;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Flasher\Toastr\Prime\ToastrFactory;
 
 class WorkSpaceManagementController extends Controller
 {
     use WebResponseTrait, ExportExceptOnScreen;
+
+    // view index
     public function index() {
 
         $workareas = Workarea::paginate(Workarea::DEFAUL_PAGINATION);
@@ -23,6 +26,7 @@ class WorkSpaceManagementController extends Controller
         return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
     }
 
+    // view add
     public function add(Request $request) {
 
         $title = __('title.add-work-area');
@@ -35,6 +39,7 @@ class WorkSpaceManagementController extends Controller
         return view('workSpaceManagement.addworkarea', compact('title'));
     }
 
+    // view modify
     public function modify($id) {
 
         $title = __('title.modify-work-area');
@@ -43,6 +48,7 @@ class WorkSpaceManagementController extends Controller
         return view('workSpaceManagement.modworkarea', compact('title', 'workarea'));
     }
 
+    // view detail
     public function detail($id) {
 
         $title = __('title.detail-work-area');
@@ -51,13 +57,15 @@ class WorkSpaceManagementController extends Controller
         return view('workSpaceManagement.detailworkarea', compact('title', 'workarea'));
     }
 
-    public function update($id, Request $request)
+    // update info workarea
+    public function update($id, Request $request, ToastrFactory $flasher)
     {
         try {
             $workarea = Workarea::query()->findOrFail($id);
             $workarea->name = $request->input('name');
             $workarea->work_areas_code = $request->input('work_areas_code');
             $workarea->save();
+            $flasher->addSuccess(__('title.notice-modify-workarea-success'));
             return redirect()->route('worksm.homepage');
         }
         catch(\Illuminate\Database\QueryException $exception){
@@ -68,7 +76,8 @@ class WorkSpaceManagementController extends Controller
         }
     }
 
-    public function store(Request $request)
+    // Add new Workarea
+    public function store(Request $request, ToastrFactory $flasher)
     {
 
         $request->validate([
@@ -81,9 +90,11 @@ class WorkSpaceManagementController extends Controller
         $workarea->work_areas_code = $request->input('work_areas_code');
         $workarea->createrId = Auth::id();
         $workarea->save();
+        $flasher->addSuccess(__('title.notice-add-work-area-success'));
         return redirect()->route('worksm.homepage');
     }
 
+    // Search
     public function search(Request $request)
     {
         $search_text = $request->input("query");
@@ -93,7 +104,8 @@ class WorkSpaceManagementController extends Controller
         return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
     }
 
-    public function delete($id)
+    // Delete workarea
+    public function delete($id, ToastrFactory $flasher)
     {
         $workarea = Workarea::find($id);
 
@@ -106,6 +118,7 @@ class WorkSpaceManagementController extends Controller
             $exception = __('title.error-constraints-foreign-key');
             return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
         }
+        $flasher->addSuccess(__('title.notice-delete-work-area-success'));
         return redirect()->route('worksm.homepage');
     }
 
