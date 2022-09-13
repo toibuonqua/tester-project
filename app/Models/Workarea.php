@@ -11,7 +11,7 @@ class Workarea extends Model
 
     protected $table = 'workarea';
 
-    protected $fillable = ['id', 'name', 'work_areas_code'];
+    protected $fillable = ['id', 'name', 'work_areas_code', 'created_at', 'updated_at'];
 
     const DEFAULT_STATUS = 'active';
     const DEFAUL_PAGINATION = 5;

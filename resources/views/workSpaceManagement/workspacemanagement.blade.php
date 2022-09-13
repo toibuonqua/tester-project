@@ -22,10 +22,12 @@
                 <a href="{{ route('worksm.add') }}"><button type="button" class="btn btn-success">{{ __('title.add-new') }}</button></a>
           </div>
 
-          <div class="fix-space">
-                <button type="button" class="btn btn-success">{{ __('title.export-excel') }}</button>
-          </div>
-
+          <form method="get" action="{{ route('worksm.export') }}">
+            @csrf
+            <div class="fix-space">
+                    <button type="submit" class="btn btn-success">{{ __('title.export-excel') }}</button>
+            </div>
+          </form>
 
         </div>
     </nav>

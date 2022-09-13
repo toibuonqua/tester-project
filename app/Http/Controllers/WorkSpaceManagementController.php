@@ -7,21 +7,29 @@ use App\Models\Accounts;
 use App\Models\Department;
 use App\Models\Role;
 use App\Models\Workarea;
+use App\Common\MakeArray;
 use App\Http\Controllers\Web\WebResponseTrait;
 use App\Common\ExportExceptOnScreen;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Flasher\Toastr\Prime\ToastrFactory;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\WorkareaExport;
+use Carbon\Carbon;
 
 class WorkSpaceManagementController extends Controller
 {
-    use WebResponseTrait, ExportExceptOnScreen;
+    use WebResponseTrait, ExportExceptOnScreen, MakeArray;
 
     // view index
-    public function index() {
+    public function index(Request $request) {
 
         $workareas = Workarea::paginate(Workarea::DEFAUL_PAGINATION);
         $exception = '';
+
+        // get data from database to export excel
+        $dataexport = Workarea::all();
+        $request->session()->put('workareas', $dataexport);  // put data in session()
 
         return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
     }
@@ -94,14 +102,32 @@ class WorkSpaceManagementController extends Controller
         return redirect()->route('worksm.homepage');
     }
 
-    // Search
+    // Search bar
     public function search(Request $request)
     {
         $search_text = $request->input("query");
-        $workareas = Workarea::where('name', 'like', '%'.$search_text.'%')->paginate(Workarea::DEFAUL_PAGINATION);;
+        $workareas = Workarea::where('name', 'like', '%'.$search_text.'%')->paginate(Workarea::DEFAUL_PAGINATION);
         $exception = '';
 
+        // get data from database to export excel
+        $dataexport = Workarea::where('name', 'like', '%'.$search_text.'%')->get();
+        $request->session()->put('workareas', $dataexport);
+
         return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
+    }
+
+    // export excel
+    public function export(Request $request)
+    {
+        $workareas = $request->session()->get('workareas');
+        $time = Carbon::now()->format('YmdHi');
+        $result = $this->backArray($workareas, [
+            'work_areas_code',
+            'name',
+            'created_at',
+            'updated_at',
+        ]);
+        return Excel::download(new WorkareaExport($result),  'DanhSachKVLV_'.$time.'.xlsx');
     }
 
     // Delete workarea
