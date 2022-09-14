@@ -97,10 +97,16 @@
         </div>
 
         <div style="margin-top: 50px">
-            <button style="width: 180px" class="btn btn-outline-success" onclick="return confirm('{{ __('title.notice-add-user') }}')" type="submit">{{ __('title.save') }}</button>
+            <button style="width: 180px" class="btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#myModal">{{ __('title.save') }}</button>
         </div>
 
     </div>
+
+    @include('common.modal.confirm_option', [
+        $id = "myModal",
+        $content = __('title.notice-add-user'),
+        $name_but = __('title.add')
+    ])
 
 </form>
 

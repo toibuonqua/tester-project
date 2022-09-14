@@ -53,7 +53,7 @@
             'edit_route' => 'worksm.modify',
             'delete_route' => 'worksm.delete',
             $notice_delete = __('title.notice-delete-work-area')
-        ]);
+        ])
         <div class="display-pagi">
             {{ $workareas->links() }}
         </div>
