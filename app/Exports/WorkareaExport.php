@@ -13,7 +13,7 @@ class WorkareaExport implements FromArray, WithHeadings
 
     public function __construct($workareas)
     {
-        $result = $this->backArray($workareas, [
+        $result = $this->formatToArray($workareas, [
             'work_areas_code',
             'name',
             'created_at',

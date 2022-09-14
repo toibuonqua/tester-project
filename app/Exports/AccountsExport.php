@@ -14,7 +14,7 @@ class AccountsExport implements FromArray, WithHeadings
 
     public function __construct($accounts)
     {
-        $result = $this->backArray($accounts, [
+        $result = $this->formatToArray($accounts, [
             'username',
             'email',
             'department_name',
