@@ -187,6 +187,7 @@ return [
          */
 
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Flasher\Laravel\FlasherServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -210,7 +211,8 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Flasher' => Flasher\Laravel\Facade\Flasher::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 

@@ -14,11 +14,15 @@ use App\Common\ExportExceptOnScreen;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AccountsExport;
+use Carbon\Carbon;
+use Flasher\Toastr\Prime\ToastrFactory;
+use App\Common\MakeArray;
+
 
 class UsersManagementController extends Controller
 {
 
-    use WebResponseTrait, ExportExceptOnScreen;
+    use WebResponseTrait, ExportExceptOnScreen, MakeArray;
 
     // view Index
     public function index(Request $request)
@@ -31,6 +35,15 @@ class UsersManagementController extends Controller
             $account->department_name = $account->department->name;
             $account->workarea_code = $account->workarea->work_areas_code;
         };
+
+        // get data to export excel
+        $dataexport = Accounts::with('role', 'department', 'workarea')->get();
+        foreach ($dataexport as $value) {
+            $value->role_name = $value->role->name;
+            $value->department_name = $value->department->name;
+            $value->workarea_code = $value->workarea->work_areas_code;
+        };
+        $request->session()->put('accounts', $dataexport);
 
         return view('userManagement.usersmanagement', compact('accounts'));
     }
@@ -46,7 +59,6 @@ class UsersManagementController extends Controller
         if ($error) {
             $this->updateFailMessage($request, $this->backString($request, $error));
         }
-
         return view('userManagement.adduser', compact('departments', 'roles'));
     }
 
@@ -71,17 +83,18 @@ class UsersManagementController extends Controller
     }
 
     // update user info
-    public function update($id, Request $request)
+    public function update($id, Request $request, ToastrFactory $flasher)
     {
         $account = Accounts::query()->findOrFail($id);
         $data = $request->only('username', 'email', 'phone_number', 'status', 'code_user', 'department_id', 'role_id');
         $account->update($data);
+        $flasher->addSuccess(__('title.notice-modify-user-success'));
 
         return redirect()->route('homepage');
     }
 
     // Add new user
-    public function store(Request $request)
+    public function store(Request $request, ToastrFactory $flasher)
     {
         $request->validate([
             'email' => 'required|email|unique:accounts',
@@ -104,6 +117,7 @@ class UsersManagementController extends Controller
         $account->manager_id = Auth::user()->id;
         $account->hashPassword();
         $account->save();
+        $flasher->addSuccess(__('title.notice-add-user-success'));
         return redirect()->route('homepage');
     }
 
@@ -119,30 +133,59 @@ class UsersManagementController extends Controller
             $account->workarea_code = $account->workarea->work_areas_code;
         };
 
+        // get data to export excel
+        $dataexport = Accounts::where('username', 'like', '%' . $search_text . '%')->with('role', 'department', 'workarea')->get();
+
+        foreach ($dataexport as $value) {
+            $value->role_name = $value->role->name;
+            $value->department_name = $value->department->name;
+            $value->workarea_code = $value->workarea->work_areas_code;
+        };
+        $request->session()->put('accounts', $dataexport);
 
         return view('userManagement.usersmanagement', compact('accounts'));
     }
 
     // Export excel file
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new AccountsExport, 'accounts.xlsx');
+        $accounts = $request->session()->get('accounts');
+        $result = $this->backArray($accounts, [
+            'username',
+            'email',
+            'department_name',
+            'role_name',
+            'workarea_code',
+            'created_at',
+            'updated_at',
+        ]);
+        $time = Carbon::now()->format('YmdHi');
+        return Excel::download(new AccountsExport($result), 'danhsachnguoidung_'.$time.'.xlsx');
     }
 
 
     // Change status user
-    public function active($id)
+    public function active($id, ToastrFactory $flasher)
     {
         $account = Accounts::find($id);
         $account->activate()->save();
+        if ($account->status == Accounts::STATUS_ACTIVATED)
+        {
+            $flasher->addSuccess(__('title.active-user'));
+        }
+        else
+        {
+            $flasher->addSuccess(__('title.deactive-user'));
+        }
         return redirect()->route('homepage');
     }
 
     // reset password user
-    public function resetpw($id)
+    public function resetpw($id, ToastrFactory $flasher)
     {
         $account = Accounts::find($id);
         $account->resetPassword()->save();
+        $flasher->addSuccess(__('title.notice-reset-password-succcess'));
         return redirect()->route('homepage');
     }
 

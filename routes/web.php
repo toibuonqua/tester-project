@@ -67,6 +67,8 @@ Route::prefix('work-space-management')->middleware('check.admin')->group( functi
 
     Route::get('/search', [WorkSpaceManagementController::class, 'search'])->name('worksm.search');
 
+    Route::get('/export', [WorkSpaceManagementController::class, 'export'])->name('worksm.export');
+
     Route::get('/add', [WorkSpaceManagementController::class,'add']) -> name('worksm.add');
 
     Route::post('/add', [WorkSpaceManagementController::class, 'store'])->name('worksm.store');
