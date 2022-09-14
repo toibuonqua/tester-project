@@ -5,14 +5,25 @@ namespace App\Exports;
 use App\Models\Accounts;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromArray;
+use App\Common\MakeArray;
 
 
 class AccountsExport implements FromArray, WithHeadings
 {
+    use MakeArray;
 
     public function __construct($accounts)
     {
-        $this->accounts = $accounts;
+        $result = $this->backArray($accounts, [
+            'username',
+            'email',
+            'department_name',
+            'role_name',
+            'workarea_code',
+            'created_at',
+            'updated_at',
+        ]);
+        $this->accounts = $result;
     }
 
     public function array(): array

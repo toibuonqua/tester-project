@@ -6,20 +6,23 @@ use Illuminate\Http\Request;
 
 trait MakeArray
 {
-    public function backArray($items, $array)
+    // Hàm nhận vào 2 parameter [$items (data query từ database), $array (phần tử là tên các cột trong items).
+    // return => 1 array với các phần từ là các object.
+    // VD: $result = backArray($data, ['column_name_data', 'column_name_data', 'column_name_data', . . .])
+    public function backArray($items, $column_array)
     {
         $itemsList = array();
 
         foreach ($items as $item) {
-            array_push($itemsList, $this->makeObject($item, $array));
+            array_push($itemsList, $this->makeObject($item, $column_array));
         }
         return $itemsList;
     }
 
-    public function makeObject($item, $array)
+    public function makeObject($item, $column_array)
     {
         $result = array();
-        foreach ($array as $value) {
+        foreach ($column_array as $value) {
             array_push($result, $item->$value);
         }
         return $result;

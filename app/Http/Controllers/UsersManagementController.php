@@ -16,13 +16,12 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AccountsExport;
 use Carbon\Carbon;
 use Flasher\Toastr\Prime\ToastrFactory;
-use App\Common\MakeArray;
 
 
 class UsersManagementController extends Controller
 {
 
-    use WebResponseTrait, ExportExceptOnScreen, MakeArray;
+    use WebResponseTrait, ExportExceptOnScreen;
 
     // view Index
     public function index(Request $request)
@@ -150,17 +149,8 @@ class UsersManagementController extends Controller
     public function export(Request $request)
     {
         $accounts = $request->session()->get('accounts');
-        $result = $this->backArray($accounts, [
-            'username',
-            'email',
-            'department_name',
-            'role_name',
-            'workarea_code',
-            'created_at',
-            'updated_at',
-        ]);
         $time = Carbon::now()->format('YmdHi');
-        return Excel::download(new AccountsExport($result), 'danhsachnguoidung_'.$time.'.xlsx');
+        return Excel::download(new AccountsExport($accounts), 'danhsachnguoidung_'.$time.'.xlsx');
     }
 
 

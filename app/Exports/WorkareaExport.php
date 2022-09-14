@@ -5,13 +5,21 @@ namespace App\Exports;
 use App\Models\Workarea;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use App\Common\MakeArray;
 
 class WorkareaExport implements FromArray, WithHeadings
 {
+    use MakeArray;
 
     public function __construct($workareas)
     {
-        $this->workareas = $workareas;
+        $result = $this->backArray($workareas, [
+            'work_areas_code',
+            'name',
+            'created_at',
+            'updated_at',
+        ]);
+        $this->workareas = $result;
     }
 
     public function array(): array
