@@ -30,45 +30,21 @@
                     </td>
                 @elseif ($value === 'pattern.delete')
                     <td>
-                        <form method="post" action="{{ route($delete_route, [$id_param ?? 'id' => $item->id]) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" >{{ __('title.' . ($delete_text ?? 'delete')) }}</button>
-
-                            @include('common.modal.confirm_option', [
-                                $id = 'deleteModal',
-                                $content = $notice_delete,
-                                $name_but = __('title.delete'),
-                            ])
-                        </form>
+                        <a href="{{ route($delete_route, [$id_param ?? 'id' => $item->id]) }}" onclick="return confirm('{{ $notice_delete }}')" class="btn btn-success">
+                            {{ __('title.' . ($delete_text ?? 'delete')) }}
+                        </a>
                     </td>
                 @elseif ($value === 'pattern.status')
                     <td>
-                        <form method="post" action="{{ route($status_route, [$id_param ?? 'id' => $item->id]) }}">
-                            @csrf
-                            @method('POST')
-                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#statusModal" type="button">{{ __('title.' . ($status_text ?? 'action')) }}</button>
-
-                            @include('common.modal.confirm_option', [
-                                $id = "statusModal",
-                                $content = $notice_active,
-                                $name_but = __('title.change'),
-                            ])
-                        </form>
+                        <a href="{{ route($status_route, [$id_param ?? 'id' => $item->id]) }}" class="btn btn-success" onclick="return confirm('{{ $notice_active }}')">
+                            {{ __('title.' . ($status_text ?? 'action')) }}
+                        </a>
                     </td>
                 @elseif ($value === 'pattern.reset')
                     <td>
-                        <form method="post" action="{{ route($reset_route, [$id_param ?? 'id' => $item->id]) }}">
-                            @csrf
-                            @method('POST')
-                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#resetpwModal" type="button">{{ __('title.' . ($reset_text ?? 'reset-pw')) }}</button>
-
-                            @include('common.modal.confirm_option', [
-                                $id = 'resetpwModal',
-                                $content = $notice_reset_pw,
-                                $name_but = __('title.reset'),
-                            ])
-                        </form>
+                        <a href="{{ route($reset_route, [$id_param ?? 'id' => $item->id]) }}" class="btn btn-success" onclick="return confirm('{{ $notice_reset_pw }}')" >
+                            {{ __('title.' . ($reset_text ?? 'reset-pw')) }}
+                        </a>
                     </td>
                 @elseif ($value === 'pattern.image')
                     <td>

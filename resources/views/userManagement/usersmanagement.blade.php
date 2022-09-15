@@ -68,6 +68,7 @@
             $notice_active = __('title.notice-change-active'),
             $notice_reset_pw = __('title.notice-reset-password'),
         ])
+        
         <div class="display-pagi">
             {{ $accounts->links() }}
         </div>

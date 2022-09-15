@@ -57,7 +57,7 @@
     </div>
 
     @include('common.modal.confirm_option', [
-        $id = 'myModal',
+        $id_modal = 'myModal',
         $content = __('title.notice-add-work-area'),
         $name_but = __('title.add'),
     ])

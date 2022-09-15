@@ -1,5 +1,5 @@
 <!-- The Modal -->
-<div class="modal fade" id={{ $id }}>
+<div class="modal fade" id={{ $id_modal }}>
     <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
 

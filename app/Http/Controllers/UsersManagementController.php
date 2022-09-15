@@ -42,7 +42,7 @@ class UsersManagementController extends Controller
             $value->department_name = $value->department->name;
             $value->workarea_code = $value->workarea->work_areas_code;
         };
-        $request->session()->put('accounts', $dataexport);
+        $request->session()->put('dataexport', $dataexport);
 
         return view('userManagement.usersmanagement', compact('accounts'));
     }
@@ -140,7 +140,7 @@ class UsersManagementController extends Controller
             $value->department_name = $value->department->name;
             $value->workarea_code = $value->workarea->work_areas_code;
         };
-        $request->session()->put('accounts', $dataexport);
+        $request->session()->put('dataexport', $dataexport);
 
         return view('userManagement.usersmanagement', compact('accounts'));
     }
@@ -148,7 +148,7 @@ class UsersManagementController extends Controller
     // Export excel file
     public function export(Request $request)
     {
-        $accounts = $request->session()->get('accounts');
+        $accounts = $request->session()->get('dataexport');
         $time = Carbon::now()->format('YmdHi');
         return Excel::download(new AccountsExport($accounts), 'danhsachnguoidung_'.$time.'.xlsx');
     }

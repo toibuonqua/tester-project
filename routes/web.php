@@ -53,9 +53,9 @@ Route::prefix('user')->middleware('check.admin')->group(function ()
 
     Route::post('/modify/{id}', [UsersManagementController::class, 'update'])->name('user.update');
 
-    Route::post('/active/{id}', [UsersManagementController::class, 'active'])->name('user.active');
+    Route::get('/active/{id}', [UsersManagementController::class, 'active'])->name('user.active');
 
-    Route::post('/reset_pw/{id}', [UsersManagementController::class, 'resetpw'])->name('user.resetpw');
+    Route::get('/reset_pw/{id}', [UsersManagementController::class, 'resetpw'])->name('user.resetpw');
 
 });
 
@@ -73,7 +73,7 @@ Route::prefix('work-space-management')->middleware('check.admin')->group( functi
 
     Route::post('/add', [WorkSpaceManagementController::class, 'store'])->name('worksm.store');
 
-    Route::delete('/delete/{id}', [WorkSpaceManagementController::class,'delete']) -> name('worksm.delete');
+    Route::get('/delete/{id}', [WorkSpaceManagementController::class,'delete']) -> name('worksm.delete');
 
     Route::get('/modify/{id}', [WorkSpaceManagementController::class,'modify']) -> name('worksm.modify');
 
