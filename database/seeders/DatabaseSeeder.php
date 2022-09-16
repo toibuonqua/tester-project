@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
             WorkareaSeeder::class,
             DepartmentSeeder::class,
             AccountSeeder::class,
-            AdmincodestarSeeder::class,
         ]);
 
     }
