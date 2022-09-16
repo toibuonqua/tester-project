@@ -5,10 +5,9 @@
 
 @include('common.block.title1', [$title = __('title.add-user')])
 
-<form method="post" action="{{ route('user.store') }}">
+<form id="add_user" method="post" action="{{ route('user.store') }}">
 
     @csrf
-
 
     <div class="display-child-page">
 
@@ -102,14 +101,16 @@
 
     </div>
 
-    @include('common.modal.confirm_option', [
-        $id_modal = "myModal",
-        $content = __('title.notice-add-user'),
-        $name_but = __('title.add')
-    ])
-
 </form>
 
+@include('common.modal.confirm_option', [
+    $id_modal = "myModal",
+    $content = __('title.notice-add-user'),
+    $id_form = "add_user",
+    $name_but = __('title.add'),
+])
+
+<br>
 @include('common.block.flash-message')
 
 @endsection

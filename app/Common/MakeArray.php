@@ -6,9 +6,14 @@ use Illuminate\Http\Request;
 
 trait MakeArray
 {
-    // Hàm nhận vào 2 parameter [$items (data query từ database), $array (phần tử là tên các cột trong items).
-    // return => 1 array với các phần từ là các object.
-    // VD: $result = backArray($data, ['column_name_data', 'column_name_data', 'column_name_data', . . .])
+    /**
+     * documented function formatArray()
+     *
+     * @param data [type] $items -> example: $items = Model::all();
+     * @param array [type] $column_array ->example: $column_array = ['column_name_data', 'column_name_data', 'column_name_data', . . .]
+     * @return array() example: [$column_array, $column_array, . . . ]
+     *
+     */
     public function formatToArray($items, $column_array)
     {
         $itemsList = array();

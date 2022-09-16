@@ -6,9 +6,10 @@
 @include('common.block.title1', [$title = __('title.modify-info-user')])
 
 
-<form method="post" action="{{ route('user.update', ['id' => $account->id]) }}">
+<form id="mod_user" method="post" action="{{ route('user.update', ['id' => $account->id]) }}">
 
     @csrf
+    
     <div class="display-child-page">
 
         {{-- Field Họ và tên --}}
@@ -147,12 +148,13 @@
 
     </div>
 
-    @include('common.modal.confirm_option', [
-        $id_modal = "myModal",
-        $content = __('title.notice-update-user'),
-        $name_but = __('title.modify'),
-    ])
-
 </form>
+
+@include('common.modal.confirm_option', [
+    $id_modal = "myModal",
+    $content = __('title.notice-update-user'),
+    $id_form = "mod_user",
+    $name_but = __('title.modify'),
+])
 
 @endsection

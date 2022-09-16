@@ -17,7 +17,7 @@
         <!-- Modal footer -->
         <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('title.cancel') }}</button>
-        <button type="submit" class="btn btn-success">{{ $name_but }}</button>
+        <button form="{{ $id_form }}" type="submit" class="btn btn-success">{{ $name_but }}</button>
         </div>
 
     </div>
