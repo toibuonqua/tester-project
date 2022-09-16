@@ -1,5 +1,5 @@
 <!-- The Modal -->
-<div class="modal fade" id={{ $id }}>
+<div class="modal fade" id={{ $id_modal }}>
     <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
 
@@ -17,7 +17,7 @@
         <!-- Modal footer -->
         <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('title.cancel') }}</button>
-        <button type="submit" class="btn btn-success">{{ $name_but }}</button>
+        <button form="{{ $id_form }}" type="submit" class="btn btn-success">{{ $name_but }}</button>
         </div>
 
     </div>

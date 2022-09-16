@@ -6,7 +6,7 @@
     @include('common.block.title1')
 
 
-<form method="post" action="{{ route('worksm.update', ['id' => $workarea->id]) }}">
+<form id="mod_workarea" method="post" action="{{ route('worksm.update', ['id' => $workarea->id]) }}">
 
     @csrf
 
@@ -53,12 +53,13 @@
 
     </div>
 
-    @include('common.modal.confirm_option', [
-        $id = 'myModal',
-        $content = __('title.notice-update-work-area'),
-        $name_but = __('title.modify'),
-    ])
-
 </form>
+
+@include('common.modal.confirm_option', [
+    $id_modal = 'myModal',
+    $content = __('title.notice-update-work-area'),
+    $id_form = "mod_workarea"
+    $name_but = __('title.modify'),
+])
 
 @endsection

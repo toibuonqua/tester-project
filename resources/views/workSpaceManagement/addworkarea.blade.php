@@ -5,7 +5,7 @@
 
     @include('common.block.title1')
 
-<form method="post" action="{{ route('worksm.store') }}">
+<form id="add_workarea" method="post" action="{{ route('worksm.store') }}">
 
     @csrf
 
@@ -56,13 +56,14 @@
 
     </div>
 
-    @include('common.modal.confirm_option', [
-        $id = 'myModal',
-        $content = __('title.notice-add-work-area'),
-        $name_but = __('title.add'),
-    ])
-
 </form>
+
+@include('common.modal.confirm_option', [
+    $id_modal = 'myModal',
+    $content = __('title.notice-add-work-area'),
+    $id_form = "add_workarea",
+    $name_but = __('title.add'),
+])
 
 @include('common.block.flash-message')
 

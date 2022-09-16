@@ -24,14 +24,14 @@ class AccountSeeder extends Seeder
     {
         $workareas = Workarea::pluck('id')->toArray();
         $departments = Department::pluck('id')->toArray();
-        $admin_id = Role::where('name', "Admin/IT")->first();
+        $admin_role = Role::where('name', "Admin/IT")->first();
         Accounts::create(
             [
                 'username' => 'Admin',
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('12345678'),
                 'status' => Accounts::STATUS_ACTIVATED,
-                'role_id' => $admin_id->id,
+                'role_id' => $admin_role->id,
                 'workarea_id' => Arr::random($workareas),
                 'code_user' => 1000,
                 'phone_number' => "0123456789",

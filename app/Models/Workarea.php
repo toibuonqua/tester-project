@@ -24,4 +24,10 @@ class Workarea extends Model
     {
         return $this->hasMany(Accounts::class);
     }
+
+    public function admincodestar()
+    {
+        return $this->hasMany(Admincodestar::class);
+    }
+
 }

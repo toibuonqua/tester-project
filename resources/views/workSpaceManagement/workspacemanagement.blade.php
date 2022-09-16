@@ -13,7 +13,7 @@
           <div class="row">
             <form class="d-flex" method="get" action="{{ route('worksm.search') }}">
             @csrf
-                <input class="form-control me-2" name="query" type="text" placeholder="Tìm kiếm">
+                <input class="form-control me-2" name="query" type="text" placeholder="{{ __('title.search') }}">
                 <button style="width: 180px" class="btn btn-outline-success" type="submit">{{ __('title.search') }}</button>
             </form>
           </div>
@@ -54,6 +54,7 @@
             'delete_route' => 'worksm.delete',
             $notice_delete = __('title.notice-delete-work-area')
         ])
+
         <div class="display-pagi">
             {{ $workareas->links() }}
         </div>

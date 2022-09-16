@@ -20,7 +20,7 @@
           <div class="row">
             <form class="d-flex" method="get" action="{{ route('user.search') }}">
             @csrf
-                <input style="width: 100%" class="form-control me-2" name="query" type="text" placeholder="Tìm kiếm">
+                <input style="width: 100%" class="form-control me-2" name="query" type="text" placeholder="{{ __('title.search') }}">
                 <button style="width: 180px" class="btn btn-outline-success" type="submit">{{ __('title.search') }}</button>
             </form>
           </div>
@@ -68,6 +68,7 @@
             $notice_active = __('title.notice-change-active'),
             $notice_reset_pw = __('title.notice-reset-password'),
         ])
+
         <div class="display-pagi">
             {{ $accounts->links() }}
         </div>

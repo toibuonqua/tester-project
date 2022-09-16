@@ -7,7 +7,6 @@ use App\Models\Accounts;
 use App\Models\Department;
 use App\Models\Role;
 use App\Models\Workarea;
-use App\Common\MakeArray;
 use App\Http\Controllers\Web\WebResponseTrait;
 use App\Common\ExportExceptOnScreen;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +18,7 @@ use Carbon\Carbon;
 
 class WorkSpaceManagementController extends Controller
 {
-    use WebResponseTrait, ExportExceptOnScreen, MakeArray;
+    use WebResponseTrait, ExportExceptOnScreen;
 
     // view index
     public function index(Request $request) {
@@ -29,7 +28,7 @@ class WorkSpaceManagementController extends Controller
 
         // get data from database to export excel
         $dataexport = Workarea::all();
-        $request->session()->put('workareas', $dataexport);  // put data in session()
+        $request->session()->put('dataexport', $dataexport);  // put data in session()
 
         return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
     }
@@ -111,7 +110,7 @@ class WorkSpaceManagementController extends Controller
 
         // get data from database to export excel
         $dataexport = Workarea::where('name', 'like', '%'.$search_text.'%')->get();
-        $request->session()->put('workareas', $dataexport);
+        $request->session()->put('dataexport', $dataexport);
 
         return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
     }
@@ -119,15 +118,9 @@ class WorkSpaceManagementController extends Controller
     // export excel
     public function export(Request $request)
     {
-        $workareas = $request->session()->get('workareas');
+        $workareas = $request->session()->get('dataexport');
         $time = Carbon::now()->format('YmdHi');
-        $result = $this->backArray($workareas, [
-            'work_areas_code',
-            'name',
-            'created_at',
-            'updated_at',
-        ]);
-        return Excel::download(new WorkareaExport($result),  'DanhSachKVLV_'.$time.'.xlsx');
+        return Excel::download(new WorkareaExport($workareas),  'DanhSachKVLV_'.$time.'.xlsx');
     }
 
     // Delete workarea
