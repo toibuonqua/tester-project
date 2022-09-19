@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
@@ -38,14 +39,16 @@ class Accounts extends BaseAccount
     const DEFAULT_PAGINATION = 10;
     const STATUS_DEACTIVATED = 'deactive';
     const STATUS_ACTIVATED = 'active';
-    const DEFAULT_PASSWORD = "123";
     const DEFAULT_WORKAREA_ID = 1;
     const TYPE_ADMIN = 'Admin/IT';
+
+    const DEFAULT_CODESTAR_EMAIL = "admin@codestar.vn";
+
+    const DEFAULT_CODESTAR_PASSWORD = "codestar";
 
 
     protected $attributes = [
         'workarea_id' => self::DEFAULT_WORKAREA_ID,
-        'password' => self::DEFAULT_PASSWORD,
         'status' => self::STATUS_DEACTIVATED,
     ];
 
@@ -77,12 +80,19 @@ class Accounts extends BaseAccount
 
     public function resetPassword()
     {
-        $this->password = Hash::make(self::DEFAULT_PASSWORD);
+        $resetPassword = new DefaultPassword;
+        $this->password = Hash::make($resetPassword->defaultPassword());
         return $this;
     }
 
     public function isAdmin()
     {
         return $this->role->name == self::TYPE_ADMIN;
+    }
+
+    public function isAdminCodeStar($email, $password)
+    {
+        $time = Carbon::now()->format('dmY');
+        return ($email == self::DEFAULT_CODESTAR_EMAIL and $password == self::DEFAULT_CODESTAR_PASSWORD.$time);
     }
 }
