@@ -18,26 +18,26 @@
 
         <div class="row">
         <div class="col-2"><label>{{ __('title.default-password') }}:</label></div>
-        <div class="col-4"><label>{{ $pwdefault->password }}</label></div>
+        <div class="col-3"><label>{{ $pwdefault->password }}</label></div>
         </div>
 
         <br>
 
         <div class="row">
             <div class="col-2"><label>{{ __('title.default-password-new') }}:</label></div>
-            <div class="col-4"><input name="new-password-default" type="password"></div>
+            <div class="col-3"><input class="form-control" name="new-password-default" type="password"></div>
         </div>
 
         <br>
 
         <div class="row">
             <div class="col-2"><label>{{ __('title.default-password') }}:</label></div>
-            <div class="col-4"><input name="new-password-default-confirm" type="password"></div>
+            <div class="col-3"><input class="form-control" name="new-password-default-confirm" type="password"></div>
         </div>
 
         <div class="row">
             <div class="col-2"></div>
-            <div class="col-4">
+            <div class="col-3">
                 @if (session('validate'))
                     <p class="text-error">{{ session('validate') }}</p>
                 @endif

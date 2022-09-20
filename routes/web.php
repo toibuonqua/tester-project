@@ -67,13 +67,13 @@ Route::prefix('work-space-management')->middleware('check.admin')->group( functi
 
     Route::get('/', [WorkSpaceManagementController::class,'index']) -> name('worksm.homepage');
 
-    Route::get('/search', [WorkSpaceManagementController::class, 'search'])->name('worksm.search');
+    Route::get('/search', [WorkSpaceManagementController::class, 'search'])-> name('worksm.search');
 
-    Route::get('/export', [WorkSpaceManagementController::class, 'export'])->name('worksm.export');
+    Route::get('/export', [WorkSpaceManagementController::class, 'export'])-> name('worksm.export');
 
     Route::get('/add', [WorkSpaceManagementController::class,'add']) -> name('worksm.add');
 
-    Route::post('/add', [WorkSpaceManagementController::class, 'store'])->name('worksm.store');
+    Route::post('/add', [WorkSpaceManagementController::class, 'store'])-> name('worksm.store');
 
     Route::get('/delete/{id}', [WorkSpaceManagementController::class,'delete']) -> name('worksm.delete');
 
@@ -93,6 +93,5 @@ Route::prefix('default-password')->middleware('check.admin')->group( function()
     Route::post('/update', [PasswordDefaultController::class, 'update'])->name('dfpassword.update');
 
 });
-
 
 Route::get('/new-arrival-management', [NewArrivalManagementController::class, 'index']) -> name('newam.homepage');

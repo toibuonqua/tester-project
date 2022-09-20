@@ -3,6 +3,7 @@
 return [
     'access-permission' => 'Quyền truy cập',
     'account' => 'Tài khoản',
+    'account-permission-denied' => "Tài khoản không có quyền thực hiện hành động này",
     'account-info' => 'Thông tin tài khoản',
     'account-not-active' => 'Tài khoản chưa được kích hoạt',
     'activate' => 'Kích hoạt tài khoản',

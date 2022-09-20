@@ -3,6 +3,7 @@
 return [
     'access-permission' => 'Access permission',
     'account' => 'Account',
+    'account-permission-denied' => 'Account permission denied',
     'account-info' => 'Account Information',
     'account-not-active' => 'Account not activated',
     'activate' => 'Activate account',

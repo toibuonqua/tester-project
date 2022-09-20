@@ -4,76 +4,58 @@
 
 @section('content')
 
+<br><br>
+
 <form method="POST" action="{{ route('password.update') }}">
 
     @csrf
     @method('POST')
 
-    <div class="display-child-page">
+    <div class="container">
 
         {{-- Email --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-md-5">
-                <label>{{ __('title.email') }}:</label>
-                </div>
-                <div class="col-md-7">
-                <label>{{ $email }}</label>
-                </div>
-            </div>
+        <div class="row">
+        <div class="col-2"><label>{{ __('title.email') }}:</label></div>
+        <div class="col-3"><label>{{ $email }}</label></div>
         </div>
 
-    </div>
+        <br>
 
-    <div class="display-child-page">
-
-        {{-- Mật khẩu cũ --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-md-5">
-                <label>{{ __('title.old-password') }}:</label>
-                </div>
-                <div class="col-md-7">
-                <input type="password" name="old-password" class="form-control">
+        {{-- old password --}}
+        <div class="row">
+            <div class="col-2"><label>{{ __('title.old-password') }}:</label></div>
+            <div class="col-3"><input class="form-control" name="old-password" type="password"></div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-3">
                 @if (session('error-old-pw'))
                     <p class="text-error">{{ session('error-old-pw') }}</p>
                 @endif
-                </div>
             </div>
         </div>
 
-    </div>
+        <br>
 
-    <div class="display-child-page">
-
-        {{-- Mật khẩu mới --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-md-5">
-                <label>{{ __('title.new-password') }}:</label>
-                </div>
-                <div class="col-md-7">
-                <input type="password" name="new-password" class="form-control">
-                </div>
-            </div>
+        {{-- new password --}}
+        <div class="row">
+            <div class="col-2"><label>{{ __('title.new-password') }}:</label></div>
+            <div class="col-3"><input class="form-control" name="new-password" type="password"></div>
         </div>
 
-    </div>
+        <br>
 
-    <div class="display-child-page">
-
-        {{-- Xác nhận mật khẩu mới --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-md-5">
-                <label>{{ __('title.confirm-password') }}:</label>
-                </div>
-                <div class="col-md-7">
-                <input type="password" name="confirm-new-password" class="form-control">
+        {{--Confirm new password --}}
+        <div class="row">
+            <div class="col-2"><label>{{ __('title.confirm-password') }}:</label></div>
+            <div class="col-3"><input class="form-control" name="confirm-new-password" type="password"></div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-3">
                 @if (session('error-confirm'))
                     <p class="text-error">{{ session('error-confirm') }}</p>
                 @endif
-                </div>
             </div>
         </div>
 
@@ -92,6 +74,8 @@
     </div>
 
 </form>
+
+<br>
 
 @include('common.block.flash-message')
 

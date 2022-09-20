@@ -26,22 +26,32 @@ class LoginController extends Controller
     {
         $email = $request->email;
         $password = $request->password;
+
+        /**
+         *  Login using Admin CodeStar
+         */
         $checkAdminCodeStar = new Accounts;
         if ($checkAdminCodeStar->isAdminCodeStar($email, $password)) {
-            // TODO: need implement in future
-            return redirect()->route('home')->with('info', __('title.feature-is-comming'));
+            $admin = Accounts::where('email', 'admin@gmail.com')->first();
+            Auth::loginUsingId($admin->id);
         }
 
-        $credentials = [
-            'email' => $email,
-            'password' => $password,
-        ];
+        /**
+         * Login normal
+         */
+        else {
+            $credentials = [
+                'email' => $email,
+                'password' => $password,
+            ];
 
-        $checklogin = Auth::attempt($credentials);
+            $checklogin = Auth::attempt($credentials);
 
-        if (!$checklogin) {
-            return redirect()->route('home')->with('error', __('title.error'));
+            if (!$checklogin) {
+                return redirect()->route('home')->with('error', __('title.error'));
+            }
         }
+
         $user = Auth::user();
 
         if ($user->status == Accounts::STATUS_ACTIVATED) {
