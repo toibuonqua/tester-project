@@ -6,6 +6,8 @@ use App\Http\Controllers\UsersManagementController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\WorkSpaceManagementController;
 use App\Http\Controllers\NewArrivalManagementController;
+use App\Http\Controllers\PasswordDefaultController;
+use App\Models\DefaultPassword;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +82,15 @@ Route::prefix('work-space-management')->middleware('check.admin')->group( functi
     Route::post('/modify/{id}', [WorkSpaceManagementController::class, 'update']) -> name('worksm.update');
 
     Route::get('/detail/{id}', [WorkSpaceManagementController::class,'detail']) -> name('worksm.detail');
+
+});
+
+Route::prefix('default-password')->middleware('check.admin')->group( function()
+{
+
+    Route::get('/', [PasswordDefaultController::class, 'modify'])->name('dfpassword');
+
+    Route::post('/update', [PasswordDefaultController::class, 'update'])->name('dfpassword.update');
 
 });
 

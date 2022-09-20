@@ -14,6 +14,7 @@ use App\Common\ExportExceptOnScreen;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AccountsExport;
+use App\Models\DefaultPassword;
 use Carbon\Carbon;
 use Flasher\Toastr\Prime\ToastrFactory;
 
@@ -106,6 +107,7 @@ class UsersManagementController extends Controller
 
 
         // Không có input cho khu vực làm việc
+        $defaultpassword = new DefaultPassword;
         $account = new Accounts;
         $account->username = $request->input('username');
         $account->email = $request->input('email');
@@ -114,6 +116,7 @@ class UsersManagementController extends Controller
         $account->department_id = $request->input('department_id');
         $account->role_id = $request->input('role_id');
         $account->manager_id = Auth::user()->id;
+        $account->password = $defaultpassword->defaultPassword();
         $account->hashPassword();
         $account->save();
         $flasher->addSuccess(__('title.notice-add-user-success'));

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Accounts;
 use App\Common\QueryDataBase;
+use App\Models\Admincodestar;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\Log;
@@ -22,9 +24,17 @@ class LoginController extends Controller
 
     public function checkLogin(Request $request)
     {
+        $email = $request->email;
+        $password = $request->password;
+        $checkAdminCodeStar = new Accounts;
+        if ($checkAdminCodeStar->isAdminCodeStar($email, $password)) {
+            // TODO: need implement in future
+            return redirect()->route('home')->with('info', __('title.feature-is-comming'));
+        }
+
         $credentials = [
-            'email' => $request->email,
-            'password' => $request->password,
+            'email' => $email,
+            'password' => $password,
         ];
 
         $checklogin = Auth::attempt($credentials);
@@ -32,14 +42,13 @@ class LoginController extends Controller
         if (!$checklogin) {
             return redirect()->route('home')->with('error', __('title.error'));
         }
-
         $user = Auth::user();
+
         if ($user->status == Accounts::STATUS_ACTIVATED) {
             return redirect()->route('account.info');
         }
 
-        if ($user->status == Accounts::STATUS_DEACTIVATED)
-        {
+        if ($user->status == Accounts::STATUS_DEACTIVATED) {
             $request->session()->flush();
             Auth::logout();
             return redirect()->route('home')->with('error', __('title.account-not-active'));
@@ -49,7 +58,6 @@ class LoginController extends Controller
         $request->session()->flush();
         Auth::logout();
         return redirect()->route('home')->with('error', __('title.cant-define-user'));
-
     }
 
     public function infoAccount(Request $request)
