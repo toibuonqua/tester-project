@@ -15,8 +15,8 @@
         {{-- Mã KVLV --}}
         <div class="config-posi">
             <div class="row">
-                <div class="col-6 col-md-4">
-                <label>{{ __('title.code-work-area') }}:</label>
+                <div class="col-md-4">
+                <label>{{ __('title.code-work-area') }} * :</label>
                 </div>
                 <div class="col-md-8">
                 <input type="text" value="{{ $workarea->work_areas_code }}" name="work_areas_code" class="form-control">
@@ -30,8 +30,8 @@
         {{-- Tên KVLV --}}
         <div class="config-posi">
             <div class="row">
-                <div class="col-6 col-md-4">
-                <label>{{ __('title.name-work-area') }}:</label>
+                <div class="col-md-4">
+                <label>{{ __('title.name-work-area') }} * :</label>
                 </div>
                 <div class="col-md-8">
                 <input type="text" value="{{ $workarea->name }}" name="name" class="form-control">
@@ -58,7 +58,7 @@
 @include('common.modal.confirm_option', [
     $id_modal = 'myModal',
     $content = __('title.notice-update-work-area'),
-    $id_form = "mod_workarea"
+    $id_form = 'mod_workarea',
     $name_but = __('title.modify'),
 ])
 

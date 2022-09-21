@@ -67,7 +67,7 @@ class UsersManagementController extends Controller
     {
         $account = Accounts::with('role', 'department')->find($id);
 
-        if($account->role->name == Accounts::TYPE_ADMIN and Auth::id() != $account->manager_id){
+        if ($account->role->name == Accounts::TYPE_ADMIN and Auth::id() != $account->manager_id and Auth::user()->email != Accounts::EMAIL_ADMIN) {
             $flasher->addError(__('title.account-permission-denied'));
             return redirect()->route('homepage');
         }
@@ -89,12 +89,17 @@ class UsersManagementController extends Controller
     // update user info
     public function update($id, Request $request, ToastrFactory $flasher)
     {
-        $account = Accounts::query()->findOrFail($id);
-        $data = $request->only('username', 'phone_number', 'status', 'code_user', 'department_id', 'role_id');
-        $account->update($data);
-        $flasher->addSuccess(__('title.notice-modify-user-success'));
-
-        return redirect()->route('homepage');
+        try{
+            $account = Accounts::query()->findOrFail($id);
+            $data = $request->only('username', 'phone_number', 'status', 'code_user', 'department_id', 'role_id');
+            $account->update($data);
+            $flasher->addSuccess(__('title.notice-modify-user-success'));
+            return redirect()->route('homepage');
+        }
+        catch(\Illuminate\Database\QueryException){
+            $flasher->addError('Thông tin người dùng không được để trống, cập nhật thông tin thất bại');
+            return back();
+        }
     }
 
     // Add new user
@@ -165,9 +170,9 @@ class UsersManagementController extends Controller
     public function active($id, ToastrFactory $flasher)
     {
         $account = Accounts::with('role')->find($id);
-        if($account->role->name == Accounts::TYPE_ADMIN and Auth::id() != $account->manager_id){
+        if ($account->role->name == Accounts::TYPE_ADMIN and Auth::id() != $account->manager_id and Auth::user()->email != Accounts::EMAIL_ADMIN) {
             $flasher->addError(__('title.account-permission-denied'));
-            return redirect()->route('homepage');
+            return back();
         }
         $account->activate()->save();
         if ($account->status == Accounts::STATUS_ACTIVATED)
@@ -178,20 +183,20 @@ class UsersManagementController extends Controller
         {
             $flasher->addSuccess(__('title.deactive-user'));
         }
-        return redirect()->route('homepage');
+        return back();
     }
 
     // reset password user
     public function resetpw($id, ToastrFactory $flasher)
     {
         $account = Accounts::with('role')->find($id);
-        if($account->role->name == Accounts::TYPE_ADMIN and Auth::id() != $account->manager_id){
+        if ($account->role->name == Accounts::TYPE_ADMIN and Auth::id() != $account->manager_id and Auth::user()->email != Accounts::EMAIL_ADMIN) {
             $flasher->addError(__('title.account-permission-denied'));
-            return redirect()->route('homepage');
+            return back();
         }
         $account->resetPassword()->save();
         $flasher->addSuccess(__('title.notice-reset-password-succcess'));
-        return redirect()->route('homepage');
+        return back();
     }
 
     // view change password

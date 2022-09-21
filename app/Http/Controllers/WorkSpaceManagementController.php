@@ -138,7 +138,7 @@ class WorkSpaceManagementController extends Controller
             return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
         }
         $flasher->addSuccess(__('title.notice-delete-work-area-success'));
-        return redirect()->route('worksm.homepage');
+        return back();
     }
 
 }

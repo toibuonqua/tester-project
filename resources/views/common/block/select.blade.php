@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="col-auto">
-    <label for="{{ $name }}" class="col-form-label">{{ __("title.$name") }}</label>
+    <div class="col-3">
+    <label for="{{ $name }}" class="col-form-label">{{ __("title.$name") }} * :</label>
     </div>
-    <div class="col-auto">
+    <div class="col-5">
         <select name="{{ $name ?? 'course' }}" class="form-select course-select" id="{{ 'select_'.$name}}">
             <option value="">{{ __("title.select") . " " . __("title.$name") }}</option>
             @foreach ($options ?? [] as $option)

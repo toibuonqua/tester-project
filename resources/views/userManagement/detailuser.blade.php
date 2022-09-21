@@ -5,61 +5,85 @@
 
 @include('common.block.title1', [$title = __('title.detail-user')])
 
-<div style="max-width: 100%, margin-left: 20%" class="container">
+<br>
 
-    {{-- Field họ tên và phòng ban --}}
-    <div class="row">
-        <div style="display: flex" class="col-md-6">
-            <p>{{ __('title.fullname') }}:</p>
-            <p style="margin-left: 5%">{{ $account->username }}</p>
+<div style="margin-left: 5%; display:flex">
+
+    <div class="container">
+
+        {{-- username --}}
+        <div class="row">
+            <div class="col-3"><label>{{ __('title.fullname') }} :</label></div>
+            <div class="col-auto"><label>{{ $account->username }}</label></div>
         </div>
-        <div style="display: flex" class="col-md-6">
-            <p>{{ __('title.department') }}:</p>
-            <p style="margin-left: 5%">{{ $account->department->name }}</p>
+
+        <br><br>
+
+        {{-- email --}}
+        <div class="row">
+            <div class="col-3"><label>{{ __('title.email') }} :</label></div>
+            <div class="col-auto"><label>{{ $account->email }}</label></div>
         </div>
+
+        <br><br>
+
+        {{-- Phone number --}}
+        <div class="row">
+            <div class="col-3"><label>{{ __('title.phone-number') }} :</label></div>
+            <div class="col-auto"><label>{{ $account->phone_number }}</label></div>
+        </div>
+
     </div>
 
-    <div class="row">
-        <div style="display: flex" class="col-md-6">
-            <p>{{ __('title.email') }}:</p>
-            <p style="margin-left: 5%">{{ $account->email }}</p>
-        </div>
-        <div style="display: flex" class="col-md-6">
-            <p>{{ __('title.role') }}:</p>
-            <p style="margin-left: 5%">{{ $account->role->name }}</p>
-        </div>
-    </div>
+    <div class="container">
 
-    <div class="row">
-        <div style="display: flex" class="col-md-6">
-            <p>{{ __('title.phone-number') }}:</p>
-            <p style="margin-left: 5%">{{ $account->phone_number }}</p>
+        {{-- Department --}}
+        <div class="row">
+            <div class="col-3"><label>{{ __('title.department') }} :</label></div>
+            <div class="col-auto"><label>{{ $account->department->name }}</label></div>
         </div>
-        <div style="display: flex" class="col-md-6">
-            <p>{{ __('title.code-user') }}:</p>
-            <p style="margin-left: 5%">{{ $account->code_user }}</p>
-        </div>
-    </div>
 
-    <div class="row">
-        <div style="display: flex" class="col-md-6">
-            <div class="col-auto">
-                <label>{{ __('title.status') }}:</label>
-            </div>
-            <div class="col-auto">
-                <label style="margin-left: 20px" class="switch">
-                @if ($account->status === 'active')
-                    <input name='status' type="checkbox" checked>
-                @else
-                    <input name='status' type="checkbox">
-                @endif
-                    <span class="slider round"></span>
-                </label>
-            </div>
+        <br><br>
+
+        {{-- Role --}}
+        <div class="row">
+            <div class="col-3"><label>{{ __('title.role') }} :</label></div>
+            <div class="col-auto"><label>{{ $account->role->name }}</label></div>
         </div>
+
+        <br><br>
+
+        {{-- Code user --}}
+        <div class="row">
+            <div class="col-3"><label>{{ __('title.code-user') }} :</label></div>
+            <div class="col-auto"><label>{{ $account->code_user }}</label></div>
+        </div>
+
     </div>
 
 </div>
+
+<br><br>
+
+{{-- status --}}
+<div style="margin-left: 6%" class="row">
+    <div style="display: flex" class="col-md-6">
+        <div class="col-2">
+            <label>{{ __('title.status') }}:</label>
+        </div>
+        <div class="col-auto">
+            <label style="margin-left: 20px" class="switch">
+            @if ($account->status === 'active')
+                <input name='status' type="checkbox" checked>
+            @else
+                <input name='status' type="checkbox">
+            @endif
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </div>
+</div>
+
 
 
 <div class="display-but">

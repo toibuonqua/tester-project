@@ -11,7 +11,7 @@
         <div class="config-posi">
             <div class="row">
                 <div class="col-auto">
-                <label>{{ __('title.code-work-area') }}:</label>
+                <label>{{ __('title.code-work-area') }} :</label>
                 </div>
                 <div class="col-auto">
                 <label>{{ $workarea->work_areas_code }}</label>
@@ -27,7 +27,7 @@
         <div class="config-posi">
             <div class="row">
                 <div class="col-auto">
-                <label>{{ __('title.name-work-area') }}:</label>
+                <label>{{ __('title.name-work-area') }} :</label>
                 </div>
                 <div class="col-auto">
                 <label>{{ $workarea->name }}</label>

@@ -9,85 +9,77 @@
 
     @csrf
 
-    <div class="display-child-page">
+    <br>
 
-        {{-- Field Họ và tên --}}
-        <div class="config-posi">
+    <div style="margin-left: 5%; display:flex">
+
+        <div class="container">
+
+            {{-- username --}}
             <div class="row">
-                <div class="col-md-4">
-                <label>Họ và tên:</label>
-                </div>
-                <div class="col-md-8">
-                <input type="text" name="username" class="form-control">
-                </div>
+                <div class="col-3"><label>{{ __('title.fullname') }} * :</label></div>
+                <div class="col-5"><input class="form-control" name="username" type="text"></div>
             </div>
+
+            <br><br>
+
+            {{-- email --}}
+            <div class="row">
+                <div class="col-3"><label>{{ __('title.email') }} * :</label></div>
+                <div class="col-5"><input class="form-control" name="email" type="text"></div>
+            </div>
+
+            <br><br>
+
+            {{-- Phone number --}}
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-5"></div>
+            </div>
+            <div class="row">
+                <div class="col-3"><label>{{ __('title.phone-number') }} * :</label></div>
+                <div class="col-5"><input class="form-control" name="phone_number" type="text"></div>
+            </div>
+
         </div>
 
-        {{-- Phòng ban --}}
-        <div class="config-posi">
+        <div class="container">
+
+            {{-- Department --}}
             @include('common.block.select', [
-                'name' => 'department_id',
-                'options' => $departments ?? [],
-                'valueField' => 'id',
-                'displayField' => 'name',
+                    'name' => 'department_id',
+                    'options' => $departments ?? [],
+                    'valueField' => 'id',
+                    'displayField' => 'name',
             ])
-        </div>
 
-    </div>
+            <br><br>
 
-    <div class="display-child-page">
-
-        {{-- Email --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-md-4">
-                <label>Email:</label>
-                </div>
-                <div class="col-md-8">
-                <input type="text" name="email" class="form-control">
-                </div>
-            </div>
-        </div>
-
-        {{-- Chức danh --}}
-        <div class="config-posi">
+            {{-- Role --}}
             @include('common.block.select', [
-                'name' => 'role_id',
-                'options' => $roles ?? [],
-                'valueField' => 'id',
-                'displayField' => 'name',
+                    'name' => 'role_id',
+                    'options' => $roles ?? [],
+                    'valueField' => 'id',
+                    'displayField' => 'name',
             ])
+
+            <br><br>
+
+            {{-- Code user --}}
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-5"></div>
+            </div>
+            <div class="row">
+                <div class="col-3"><label>{{ __('title.code-user') }} * :</label></div>
+                <div class="col-5"><input class="form-control" name="code_user" type="text"></div>
+            </div>
+
         </div>
 
     </div>
 
-    <div class="display-child-page">
-
-        {{-- SDT --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-md-4">
-                <label>SĐT:</label>
-                </div>
-                <div class="col-md-8">
-                <input type="text" name='phone_number' class="form-control">
-                </div>
-            </div>
-        </div>
-
-        {{-- Mã người dùng --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-md-4">
-                <label class="col-form-label">Mã người dùng:</label>
-                </div>
-                <div class="col-md-5">
-                <input type="text" name="code_user" class="form-control">
-                </div>
-            </div>
-        </div>
-
-    </div>
+    <br>
 
     <div class="display-but">
 
@@ -111,6 +103,7 @@
 ])
 
 <br>
+
 @include('common.block.flash-message')
 
 @endsection
