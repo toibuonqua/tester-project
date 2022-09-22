@@ -85,4 +85,12 @@
 
 </body>
 
+<footer>
+
+    <div style="text-align: end; margin-right:1%">
+    version 1.0
+    </div>
+
+</footer>
+
 </html>

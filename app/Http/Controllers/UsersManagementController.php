@@ -14,15 +14,16 @@ use App\Common\ExportExceptOnScreen;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AccountsExport;
+use App\Http\Controllers\ControllerTrait\GetEmployees;
 use App\Models\DefaultPassword;
 use Carbon\Carbon;
 use Flasher\Toastr\Prime\ToastrFactory;
 
 
+
 class UsersManagementController extends Controller
 {
-
-    use WebResponseTrait, ExportExceptOnScreen;
+    use WebResponseTrait, ExportExceptOnScreen, GetEmployees;
 
     // view Index
     public function index(Request $request)
@@ -66,8 +67,7 @@ class UsersManagementController extends Controller
     public function modify($id, ToastrFactory $flasher)
     {
         $account = Accounts::with('role', 'department')->find($id);
-
-        if ($account->role->name == Accounts::TYPE_ADMIN and Auth::id() != $account->manager_id and Auth::user()->email != Accounts::EMAIL_ADMIN) {
+        if ($account->role->name == Accounts::TYPE_ADMIN and !($this->returnEmployees($account->email))) {
             $flasher->addError(__('title.account-permission-denied'));
             return redirect()->route('homepage');
         }
@@ -170,7 +170,7 @@ class UsersManagementController extends Controller
     public function active($id, ToastrFactory $flasher)
     {
         $account = Accounts::with('role')->find($id);
-        if ($account->role->name == Accounts::TYPE_ADMIN and Auth::id() != $account->manager_id and Auth::user()->email != Accounts::EMAIL_ADMIN) {
+        if ($account->role->name == Accounts::TYPE_ADMIN and !($this->returnEmployees($account->email))) {
             $flasher->addError(__('title.account-permission-denied'));
             return back();
         }
@@ -190,7 +190,7 @@ class UsersManagementController extends Controller
     public function resetpw($id, ToastrFactory $flasher)
     {
         $account = Accounts::with('role')->find($id);
-        if ($account->role->name == Accounts::TYPE_ADMIN and Auth::id() != $account->manager_id and Auth::user()->email != Accounts::EMAIL_ADMIN) {
+        if ($account->role->name == Accounts::TYPE_ADMIN and !($this->returnEmployees($account->email))) {
             $flasher->addError(__('title.account-permission-denied'));
             return back();
         }

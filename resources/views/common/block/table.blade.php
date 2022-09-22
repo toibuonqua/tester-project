@@ -19,12 +19,12 @@
                 @if ($value === 'pattern.tick')
                     <td class="tick" style="min-width: 40px"><i class="fas fa-check" style="display: none"></i></td>
                 @elseif ($value === 'pattern.modified')
-                    <td><a href="{{ route($edit_route ?? 'home', [$id_param ?? 'id' => $item->id]) }}"
+                    <td> <a href="{{ route($edit_route ?? 'home', [$id_param ?? 'id' => $item->id]) }}"
                            {{-- Them parameter moi --}}
                            class="btn btn-success">{{ __('title.' . ($edit_text ?? 'edit')) }}</a>
                     </td>
                 @elseif ($value === 'pattern.view')
-                    <td><a href="{{ route($view_route ?? 'home', [$id_param ?? 'id' => $item->id]) }}"
+                    <td> <a href="{{ route($view_route ?? 'home', [$id_param ?? 'id' => $item->id]) }}"
                            {{-- Them parameter moi --}}
                            class="btn btn-success">{{ __('title.' . ($view_text ?? 'view')) }}</a>
                     </td>

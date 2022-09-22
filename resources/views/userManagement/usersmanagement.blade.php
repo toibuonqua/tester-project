@@ -39,41 +39,41 @@
         </div>
     </nav>
 
+    {{-- show table accounts --}}
+    @include('common.block.table', [
+        'fields' => [
+            'fullname' => 'username',
+            'email' => 'email',
+            'department' => 'department_name',
+            'role' => 'role_name',
+            'work-area' => 'workarea_code',
+            'time_create' => 'created_at',
+            'time_update' => 'updated_at',
+            'modify' => 'pattern.modified',
+            'view' => 'pattern.view',
+            'action' => 'pattern.status',
+            'db-password' => 'pattern.reset',
+        ],
+        'items' => $accounts,
+        'edit_route' => 'user.modify',
+        'view_route' => 'user.detail',
+        'status_route' => 'user.active',
+        'reset_route' => 'user.resetpw',
+        $notice_active = __('title.notice-change-active'),
+        $notice_reset_pw = __('title.notice-reset-password'),
+    ])
+
     @if ($accounts->isEmpty())
-
-        <h4 style="font-family: 'Nunito', sans-serif">{{ __('title.unvalued_key') }}</h4>
-
-    @else
-
-        {{-- show table accounts --}}
-        @include('common.block.table', [
-            'fields' => [
-                'fullname' => 'username',
-                'email' => 'email',
-                'department' => 'department_name',
-                'role' => 'role_name',
-                'work-area' => 'workarea_code',
-                'time_create' => 'created_at',
-                'time_update' => 'updated_at',
-                'modify' => 'pattern.modified',
-                'view' => 'pattern.view',
-                'action' => 'pattern.status',
-                'db-password' => 'pattern.reset',
-            ],
-            'items' => $accounts,
-            'edit_route' => 'user.modify',
-            'view_route' => 'user.detail',
-            'status_route' => 'user.active',
-            'reset_route' => 'user.resetpw',
-            $notice_active = __('title.notice-change-active'),
-            $notice_reset_pw = __('title.notice-reset-password'),
-        ])
-
-        <div class="display-pagi">
-            {{ $accounts->links() }}
-        </div>
-
+        <br>
+        <h4 style="font-family: 'Nunito', sans-serif; text-align: center; margin-top: 10%">{{ __('title.unvalued_key') }}</h4>
+        <br>
     @endif
+
+    <div class="display-pagi">
+        {{ $accounts->links() }}
+    </div>
+
+
 
 </div>
 

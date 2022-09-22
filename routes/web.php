@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\WorkSpaceManagementController;
 use App\Http\Controllers\NewArrivalManagementController;
 use App\Http\Controllers\PasswordDefaultController;
+use App\Http\Controllers\ResetAdminController;
 use App\Models\DefaultPassword;
 
 /*
@@ -22,8 +23,6 @@ use App\Models\DefaultPassword;
 
 Route::get('/', [LoginController::class, 'login'])->name('home');
 
-// Route::get('/login', [LoginController::class, 'login']) -> name('login');
-
 Route::post('/', [LoginController::class, 'checkLogin'])->name('auth.login');
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('user.logout');
@@ -35,6 +34,10 @@ Route::get('/change_pw', [UsersManagementController::class, 'changePassword'])->
 Route::post('/change_pw', [UsersManagementController::class, 'passwordUpdate'])->name('password.update');
 
 Route::get('/notice-login', [UsersManagementController::class, 'noticeLogin'])->name('back.login');
+
+Route::get('/reset-admin', [ResetAdminController::class, 'index'])->name('ra.index');
+
+Route::get('/reset-admin/confirm', [ResetAdminController::class, 'confirm'])->name('ra.confirm');
 
 Route::prefix('user')->middleware('check.admin')->group(function ()
 

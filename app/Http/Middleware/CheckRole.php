@@ -24,7 +24,7 @@ class checkRole
             if ($user->isAdmin()){
                 return $next($request);
             }
-            return redirect()->route('newam.homepage')->with('error', 'Cấp độ tài khoản không có quyền truy cập');
+            return back()->with('error', 'Cấp độ tài khoản không có quyền truy cập');
         }
         catch(Throwable $e)
         {
