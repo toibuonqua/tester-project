@@ -3,11 +3,12 @@
 @section('nav-name-title', __('title.work-management'))
 @section('content')
 
-    @include('common.block.title1')
+@include('common.block.title1')
 
 <form id="add_workarea" method="post" action="{{ route('worksm.store') }}">
 
     @csrf
+    @method('POST')
 
     <div class="display-child-page">
 

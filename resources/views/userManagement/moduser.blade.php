@@ -41,6 +41,46 @@
                 <div class="col-5"><input class="form-control" name="phone_number" value="{{ $account->phone_number }}" type="text"></div>
             </div>
 
+            <br><br>
+
+            {{-- status --}}
+            <div class="row">
+
+                <div class="col-3">
+                    <label>{{ __('title.status') }} * :</label>
+                </div>
+                <div class="col-3">
+                    @if ($account->status === 'active')
+                        <div class="form-check">
+                            <input name='status' value="active" class="form-check-input" type="radio" checked>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Hoạt động
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input name='status' value="deactive" class="form-check-input" type="radio">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Không hoạt động
+                            </label>
+                        </div>
+
+                    @else
+                        <div class="form-check">
+                            <input name='status' value="active" class="form-check-input" type="radio">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Hoạt động
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input name='status' value="deactive" class="form-check-input" type="radio" checked>
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Không hoạt động
+                            </label>
+                        </div>
+                    @endif
+                </div>
+            </div>
+
         </div>
 
         <div class="container">
@@ -67,6 +107,17 @@
 
             <br><br>
 
+            {{-- Workarea --}}
+            @include('common.block.select', [
+                'name' => 'workarea_id',
+                'options' => $workareas ?? [],
+                'valueField' => 'id',
+                'displayField' => 'work_areas_code',
+                'select' => $account->workarea->id,
+            ])
+
+            <br><br>
+
             {{-- Code user --}}
             <div class="row">
                 <div class="col-3"></div>
@@ -76,50 +127,6 @@
                 <div class="col-3"><label>{{ __('title.code-user') }} * :</label></div>
                 <div class="col-5"><input class="form-control" name="code_user" value="{{ $account->code_user }}" type="text"></div>
             </div>
-
-        </div>
-
-    </div>
-
-    <br><br>
-
-    {{-- status --}}
-    <div style="margin-left: 6%" class="row">
-
-        <div class="col-1">
-            <label>{{ __('title.status') }} :</label>
-        </div>
-
-        <div class="col-2">
-            @if ($account->status === 'active')
-                <div class="form-check">
-                    <input name='status' value="active" class="form-check-input" type="radio" checked>
-                    <label class="form-check-label" for="flexRadioDefault1">
-                        Hoạt động
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input name='status' value="deactive" class="form-check-input" type="radio">
-                    <label class="form-check-label" for="flexRadioDefault2">
-                        Không hoạt động
-                    </label>
-                </div>
-
-            @else
-                <div class="form-check">
-                    <input name='status' value="active" class="form-check-input" type="radio">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                        Hoạt động
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input name='status' value="deactive" class="form-check-input" type="radio" checked>
-                    <label class="form-check-label" for="flexRadioDefault2">
-                        Không hoạt động
-                    </label>
-                </div>
-
-            @endif
 
         </div>
 

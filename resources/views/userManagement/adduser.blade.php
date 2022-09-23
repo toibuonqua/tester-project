@@ -65,6 +65,16 @@
 
             <br><br>
 
+            {{-- Workarea --}}
+            @include('common.block.select', [
+                'name' => 'workarea_id',
+                'options' => $workareas ?? [],
+                'valueField' => 'id',
+                'displayField' => 'work_areas_code',
+            ])
+
+            <br><br>
+
             {{-- Code user --}}
             <div class="row">
                 <div class="col-3"></div>

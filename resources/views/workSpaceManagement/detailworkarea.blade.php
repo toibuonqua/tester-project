@@ -5,37 +5,47 @@
 
     @include('common.block.title1')
 
-    <div class="display-child-page">
+    <div class="container">
+
+        <br>
 
         {{-- Mã KVLV --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-auto">
-                <label>{{ __('title.code-work-area') }} :</label>
-                </div>
-                <div class="col-auto">
-                <label>{{ $workarea->work_areas_code }}</label>
-                </div>
+        <div class="row">
+            <div class="col-2">
+            <label>{{ __('title.code-work-area') }} :</label>
+            </div>
+            <div class="col-auto">
+            <label>{{ $workarea->work_areas_code }}</label>
             </div>
         </div>
 
-    </div>
-
-    <div class="display-child-page">
+        <br>
 
         {{-- Tên KVLV --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-auto">
-                <label>{{ __('title.name-work-area') }} :</label>
-                </div>
-                <div class="col-auto">
-                <label>{{ $workarea->name }}</label>
-                </div>
+        <div class="row">
+            <div class="col-2">
+            <label>{{ __('title.name-work-area') }} :</label>
+            </div>
+            <div class="col-auto">
+            <label>{{ $workarea->name }}</label>
+            </div>
+        </div>
+
+        <br>
+
+        {{-- Number of user in work area --}}
+        <div class="row">
+            <div class="col-2">
+            <label>Nhân viên trong KVLV :</label>
+            </div>
+            <div class="col-auto">
+            <label>{{ $many_user }} Nhân viên</label>
             </div>
         </div>
 
     </div>
+
+    <br>
 
     <div class="display-but">
 

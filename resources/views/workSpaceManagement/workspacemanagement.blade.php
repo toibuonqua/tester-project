@@ -38,6 +38,7 @@
             'code-work-area' => 'work_areas_code',
             'name-work-area' => 'name',
             'time_create' => 'created_at',
+            'time_update' => 'updated_at',
             'modify' => 'pattern.modified',
             'view' => 'pattern.view',
             'delete' => 'pattern.delete',
@@ -68,7 +69,6 @@
         ])
 
     @endif
-
 
 
 </div>

@@ -14,7 +14,7 @@
 
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
 
-              <form method="get" action="{{ route('ra.confirm') }}">
+              <form id="resetadmin" method="get" action="{{ route('ra.confirm') }}">
                 @csrf
                 @method("GET")
 
@@ -25,7 +25,7 @@
                 <br>
 
                 <label class="text-des" style="display: flex; justify-content: center">Xác thực quyền hạn</label>
-                <label style="display: flex; justify-content: center">nhập mật khẩu để xác thực bạn có quyền hạn này</label>
+                <label style="display: flex; justify-content: center">nhập mật khẩu để xác thực bạn có quyền làm mới dữ liệu hệ thống</label>
 
                 <br><br>
 
@@ -38,9 +38,16 @@
                 <div class="d-flex justify-content-around align-items-center mb-4">
 
                 <!-- Submit button -->
-                <button type="submit" style="width: 100%" class="btn btn-primary btn-lg btn-block">{{ __('title.confirm') }}</button>
+                <button type="button" style="width: 100%" class="btn btn-primary btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#MyModal">{{ __('title.confirm') }}</button>
 
               </form>
+
+              @include('common.modal.confirm_option', [
+                $id_modal = 'MyModal',
+                $id_form = 'resetadmin',
+                $content = __('title.notice-reset-system'),
+                $name_but = __('title.confirm'),
+              ])
 
             </div>
 

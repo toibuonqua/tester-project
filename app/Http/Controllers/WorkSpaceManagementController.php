@@ -22,8 +22,8 @@ class WorkSpaceManagementController extends Controller
 
     // view index
     public function index(Request $request) {
-
         $workareas = Workarea::paginate(Workarea::DEFAUL_PAGINATION);
+
         $exception = '';
 
         // get data from database to export excel
@@ -59,9 +59,10 @@ class WorkSpaceManagementController extends Controller
     public function detail($id) {
 
         $title = __('title.detail-work-area');
-        $workarea = Workarea::find($id);
+        $workarea = Workarea::with('accounts')->find($id);
+        $many_user = count($workarea->accounts);
 
-        return view('workSpaceManagement.detailworkarea', compact('title', 'workarea'));
+        return view('workSpaceManagement.detailworkarea', compact('title', 'workarea', 'many_user'));
     }
 
     // update info workarea
@@ -77,9 +78,9 @@ class WorkSpaceManagementController extends Controller
         }
         catch(\Illuminate\Database\QueryException $exception){
             Log::error('code work area was exist');
-            $workareas = Workarea::paginate(Workarea::DEFAUL_PAGINATION);
             $exception = __('title.code-workarea-exist');
-            return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
+            $flasher->addError($exception);
+            return back();
         }
     }
 

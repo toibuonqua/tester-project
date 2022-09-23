@@ -3,12 +3,13 @@
 @section('nav-name-title', __('title.work-management'))
 @section('content')
 
-    @include('common.block.title1')
+@include('common.block.title1')
 
 
 <form id="mod_workarea" method="post" action="{{ route('worksm.update', ['id' => $workarea->id]) }}">
 
     @csrf
+    @method('POST')
 
     <div class="display-child-page">
 

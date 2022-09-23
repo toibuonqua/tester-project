@@ -6,7 +6,7 @@
 
 <br><br>
 
-<form method="POST" action="{{ route('password.update') }}">
+<form id="changepw" method="POST" action="{{ route('password.update') }}">
 
     @csrf
     @method('POST')
@@ -68,12 +68,19 @@
         </div>
 
         <div style="margin-top: 50px">
-            <button style="width: 180px" class="btn btn-outline-success" onclick="return confirm('{{ __('title.notice-change-password') }}')" type="submit">{{ __('title.change-password') }}</button>
+            <button style="width: 180px" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#MyModal" type="button">{{ __('title.change-password') }}</button>
         </div>
 
     </div>
 
 </form>
+
+@include('common.modal.confirm_option', [
+    $id_modal = "MyModal",
+    $id_form = "changepw",
+    $content = __('title.notice-change-password'),
+    $name_but = __('title.change')
+])
 
 <br>
 

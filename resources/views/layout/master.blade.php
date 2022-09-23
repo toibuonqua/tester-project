@@ -22,7 +22,7 @@
 <body>
 
     {{-- Thanh Menu --}}
-    <div>
+    <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
 
@@ -55,14 +55,14 @@
         </nav>
     </div>
 
-    <div>
-        <div class="split-block">
+    <div class="split-block">
 
             {{-- Phần sidebars bên cạnh --}}
-            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; height:1080px;">
+            <div class="bg-light" style="width: 18%; height: 1080px;">
                 <ul class="nav nav-pills flex-column mb-auto">
                     @foreach (['Quản lý người dùng' => 'homepage',
                                'Quản lý khu làm việc' => 'worksm.homepage',
+                               'Quản lý phòng ban' => 'department.homepage',
                                'Quản lý mặt hàng mới' => 'newam.homepage',
                                'Nhập hàng' => 'homepage',
                                'Danh sách đơn hàng' => 'homepage',
@@ -78,16 +78,18 @@
 
             {{-- Nội dụng page --}}
             <div style="width: 100%">
+
                 @yield('content')
+
             </div>
-        </div>
+
     </div>
 
 </body>
 
 <footer>
 
-    <div style="text-align: end; margin-right:1%">
+    <div style="text-align: end; margin-right:2%">
     version 1.0
     </div>
 

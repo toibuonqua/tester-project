@@ -48,7 +48,6 @@ class Accounts extends BaseAccount
 
 
     protected $attributes = [
-        'workarea_id' => self::DEFAULT_WORKAREA_ID,
         'status' => self::STATUS_DEACTIVATED,
     ];
 

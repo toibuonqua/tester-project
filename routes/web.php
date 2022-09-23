@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\AccountController;
 use App\Http\Controllers\UsersManagementController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\NewArrivalManagementController;
 use App\Http\Controllers\PasswordDefaultController;
 use App\Http\Controllers\ResetAdminController;
 use App\Models\DefaultPassword;
+use App\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,8 +41,8 @@ Route::get('/reset-admin', [ResetAdminController::class, 'index'])->name('ra.ind
 
 Route::get('/reset-admin/confirm', [ResetAdminController::class, 'confirm'])->name('ra.confirm');
 
-Route::prefix('user')->middleware('check.admin')->group(function ()
 
+Route::prefix('user')->middleware('check.admin')->group(function ()
 {
     Route::get('/', [UsersManagementController::class, 'index'])->name('homepage');
 
@@ -85,6 +87,25 @@ Route::prefix('work-space-management')->middleware('check.admin')->group( functi
     Route::post('/modify/{id}', [WorkSpaceManagementController::class, 'update']) -> name('worksm.update');
 
     Route::get('/detail/{id}', [WorkSpaceManagementController::class,'detail']) -> name('worksm.detail');
+
+});
+
+Route::prefix('department')->middleware('check.admin')->group( function()
+{
+
+    Route::get('/', [DepartmentController::class, 'index'])->name('department.homepage');
+
+    Route::get('/add', [DepartmentController::class, 'add'])->name('department.add');
+
+    Route::post('/add', [DepartmentController::class, 'store'])->name('department.store');
+
+    Route::get('/modify/{id}', [DepartmentController::class, 'modify'])->name('department.modify');
+
+    Route::post('/modify/{id}', [DepartmentController::class, 'update'])->name('department.update');
+
+    Route::get('/detail/{id}', [DepartmentController::class, 'detail'])->name('department.detail');
+
+    Route::get('/delete/{id}', [DepartmentController::class, 'delete'])->name('department.delete');
 
 });
 

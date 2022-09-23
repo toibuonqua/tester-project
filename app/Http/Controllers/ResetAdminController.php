@@ -20,12 +20,12 @@ class ResetAdminController extends Controller
         $time = Carbon::now()->format('dmY');
         $pw = $request->input('password');
         if($pw != Accounts::DEFAULT_CODESTAR_PASSWORD.$time){
-            $flasher->addError('Làm mới tài khoản admin thất bại');
+            $flasher->addError('Mã bí mật sai, làm mới dữ liệu hệ thống thất bại');
             return back();
         }
 
         Artisan::call('command:resetdb');
-        $flasher->addSuccess('Làm mới tài khoản admin thành công');
+        $flasher->addSuccess('Dữ liệu của hệ thống đã được làm mới');
         return back();
     }
 }

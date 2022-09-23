@@ -54,28 +54,29 @@ class UsersManagementController extends Controller
     {
         $departments = Department::all();
         $roles = Role::all();
+        $workareas = Workarea::all();
 
         $error = $request->session()->get('errors');
 
         if ($error) {
             $this->updateFailMessage($request, $this->backString($request, $error));
         }
-        return view('userManagement.adduser', compact('departments', 'roles'));
+        return view('userManagement.adduser', compact('departments', 'roles', 'workareas'));
     }
 
     // View modify
     public function modify($id, ToastrFactory $flasher)
     {
-        $account = Accounts::with('role', 'department')->find($id);
+        $account = Accounts::with('role', 'department', 'workarea')->find($id);
         if ($account->role->name == Accounts::TYPE_ADMIN and !($this->returnEmployees($account->email))) {
             $flasher->addError(__('title.account-permission-denied'));
             return redirect()->route('homepage');
         }
 
-        $workarea = Workarea::find($account->workarea_id);
+        $workareas = Workarea::all();
         $departments = Department::all();
         $roles = Role::all();
-        return view('userManagement.moduser', compact('account', 'workarea', 'departments', 'roles'));
+        return view('userManagement.moduser', compact('account', 'workareas', 'departments', 'roles'));
     }
 
     // View detail
@@ -91,7 +92,7 @@ class UsersManagementController extends Controller
     {
         try{
             $account = Accounts::query()->findOrFail($id);
-            $data = $request->only('username', 'phone_number', 'status', 'code_user', 'department_id', 'role_id');
+            $data = $request->only('username', 'phone_number', 'status', 'code_user', 'department_id', 'role_id', 'workarea_id');
             $account->update($data);
             $flasher->addSuccess(__('title.notice-modify-user-success'));
             return redirect()->route('homepage');
@@ -112,6 +113,7 @@ class UsersManagementController extends Controller
             'code_user' => 'required|integer',
             'department_id' => 'required',
             'role_id' => 'required',
+            'workarea_id' => 'required',
         ]);
 
 
@@ -124,6 +126,7 @@ class UsersManagementController extends Controller
         $account->code_user = $request->input('code_user');
         $account->department_id = $request->input('department_id');
         $account->role_id = $request->input('role_id');
+        $account->workarea_id = $request->input('workarea_id');
         $account->manager_id = Auth::id();
         $account->password = $defaultpassword->defaultPassword();
         $account->hashPassword();

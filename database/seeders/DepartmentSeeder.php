@@ -16,13 +16,13 @@ class DepartmentSeeder extends Seeder
     public function run()
     {
         $departments = [
-            ['name' => 'Phòng ban A'],
-            ['name' => 'Phòng ban B'],
-            ['name' => 'Phòng ban C'],
-            ['name' => 'Phòng ban D'],
-            ['name' => 'Phòng ban E'],
-            ['name' => 'Phòng ban F'],
-            ['name' => 'Phòng ban G'],
+            ['name' => 'Quản Lý'],
+            ['name' => 'Nhân Sự'],
+            ['name' => 'Công Nghệ'],
+            ['name' => 'Dịch Vụ'],
+            ['name' => 'Tạp Vụ'],
+            ['name' => 'Sửa Chữa'],
+            ['name' => 'Bảo Vệ'],
         ];
 
         foreach ($departments as $key => $value) {
