@@ -20,7 +20,7 @@
           <div class="row">
             <form class="d-flex" method="get" action="{{ route('user.search') }}">
             @csrf
-                <input style="width: 100%" class="form-control me-2" name="query" type="text" placeholder="{{ __('title.search') }}">
+                <input style="width: 380px" class="form-control me-3" name="query" type="text" placeholder="{{ __('title.search') }}">
                 <button style="width: 180px" class="btn btn-outline-success" type="submit">{{ __('title.search') }}</button>
             </form>
           </div>
@@ -65,7 +65,7 @@
 
     @if ($accounts->isEmpty())
         <br>
-        <h4 style="font-family: 'Nunito', sans-serif; text-align: center; margin-top: 10%">{{ __('title.unvalued_key') }}</h4>
+        <h4 style="font-family: 'Nunito', sans-serif; text-align: center; margin-top: 10%">{{ __('title.cant-find-result') }}</h4>
         <br>
     @endif
 

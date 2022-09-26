@@ -31,11 +31,12 @@
             <div class="col-3">
                 @if (session('error-old-pw'))
                     <p class="text-error">{{ session('error-old-pw') }}</p>
+                @else
+                    <p class="text-error"></p>
                 @endif
             </div>
         </div>
 
-        <br>
 
         {{-- new password --}}
         <div class="row">
@@ -55,6 +56,8 @@
             <div class="col-3">
                 @if (session('error-confirm'))
                     <p class="text-error">{{ session('error-confirm') }}</p>
+                @else
+                    <p class="text-error"></p>
                 @endif
             </div>
         </div>

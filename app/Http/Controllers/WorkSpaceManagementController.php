@@ -23,12 +23,18 @@ class WorkSpaceManagementController extends Controller
     // view index
     public function index(Request $request) {
         $workareas = Workarea::paginate(Workarea::DEFAUL_PAGINATION);
-
+        foreach ($workareas as $workarea) {
+            if ($workarea->createrId == null){
+                $workarea->creater = '';
+            }
+            else{
+                $creater = Accounts::find($workarea->createrId);
+                $workarea->creater = $creater->username;
+            }
+        }
         $exception = '';
-
-        // get data from database to export excel
-        $dataexport = Workarea::all();
-        $request->session()->put('dataexport', $dataexport);  // put data in session()
+        $query = '';
+        $request->session()->put('query', $query);
 
         return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
     }
@@ -107,11 +113,18 @@ class WorkSpaceManagementController extends Controller
     {
         $search_text = $request->input("query");
         $workareas = Workarea::where('name', 'like', '%'.$search_text.'%')->paginate(Workarea::DEFAUL_PAGINATION);
-        $exception = '';
+        foreach ($workareas as $workarea) {
+            if ($workarea->createrId == null){
+                $workarea->creater = '';
+            }
+            else{
+                $creater = Accounts::find($workarea->createrId);
+                $workarea->creater = $creater->username;
+            }
+        }
 
-        // get data from database to export excel
-        $dataexport = Workarea::where('name', 'like', '%'.$search_text.'%')->get();
-        $request->session()->put('dataexport', $dataexport);
+        $exception = '';
+        $request->session()->put('query', $search_text);
 
         return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
     }
@@ -119,7 +132,17 @@ class WorkSpaceManagementController extends Controller
     // export excel
     public function export(Request $request)
     {
-        $workareas = $request->session()->get('dataexport');
+        $query = $request->session()->get('query');
+        $workareas = Workarea::where('name', 'like', '%'.$query.'%')->get();
+        foreach ($workareas as $workarea) {
+            if ($workarea->createrId == null){
+                $workarea->creater = '';
+            }
+            else{
+                $creater = Accounts::find($workarea->createrId);
+                $workarea->creater = $creater->username;
+            }
+        }
         $time = Carbon::now()->format('YmdHi');
         return Excel::download(new WorkareaExport($workareas),  'DanhSachKVLV_'.$time.'.xlsx');
     }

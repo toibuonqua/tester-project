@@ -13,7 +13,7 @@
           <div class="row">
             <form class="d-flex" method="get" action="{{ route('worksm.search') }}">
             @csrf
-                <input class="form-control me-2" name="query" type="text" placeholder="{{ __('title.search') }}">
+                <input style="width: 380px" class="form-control me-2" name="query" type="text" placeholder="{{ __('title.search') }}">
                 <button style="width: 180px" class="btn btn-outline-success" type="submit">{{ __('title.search') }}</button>
             </form>
           </div>
@@ -37,6 +37,7 @@
         'fields' => [
             'code-work-area' => 'work_areas_code',
             'name-work-area' => 'name',
+            'creater' => 'creater',
             'time_create' => 'created_at',
             'time_update' => 'updated_at',
             'modify' => 'pattern.modified',
@@ -52,7 +53,7 @@
 
     @if ($workareas->isEmpty())
     <br>
-    <h4 style="font-family: 'Nunito', sans-serif; text-align: center; margin-top: 10%">{{ __('title.unvalued_key') }}</h4>
+    <h4 style="font-family: 'Nunito', sans-serif; text-align: center; margin-top: 10%">{{ __('title.cant-find-result') }}</h4>
     <br>
     @endif
 

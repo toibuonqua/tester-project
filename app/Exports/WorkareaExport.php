@@ -16,6 +16,7 @@ class WorkareaExport implements FromArray, WithHeadings
         $result = $this->formatToArray($workareas, [
             'work_areas_code',
             'name',
+            'creater',
             'created_at',
             'updated_at',
         ]);
@@ -32,6 +33,7 @@ class WorkareaExport implements FromArray, WithHeadings
         return [
             __('title.code-work-area'),
             __('title.name-work-area'),
+            __('title.creater'),
             __('title.time_create'),
             __('title.time_update'),
         ];

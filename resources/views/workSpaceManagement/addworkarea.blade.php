@@ -10,36 +10,59 @@
     @csrf
     @method('POST')
 
-    <div class="display-child-page">
+    <br>
+
+    <div class="container">
 
         {{-- Mã KVLV --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-md-4">
-                <label>{{ __('title.code-work-area') }} * :</label>
-                </div>
-                <div class="col-md-8">
-                <input type="text" name="work_areas_code" class="form-control">
-                </div>
-            </div>
-        </div>
-    </div>
+        <div class="row">
 
-    <div class="display-child-page">
+            <div class="col-2">
+                <label>{{ __('title.code-work-area') }} * :</label>
+            </div>
+
+            <div class="col-3">
+                <input type="text" name="work_areas_code" class="form-control">
+            </div>
+
+            <div class="col-auto">
+                <p data-bs-toggle="tooltip" data-bs-placement="right" title="
+                    - Linmit 1 - 100 characters.
+                    - Only accept numbers and letters in input
+                    - Not allow white space, symbols and non letter in put">
+                    <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
+                </p>
+            </div>
+
+        </div>
+
+        <br><br>
 
         {{-- Tên KVLV --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-md-4">
+        <div class="row">
+
+            <div class="col-2">
                 <label>{{ __('title.name-work-area') }} * :</label>
-                </div>
-                <div class="col-md-8">
-                <input type="text" name="name" class="form-control">
-                </div>
             </div>
+
+            <div class="col-3">
+                <input type="text" name="name" class="form-control">
+            </div>
+
+            <div class="col-auto">
+                <p data-bs-toggle="tooltip" data-bs-placement="right" title="
+                    - Linmit 1 - 100 characters.
+                    - Only accept numbers and letters in input
+                    - Not allow white space, symbols and non letter in put">
+                    <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
+                </p>
+            </div>
+            
         </div>
+
     </div>
 
+    <br><br>
 
     <div class="display-but">
 
