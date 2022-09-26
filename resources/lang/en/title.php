@@ -167,6 +167,7 @@ return [
     'notice-change-active' => 'Are you sure you want to change status of user',
     'notice-change-password' => 'Are you sure you want to change your password',
     'notice-delete-department' => 'Are you sure you want to delete this department',
+    'notice-delete-department-success' => 'Delete department succcess',
     'notice-delete-work-area-success' => 'Are you sure you want to delete this work area',
     'notice-delete-workarea-success' => 'Delete work area success',
     'notice-modify-user-success' => 'Modify information user successs',

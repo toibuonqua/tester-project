@@ -70,7 +70,7 @@ class UsersManagementController extends Controller
         $account = Accounts::with('role', 'department', 'workarea')->find($id);
         if ($account->role->name == Accounts::TYPE_ADMIN and !($this->returnEmployees($account->email))) {
             $flasher->addError(__('title.account-permission-denied'));
-            return redirect()->route('homepage');
+            return back();
         }
 
         $workareas = Workarea::all();
@@ -117,7 +117,6 @@ class UsersManagementController extends Controller
         ]);
 
 
-        // Không có input cho khu vực làm việc
         $defaultpassword = new DefaultPassword;
         $account = new Accounts;
         $account->username = $request->input('username');

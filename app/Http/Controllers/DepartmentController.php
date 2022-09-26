@@ -7,18 +7,22 @@ use Illuminate\Http\Request;
 use Flasher\Toastr\Prime\ToastrFactory;
 use App\Http\Controllers\Web\WebResponseTrait;
 use App\Common\ExportExceptOnScreen;
+use App\Exports\DepartmentExport;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-
-use function Symfony\Component\String\b;
+use Flasher\SweetAlert\Prime\SweetAlertFactory;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DepartmentController extends Controller
 {
     use WebResponseTrait, ExportExceptOnScreen;
 
     // view home page
-    public function index()
+    public function index(Request $request)
     {
         $departments = Department::paginate(Department::DEFAULT_PAGINATION);
+        $query = '';
+        $request->session()->put('query', $query);
 
         return view('Department.index', compact('departments'));
     }
@@ -35,6 +39,7 @@ class DepartmentController extends Controller
         return view('Department.add');
     }
 
+    // add new department
     public function store(Request $request, ToastrFactory $flasher)
     {
 
@@ -50,6 +55,7 @@ class DepartmentController extends Controller
 
     }
 
+    // view modify
     public function modify($id)
     {
         $department = Department::find($id);
@@ -57,6 +63,7 @@ class DepartmentController extends Controller
         return view('Department.modify', compact('department'));
     }
 
+    // Update department
     public function update($id, Request $request, ToastrFactory $flasher)
     {
         try {
@@ -68,20 +75,52 @@ class DepartmentController extends Controller
         }
         catch(\Illuminate\Database\QueryException $exception){
             Log::error('field in FE of department is empty or duplicate in database');
-            $exception = "Phòng ban không tồn tài hoặc ô điền bị trống";
+            $exception = "Phòng ban đã tồn tài hoặc ô điền bị trống";
             $flasher->addError($exception);
             return back();
         }
     }
 
-    public function detail()
+    // view detail
+    public function detail($id)
     {
-        return view('Department.detail');
+        $department = Department::with('accounts')->find($id);
+        $department->employee = count($department->accounts);
+
+        return view('Department.detail', compact('department'));
     }
 
-    public function delete()
+    // Delete department
+    public function delete($id, ToastrFactory $flasher, SweetAlertFactory $flasher1)
     {
-        //
+        $department = Department::with('accounts')->find($id);
+        if (count($department->accounts) > 0)
+        {
+            $flasher1->addError('Phòng ban còn nhân sự, không thể xóa');
+            return back();
+        }
+        $department->delete();
+        $flasher->addSuccess(__('title.notice-delete-department-success'));
+        return back();
+    }
+
+    // search bar
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $departments = Department::with('accounts')->where('name', 'like', '%'.$query.'%')->paginate(Department::DEFAULT_PAGINATION);
+        $request->session()->put('query', $query);
+
+        return view('Department.index', compact('departments'));
+    }
+
+    // export excel
+    public function export(Request $request)
+    {
+        $keyword = $request->session()->get('query');
+        $departments = Department::where('name', 'like', '%'.$keyword.'%')->get();
+        $time = Carbon::now()->format('YmdHi');
+        return Excel::download(new DepartmentExport($departments),  'DanhSachPhongBan_'.$time.'.xlsx');
     }
 
 }

@@ -107,6 +107,10 @@ Route::prefix('department')->middleware('check.admin')->group( function()
 
     Route::get('/delete/{id}', [DepartmentController::class, 'delete'])->name('department.delete');
 
+    Route::get('/search', [DepartmentController::class, 'search'])->name('department.search');
+
+    Route::get('/export', [DepartmentController::class, 'export'])->name('department.export');
+
 });
 
 Route::prefix('default-password')->middleware('check.admin')->group( function()

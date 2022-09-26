@@ -36,10 +36,10 @@
         {{-- Number of user in work area --}}
         <div class="row">
             <div class="col-2">
-            <label>Nhân viên trong KVLV :</label>
+            <label>Nhân sự trong KVLV :</label>
             </div>
             <div class="col-auto">
-            <label>{{ $many_user }} Nhân viên</label>
+            <label>{{ $many_user }} nhân sự</label>
             </div>
         </div>
 

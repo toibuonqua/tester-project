@@ -166,6 +166,7 @@ return [
     'notice-change-active' => 'Bạn có thực sự muốn thay đổi trạng thái cuả người dùng này',
     'notice-change-password' => 'Bạn có muốn thay đổi mật khẩu',
     'notice-delete-department' => 'Ban có muốn xóa phòng ban này',
+    'notice-delete-department-success' => 'Xóa phòng ban thành công',
     'notice-delete-work-area' => 'Bạn có thực sự muốn xóa khu vực này',
     'notice-delete-work-area-success' => 'Xóa khu vực làm việc thành công',
     'notice-modify-user-success' => 'Chỉnh sửa thông tin người dùng thành công',

@@ -18,8 +18,9 @@
         <div style="width: 100%" class="display-search">
 
           <div class="row">
-            <form class="d-flex" method="get">
+            <form class="d-flex" method="get" action="{{ route('department.search') }}">
             @csrf
+            @method('GET')
                 <input style="width: 100%" class="form-control me-2" name="query" type="text" placeholder="{{ __('title.search') }}">
                 <button style="width: 180px" class="btn btn-outline-success" type="submit">{{ __('title.search') }}</button>
             </form>
@@ -29,8 +30,9 @@
                 <a href="{{ route('department.add') }}"><button type="button" class="btn btn-success">{{ __('title.add-new') }}</button></a>
           </div>
 
-          <form method="get">
+          <form method="get" action="{{ route('department.export') }}">
           @csrf
+          @method('GET')
             <div class="fix-space">
                 <button type="submit" class="btn btn-success">{{ __('title.export-excel') }}</button>
             </div>
@@ -65,8 +67,6 @@
     <div class="display-pagi">
         {{ $departments->links() }}
     </div>
-
-
 
 </div>
 
