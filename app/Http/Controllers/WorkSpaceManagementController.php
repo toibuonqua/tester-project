@@ -12,6 +12,7 @@ use App\Common\ExportExceptOnScreen;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Flasher\Toastr\Prime\ToastrFactory;
+use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\WorkareaExport;
 use Carbon\Carbon;
@@ -22,13 +23,19 @@ class WorkSpaceManagementController extends Controller
 
     // view index
     public function index(Request $request) {
-
         $workareas = Workarea::paginate(Workarea::DEFAUL_PAGINATION);
+        foreach ($workareas as $workarea) {
+            if ($workarea->createrId == null){
+                $workarea->creater = '';
+            }
+            else{
+                $creater = Accounts::find($workarea->createrId);
+                $workarea->creater = $creater->username;
+            }
+        }
         $exception = '';
-
-        // get data from database to export excel
-        $dataexport = Workarea::all();
-        $request->session()->put('dataexport', $dataexport);  // put data in session()
+        $query = '';
+        $request->session()->put('query', $query);
 
         return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
     }
@@ -59,9 +66,10 @@ class WorkSpaceManagementController extends Controller
     public function detail($id) {
 
         $title = __('title.detail-work-area');
-        $workarea = Workarea::find($id);
+        $workarea = Workarea::with('accounts')->find($id);
+        $many_user = count($workarea->accounts);
 
-        return view('workSpaceManagement.detailworkarea', compact('title', 'workarea'));
+        return view('workSpaceManagement.detailworkarea', compact('title', 'workarea', 'many_user'));
     }
 
     // update info workarea
@@ -77,9 +85,9 @@ class WorkSpaceManagementController extends Controller
         }
         catch(\Illuminate\Database\QueryException $exception){
             Log::error('code work area was exist');
-            $workareas = Workarea::paginate(Workarea::DEFAUL_PAGINATION);
             $exception = __('title.code-workarea-exist');
-            return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
+            $flasher->addError($exception);
+            return back();
         }
     }
 
@@ -88,8 +96,8 @@ class WorkSpaceManagementController extends Controller
     {
 
         $request->validate([
-            'work_areas_code' => 'required|unique:workarea',
-            'name' => 'required',
+            'work_areas_code' => 'required|unique:workarea|max:6',
+            'name' => 'required|max:6',
         ]);
 
         $workarea = new Workarea;
@@ -104,13 +112,20 @@ class WorkSpaceManagementController extends Controller
     // Search bar
     public function search(Request $request)
     {
-        $search_text = $request->input("query");
-        $workareas = Workarea::where('name', 'like', '%'.$search_text.'%')->paginate(Workarea::DEFAUL_PAGINATION);
-        $exception = '';
+        $query = $request->input("query");
+        $workareas = Workarea::where('name', 'like', '%'.$query.'%')->paginate(Workarea::DEFAUL_PAGINATION);
+        foreach ($workareas as $workarea) {
+            if ($workarea->createrId == null){
+                $workarea->creater = '';
+            }
+            else{
+                $creater = Accounts::find($workarea->createrId);
+                $workarea->creater = $creater->username;
+            }
+        }
 
-        // get data from database to export excel
-        $dataexport = Workarea::where('name', 'like', '%'.$search_text.'%')->get();
-        $request->session()->put('dataexport', $dataexport);
+        $exception = '';
+        $request->session()->put('query', $query);
 
         return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
     }
@@ -118,13 +133,23 @@ class WorkSpaceManagementController extends Controller
     // export excel
     public function export(Request $request)
     {
-        $workareas = $request->session()->get('dataexport');
+        $query = $request->session()->get('query');
+        $workareas = Workarea::where('name', 'like', '%'.$query.'%')->orderBy('created_at', 'DESC')->get();
+        foreach ($workareas as $workarea) {
+            if ($workarea->createrId == null){
+                $workarea->creater = '';
+            }
+            else{
+                $creater = Accounts::find($workarea->createrId);
+                $workarea->creater = $creater->username;
+            }
+        }
         $time = Carbon::now()->format('YmdHi');
         return Excel::download(new WorkareaExport($workareas),  'DanhSachKVLV_'.$time.'.xlsx');
     }
 
     // Delete workarea
-    public function delete($id, ToastrFactory $flasher)
+    public function delete($id, ToastrFactory $flasher, SweetAlertFactory $flasher1)
     {
         $workarea = Workarea::find($id);
 
@@ -132,13 +157,13 @@ class WorkSpaceManagementController extends Controller
             $workarea->delete();
         }
         catch(\Illuminate\Database\QueryException $exception){
-            Log::error("Data still in use, foreign key constraints has work area name: {$workarea->name}");
-            $workareas = Workarea::paginate(Workarea::DEFAUL_PAGINATION);
+            Log::error("Data still in use, foreign key constraints has workarea name: {$workarea->name}");
             $exception = __('title.error-constraints-foreign-key');
-            return view('workSpaceManagement.workspacemanagement', compact('workareas', 'exception'));
+            $flasher1->addError($exception);
+            return back();
         }
         $flasher->addSuccess(__('title.notice-delete-work-area-success'));
-        return redirect()->route('worksm.homepage');
+        return back();
     }
 
 }

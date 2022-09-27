@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\AccountController;
 use App\Http\Controllers\UsersManagementController;
@@ -7,7 +8,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\WorkSpaceManagementController;
 use App\Http\Controllers\NewArrivalManagementController;
 use App\Http\Controllers\PasswordDefaultController;
+use App\Http\Controllers\ResetAdminController;
 use App\Models\DefaultPassword;
+use App\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +25,6 @@ use App\Models\DefaultPassword;
 
 Route::get('/', [LoginController::class, 'login'])->name('home');
 
-// Route::get('/login', [LoginController::class, 'login']) -> name('login');
-
 Route::post('/', [LoginController::class, 'checkLogin'])->name('auth.login');
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('user.logout');
@@ -36,8 +37,12 @@ Route::post('/change_pw', [UsersManagementController::class, 'passwordUpdate'])-
 
 Route::get('/notice-login', [UsersManagementController::class, 'noticeLogin'])->name('back.login');
 
-Route::prefix('user')->middleware('check.admin')->group(function ()
+Route::get('/reset-admin', [ResetAdminController::class, 'index'])->name('ra.index');
 
+Route::get('/reset-admin/confirm', [ResetAdminController::class, 'confirm'])->name('ra.confirm');
+
+
+Route::prefix('user')->middleware('check.admin')->group(function ()
 {
     Route::get('/', [UsersManagementController::class, 'index'])->name('homepage');
 
@@ -67,13 +72,13 @@ Route::prefix('work-space-management')->middleware('check.admin')->group( functi
 
     Route::get('/', [WorkSpaceManagementController::class,'index']) -> name('worksm.homepage');
 
-    Route::get('/search', [WorkSpaceManagementController::class, 'search'])->name('worksm.search');
+    Route::get('/search', [WorkSpaceManagementController::class, 'search'])-> name('worksm.search');
 
-    Route::get('/export', [WorkSpaceManagementController::class, 'export'])->name('worksm.export');
+    Route::get('/export', [WorkSpaceManagementController::class, 'export'])-> name('worksm.export');
 
     Route::get('/add', [WorkSpaceManagementController::class,'add']) -> name('worksm.add');
 
-    Route::post('/add', [WorkSpaceManagementController::class, 'store'])->name('worksm.store');
+    Route::post('/add', [WorkSpaceManagementController::class, 'store'])-> name('worksm.store');
 
     Route::get('/delete/{id}', [WorkSpaceManagementController::class,'delete']) -> name('worksm.delete');
 
@@ -85,6 +90,29 @@ Route::prefix('work-space-management')->middleware('check.admin')->group( functi
 
 });
 
+Route::prefix('department')->middleware('check.admin')->group( function()
+{
+
+    Route::get('/', [DepartmentController::class, 'index'])->name('department.homepage');
+
+    Route::get('/add', [DepartmentController::class, 'add'])->name('department.add');
+
+    Route::post('/add', [DepartmentController::class, 'store'])->name('department.store');
+
+    Route::get('/modify/{id}', [DepartmentController::class, 'modify'])->name('department.modify');
+
+    Route::post('/modify/{id}', [DepartmentController::class, 'update'])->name('department.update');
+
+    Route::get('/detail/{id}', [DepartmentController::class, 'detail'])->name('department.detail');
+
+    Route::get('/delete/{id}', [DepartmentController::class, 'delete'])->name('department.delete');
+
+    Route::get('/search', [DepartmentController::class, 'search'])->name('department.search');
+
+    Route::get('/export', [DepartmentController::class, 'export'])->name('department.export');
+
+});
+
 Route::prefix('default-password')->middleware('check.admin')->group( function()
 {
 
@@ -93,6 +121,5 @@ Route::prefix('default-password')->middleware('check.admin')->group( function()
     Route::post('/update', [PasswordDefaultController::class, 'update'])->name('dfpassword.update');
 
 });
-
 
 Route::get('/new-arrival-management', [NewArrivalManagementController::class, 'index']) -> name('newam.homepage');

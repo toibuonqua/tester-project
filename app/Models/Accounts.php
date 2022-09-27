@@ -41,14 +41,13 @@ class Accounts extends BaseAccount
     const STATUS_ACTIVATED = 'active';
     const DEFAULT_WORKAREA_ID = 1;
     const TYPE_ADMIN = 'Admin/IT';
+    const EMAIL_ADMIN = 'admin@gmail.com';
 
     const DEFAULT_CODESTAR_EMAIL = "admin@codestar.vn";
-
     const DEFAULT_CODESTAR_PASSWORD = "codestar";
 
 
     protected $attributes = [
-        'workarea_id' => self::DEFAULT_WORKAREA_ID,
         'status' => self::STATUS_DEACTIVATED,
     ];
 

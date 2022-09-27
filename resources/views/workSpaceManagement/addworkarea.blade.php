@@ -3,46 +3,66 @@
 @section('nav-name-title', __('title.work-management'))
 @section('content')
 
-    @include('common.block.title1')
+@include('common.block.title1')
 
 <form id="add_workarea" method="post" action="{{ route('worksm.store') }}">
 
     @csrf
+    @method('POST')
 
-    {{-- @if ($e != isEmpty())
-        {{ $e -> getMessage() }}
-    @endif --}}
+    <br>
 
-    <div class="display-child-page">
+    <div class="container">
 
         {{-- Mã KVLV --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-6 col-md-4">
-                <label>{{ __('title.code-work-area') }}:</label>
-                </div>
-                <div class="col-md-8">
-                <input type="text" name="work_areas_code" class="form-control">
-                </div>
-            </div>
-        </div>
-    </div>
+        <div class="row">
 
-    <div class="display-child-page">
+            <div class="col-2">
+                <label>{{ __('title.code-work-area') }} * :</label>
+            </div>
+
+            <div class="col-3">
+                <input maxlength="6" type="text" name="work_areas_code" class="form-control">
+            </div>
+
+            <div class="col-auto">
+                <p data-bs-toggle="tooltip" data-bs-placement="right" title="
+                    - Linmit 1 - 100 characters.
+                    - Only accept numbers and letters in input
+                    - Not allow white space, symbols and non letter in put">
+                    <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
+                </p>
+            </div>
+
+        </div>
+
+        <br><br>
 
         {{-- Tên KVLV --}}
-        <div class="config-posi">
-            <div class="row">
-                <div class="col-6 col-md-4">
-                <label>{{ __('title.name-work-area') }}:</label>
-                </div>
-                <div class="col-md-8">
-                <input type="text" name="name" class="form-control">
-                </div>
+        <div class="row">
+
+            <div class="col-2">
+                <label>{{ __('title.name-work-area') }} * :</label>
             </div>
+
+            <div class="col-3">
+                <input maxlength="6" type="text" name="name" class="form-control">
+            </div>
+
+            <div class="col-auto">
+                <p data-bs-toggle="tooltip" data-bs-placement="right" title="
+                    - Linmit 1 - 100 characters.
+                    - Only accept numbers and letters in input
+                    - Not allow white space, symbols and non letter in put">
+                    <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
+                </p>
+            </div>
+
         </div>
+
     </div>
 
+    <br><br>
 
     <div class="display-but">
 
@@ -64,6 +84,8 @@
     $id_form = "add_workarea",
     $name_but = __('title.add'),
 ])
+
+<br>
 
 @include('common.block.flash-message')
 

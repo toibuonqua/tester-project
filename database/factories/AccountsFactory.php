@@ -24,6 +24,7 @@ class AccountsFactory extends Factory
         $workareas = Workarea::pluck('id')->toArray();
         $departments = Department::pluck('id')->toArray();
         $role_admin = Role::whereNot('name', Accounts::TYPE_ADMIN)->pluck('id')->toArray();
+        $admin = Accounts::where('email', 'admin@gmail.com')->first();
         return [
             'email' => $this->faker->unique()->email(),
             'password' => Hash::make("12345678"),
@@ -33,7 +34,7 @@ class AccountsFactory extends Factory
             'workarea_id' => Arr::random($workareas),
             'code_user' => $this->faker->unique()->numberBetween(1001, 9999),
             'phone_number' => $this->faker->phoneNumber(),
-            'manager_id' => null,
+            'manager_id' => $admin->id,
             'department_id' => Arr::random($departments),
         ];
     }

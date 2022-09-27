@@ -14,15 +14,16 @@ use App\Common\ExportExceptOnScreen;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AccountsExport;
+use App\Http\Controllers\ControllerTrait\GetEmployees;
 use App\Models\DefaultPassword;
 use Carbon\Carbon;
 use Flasher\Toastr\Prime\ToastrFactory;
 
 
+
 class UsersManagementController extends Controller
 {
-
-    use WebResponseTrait, ExportExceptOnScreen;
+    use WebResponseTrait, ExportExceptOnScreen, GetEmployees;
 
     // view Index
     public function index(Request $request)
@@ -36,16 +37,10 @@ class UsersManagementController extends Controller
             $account->workarea_code = $account->workarea->work_areas_code;
         };
 
-        // get data to export excel
-        $dataexport = Accounts::with('role', 'department', 'workarea')->get();
-        foreach ($dataexport as $value) {
-            $value->role_name = $value->role->name;
-            $value->department_name = $value->department->name;
-            $value->workarea_code = $value->workarea->work_areas_code;
-        };
-        $request->session()->put('dataexport', $dataexport);
+        $query = '';
+        $request->session()->put('query', $query);
 
-        return view('userManagement.usersmanagement', compact('accounts'));
+        return view('userManagement.usersmanagement', compact('accounts', 'query'));
     }
 
     // View add
@@ -53,25 +48,29 @@ class UsersManagementController extends Controller
     {
         $departments = Department::all();
         $roles = Role::all();
+        $workareas = Workarea::all();
 
         $error = $request->session()->get('errors');
 
         if ($error) {
             $this->updateFailMessage($request, $this->backString($request, $error));
         }
-        return view('userManagement.adduser', compact('departments', 'roles'));
+        return view('userManagement.adduser', compact('departments', 'roles', 'workareas'));
     }
 
     // View modify
-    public function modify($id)
+    public function modify($id, ToastrFactory $flasher)
     {
+        $account = Accounts::with('role', 'department', 'workarea')->find($id);
+        if ($account->role->name == Accounts::TYPE_ADMIN and !($this->returnEmployees($account->email))) {
+            $flasher->addError(__('title.account-permission-denied'));
+            return back();
+        }
+
+        $workareas = Workarea::all();
         $departments = Department::all();
         $roles = Role::all();
-
-        $account = Accounts::with(['role', 'department'])->find($id);
-        $workarea = Workarea::find($account->workarea_id);
-
-        return view('userManagement.moduser', compact('account', 'workarea', 'departments', 'roles'));
+        return view('userManagement.moduser', compact('account', 'workareas', 'departments', 'roles'));
     }
 
     // View detail
@@ -85,28 +84,33 @@ class UsersManagementController extends Controller
     // update user info
     public function update($id, Request $request, ToastrFactory $flasher)
     {
-        $account = Accounts::query()->findOrFail($id);
-        $data = $request->only('username', 'email', 'phone_number', 'status', 'code_user', 'department_id', 'role_id');
-        $account->update($data);
-        $flasher->addSuccess(__('title.notice-modify-user-success'));
-
-        return redirect()->route('homepage');
+        try{
+            $account = Accounts::query()->findOrFail($id);
+            $data = $request->only('username', 'phone_number', 'status', 'code_user', 'department_id', 'role_id', 'workarea_id');
+            $account->update($data);
+            $flasher->addSuccess(__('title.notice-modify-user-success'));
+            return redirect()->route('homepage');
+        }
+        catch(\Illuminate\Database\QueryException){
+            $flasher->addError('Thông tin người dùng không được để trống, cập nhật thông tin thất bại');
+            return back();
+        }
     }
 
     // Add new user
     public function store(Request $request, ToastrFactory $flasher)
     {
         $request->validate([
-            'email' => 'required|email|unique:accounts',
-            'username' => 'required',
-            'phone_number' => 'required',
-            'code_user' => 'required|integer',
-            'department_id' => 'required',
+            'email' => 'required|email|unique:accounts|max:100',
+            'username' => 'required|max:200',
+            'phone_number' => 'required|max:30',
+            'code_user' => 'required|integer|digits:4',
+            'department_id' => 'required|',
             'role_id' => 'required',
+            'workarea_id' => 'required',
         ]);
 
 
-        // Không có input cho khu vực làm việc
         $defaultpassword = new DefaultPassword;
         $account = new Accounts;
         $account->username = $request->input('username');
@@ -115,7 +119,8 @@ class UsersManagementController extends Controller
         $account->code_user = $request->input('code_user');
         $account->department_id = $request->input('department_id');
         $account->role_id = $request->input('role_id');
-        $account->manager_id = Auth::user()->id;
+        $account->workarea_id = $request->input('workarea_id');
+        $account->manager_id = Auth::id();
         $account->password = $defaultpassword->defaultPassword();
         $account->hashPassword();
         $account->save();
@@ -126,8 +131,8 @@ class UsersManagementController extends Controller
     // search bar
     public function search(Request $request)
     {
-        $search_text = $request->input("query");
-        $accounts = Accounts::where('username', 'like', '%' . $search_text . '%')->with('role', 'department', 'workarea')->paginate(Accounts::DEFAULT_PAGINATION);
+        $query = $request->input("query");
+        $accounts = Accounts::where('username', 'like', '%' . $query . '%')->with('role', 'department', 'workarea')->paginate(Accounts::DEFAULT_PAGINATION);
 
         foreach ($accounts as $account) {
             $account->role_name = $account->role->name;
@@ -135,23 +140,21 @@ class UsersManagementController extends Controller
             $account->workarea_code = $account->workarea->work_areas_code;
         };
 
-        // get data to export excel
-        $dataexport = Accounts::where('username', 'like', '%' . $search_text . '%')->with('role', 'department', 'workarea')->get();
+        $request->session()->put('query', $query);
 
-        foreach ($dataexport as $value) {
-            $value->role_name = $value->role->name;
-            $value->department_name = $value->department->name;
-            $value->workarea_code = $value->workarea->work_areas_code;
-        };
-        $request->session()->put('dataexport', $dataexport);
-
-        return view('userManagement.usersmanagement', compact('accounts'));
+        return view('userManagement.usersmanagement', compact('accounts', 'query'));
     }
 
     // Export excel file
     public function export(Request $request)
     {
-        $accounts = $request->session()->get('dataexport');
+        $query = $request->session()->get('query');
+        $accounts = Accounts::with('role', 'department', 'workarea')->where('username', 'like', '%'.$query.'%')->orderBy('created_at', 'DESC')->get();
+        foreach ($accounts as $account) {
+            $account->role_name = $account->role->name;
+            $account->department_name = $account->department->name;
+            $account->workarea_code = $account->workarea->work_areas_code;
+        };
         $time = Carbon::now()->format('YmdHi');
         return Excel::download(new AccountsExport($accounts), 'danhsachnguoidung_'.$time.'.xlsx');
     }
@@ -160,7 +163,11 @@ class UsersManagementController extends Controller
     // Change status user
     public function active($id, ToastrFactory $flasher)
     {
-        $account = Accounts::find($id);
+        $account = Accounts::with('role')->find($id);
+        if ($account->role->name == Accounts::TYPE_ADMIN and !($this->returnEmployees($account->email))) {
+            $flasher->addError(__('title.account-permission-denied'));
+            return back();
+        }
         $account->activate()->save();
         if ($account->status == Accounts::STATUS_ACTIVATED)
         {
@@ -170,16 +177,20 @@ class UsersManagementController extends Controller
         {
             $flasher->addSuccess(__('title.deactive-user'));
         }
-        return redirect()->route('homepage');
+        return back();
     }
 
     // reset password user
     public function resetpw($id, ToastrFactory $flasher)
     {
-        $account = Accounts::find($id);
+        $account = Accounts::with('role')->find($id);
+        if ($account->role->name == Accounts::TYPE_ADMIN and !($this->returnEmployees($account->email))) {
+            $flasher->addError(__('title.account-permission-denied'));
+            return back();
+        }
         $account->resetPassword()->save();
         $flasher->addSuccess(__('title.notice-reset-password-succcess'));
-        return redirect()->route('homepage');
+        return back();
     }
 
     // view change password

@@ -15,6 +15,8 @@ class WorkareaSeeder extends Seeder
      */
     public function run()
     {
-        Workarea::factory(10)->create();
+        Workarea::factory(10)->create([
+            'createrId' => 1
+        ]);
     }
 }

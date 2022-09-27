@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Accounts;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Workarea;
 
@@ -17,6 +18,7 @@ class WorkareaFactory extends Factory
      */
     public function definition()
     {
+        $admin = Accounts::where('email', Accounts::EMAIL_ADMIN)->first();
         return [
             'name' => 'KVLV'.$this->faker->unique()->numberBetween(1, 99),
             'work_areas_code' => 'KV00'.$this->faker->unique()->numberBetween(1, 99),

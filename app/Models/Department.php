@@ -11,11 +11,13 @@ class Department extends Model
 
     protected $table = 'department';
 
-   protected $fillable = ['id', 'name'];
+    protected $fillable = ['id', 'name'];
+
+    const DEFAULT_PAGINATION = 5;
 
     public function accounts()
     {
         return $this->hasMany(Accounts::class);
     }
-    
+
 }

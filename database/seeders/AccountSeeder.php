@@ -40,6 +40,6 @@ class AccountSeeder extends Seeder
             ]
         );
 
-        Accounts::factory(14)->create();
+        Accounts::factory(100)->create();
     }
 }
