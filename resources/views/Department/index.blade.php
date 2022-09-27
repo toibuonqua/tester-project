@@ -21,7 +21,7 @@
             <form class="d-flex" method="get" action="{{ route('department.search') }}">
             @csrf
             @method('GET')
-                <input style="width: 380px" class="form-control me-2" name="query" type="text" placeholder="{{ __('title.search') }}">
+                <input style="width: 380px" class="form-control me-3" name="query" type="text" value="{{ session('query') }}" placeholder="Nhập từ khóa cần tìm kiếm">
                 <button style="width: 180px" class="btn btn-outline-success" type="submit">{{ __('title.search') }}</button>
             </form>
           </div>

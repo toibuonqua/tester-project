@@ -37,16 +37,10 @@ class UsersManagementController extends Controller
             $account->workarea_code = $account->workarea->work_areas_code;
         };
 
-        // get data to export excel
-        $dataexport = Accounts::with('role', 'department', 'workarea')->get();
-        foreach ($dataexport as $value) {
-            $value->role_name = $value->role->name;
-            $value->department_name = $value->department->name;
-            $value->workarea_code = $value->workarea->work_areas_code;
-        };
-        $request->session()->put('dataexport', $dataexport);
+        $query = '';
+        $request->session()->put('query', $query);
 
-        return view('userManagement.usersmanagement', compact('accounts'));
+        return view('userManagement.usersmanagement', compact('accounts', 'query'));
     }
 
     // View add
@@ -107,11 +101,11 @@ class UsersManagementController extends Controller
     public function store(Request $request, ToastrFactory $flasher)
     {
         $request->validate([
-            'email' => 'required|email|unique:accounts',
-            'username' => 'required',
-            'phone_number' => 'required',
-            'code_user' => 'required|integer',
-            'department_id' => 'required',
+            'email' => 'required|email|unique:accounts|max:100',
+            'username' => 'required|max:200',
+            'phone_number' => 'required|max:30',
+            'code_user' => 'required|integer|digits:4',
+            'department_id' => 'required|',
             'role_id' => 'required',
             'workarea_id' => 'required',
         ]);
@@ -137,8 +131,8 @@ class UsersManagementController extends Controller
     // search bar
     public function search(Request $request)
     {
-        $search_text = $request->input("query");
-        $accounts = Accounts::where('username', 'like', '%' . $search_text . '%')->with('role', 'department', 'workarea')->paginate(Accounts::DEFAULT_PAGINATION);
+        $query = $request->input("query");
+        $accounts = Accounts::where('username', 'like', '%' . $query . '%')->with('role', 'department', 'workarea')->paginate(Accounts::DEFAULT_PAGINATION);
 
         foreach ($accounts as $account) {
             $account->role_name = $account->role->name;
@@ -146,23 +140,21 @@ class UsersManagementController extends Controller
             $account->workarea_code = $account->workarea->work_areas_code;
         };
 
-        // get data to export excel
-        $dataexport = Accounts::where('username', 'like', '%' . $search_text . '%')->with('role', 'department', 'workarea')->get();
+        $request->session()->put('query', $query);
 
-        foreach ($dataexport as $value) {
-            $value->role_name = $value->role->name;
-            $value->department_name = $value->department->name;
-            $value->workarea_code = $value->workarea->work_areas_code;
-        };
-        $request->session()->put('dataexport', $dataexport);
-
-        return view('userManagement.usersmanagement', compact('accounts'));
+        return view('userManagement.usersmanagement', compact('accounts', 'query'));
     }
 
     // Export excel file
     public function export(Request $request)
     {
-        $accounts = $request->session()->get('dataexport');
+        $query = $request->session()->get('query');
+        $accounts = Accounts::with('role', 'department', 'workarea')->where('username', 'like', '%'.$query.'%')->orderBy('created_at', 'DESC')->get();
+        foreach ($accounts as $account) {
+            $account->role_name = $account->role->name;
+            $account->department_name = $account->department->name;
+            $account->workarea_code = $account->workarea->work_areas_code;
+        };
         $time = Carbon::now()->format('YmdHi');
         return Excel::download(new AccountsExport($accounts), 'danhsachnguoidung_'.$time.'.xlsx');
     }

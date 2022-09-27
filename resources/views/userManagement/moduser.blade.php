@@ -18,7 +18,12 @@
             {{-- username --}}
             <div class="row">
                 <div class="col-3"><label>{{ __('title.fullname') }} * :</label></div>
-                <div class="col-5"><input class="form-control" name="username" value="{{ $account->username }}" type="text"></div>
+                <div class="col-5"><input maxlength="200" class="form-control" name="username" value="{{ $account->username }}" type="text"></div>
+                <div class="col-auto">
+                    <p data-bs-toggle="tooltip" data-bs-placement="right" title="trường bắt buộc">
+                        <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
+                    </p>
+                </div>
             </div>
 
             <br><br>
@@ -26,7 +31,12 @@
             {{-- email --}}
             <div class="row">
                 <div class="col-3"><label>{{ __('title.email') }} * :</label></div>
-                <div class="col-5"><input class="form-control" name="email" value="{{ $account->email }}" type="text"></div>
+                <div class="col-5"><input maxlength="100" class="form-control" name="email" value="{{ $account->email }}" type="text"></div>
+                <div class="col-auto">
+                    <p data-bs-toggle="tooltip" data-bs-placement="right" title="trường bắt buộc">
+                        <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
+                    </p>
+                </div>
             </div>
 
             <br><br>
@@ -38,7 +48,12 @@
             </div>
             <div class="row">
                 <div class="col-3"><label>{{ __('title.phone-number') }} * :</label></div>
-                <div class="col-5"><input class="form-control" name="phone_number" value="{{ $account->phone_number }}" type="text"></div>
+                <div class="col-5"><input maxlength="30" class="form-control" name="phone_number" value="{{ $account->phone_number }}" type="text"></div>
+                <div class="col-auto">
+                    <p data-bs-toggle="tooltip" data-bs-placement="right" title="trường bắt buộc">
+                        <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
+                    </p>
+                </div>
             </div>
 
             <br><br>
@@ -91,6 +106,7 @@
                 'options' => $departments ?? [],
                 'valueField' => 'id',
                 'displayField' => 'name',
+                'display' => 'block',
                 'select' => $account->department->id,
             ])
 
@@ -102,6 +118,7 @@
                 'options' => $roles ?? [],
                 'valueField' => 'id',
                 'displayField' => 'name',
+                'display' => 'block',
                 'select' => $account->role->id,
             ])
 
@@ -113,6 +130,7 @@
                 'options' => $workareas ?? [],
                 'valueField' => 'id',
                 'displayField' => 'work_areas_code',
+                'display' => 'block',
                 'select' => $account->workarea->id,
             ])
 
@@ -125,7 +143,12 @@
             </div>
             <div class="row">
                 <div class="col-3"><label>{{ __('title.code-user') }} * :</label></div>
-                <div class="col-5"><input class="form-control" name="code_user" value="{{ $account->code_user }}" type="text"></div>
+                <div class="col-5"><input maxlength="4" class="form-control" name="code_user" value="{{ $account->code_user }}" type="text"></div>
+                <div class="col-auto">
+                    <p data-bs-toggle="tooltip" data-bs-placement="right" title="trường bắt buộc">
+                        <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
+                    </p>
+                </div>
             </div>
 
         </div>

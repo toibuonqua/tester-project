@@ -11,6 +11,11 @@
             @endforeach
         </select>
     </div>
+    <div style="display: {{ $display ?? $display = 'none' }}" class="col-auto">
+        <p data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $tooltips ?? $tooltips = 'Trường bắt buộc' }}">
+            <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
+        </p>
+    </div>
 </div>
 
 {{-- @include('common.block.select', [
@@ -18,5 +23,7 @@
         'options' => $courses ?? [],
         'valueField' => 'id',
         'displayField' => 'name',
+        'display' => 'block',
+        'tooltips' => ''
         'select' =>  isset($classroom) && isset($classroom->course) ? $classroom->course->id : old('course')
     ]) --}}

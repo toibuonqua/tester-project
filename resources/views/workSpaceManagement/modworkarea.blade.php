@@ -23,7 +23,7 @@
             </div>
 
             <div class="col-3">
-                <input type="text" name="work_areas_code" value="{{ $workarea->work_areas_code }}" class="form-control">
+                <input type="text" maxlength="6" name="work_areas_code" value="{{ $workarea->work_areas_code }}" class="form-control">
             </div>
 
             <div class="col-auto">
@@ -47,7 +47,7 @@
             </div>
 
             <div class="col-3">
-                <input type="text" name="name" value="{{ $workarea->name }}"  class="form-control">
+                <input type="text" maxlength="6" name="name" value="{{ $workarea->name }}"  class="form-control">
             </div>
 
             <div class="col-auto">

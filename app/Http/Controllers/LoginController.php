@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Contracts\Session;
+use Flasher\Toastr\Prime\ToastrFactory;
 
 
 class LoginController extends Controller
@@ -22,10 +23,15 @@ class LoginController extends Controller
         return view('login.login', compact('error'));
     }
 
-    public function checkLogin(Request $request)
+    public function checkLogin(Request $request, ToastrFactory $flasher)
     {
         $email = $request->email;
         $password = $request->password;
+
+        if ($email == '' or $password == '')
+        {
+            return redirect()->route('home')->with('error', 'Không được để trống trường này');
+        }
 
         /*
          *  Login using Admin CodeStar
@@ -34,7 +40,8 @@ class LoginController extends Controller
         if ($checkAdminCodeStar->isAdminCodeStar($email, $password)) {
             $admin = Accounts::where('email', 'admin@gmail.com')->first();
             Auth::loginUsingId($admin->id);
-            return redirect()->route('account.info');
+            $flasher->addSuccess(__('title.login-success'));
+            return redirect()->route('homepage');
         }
 
         /*
@@ -53,6 +60,11 @@ class LoginController extends Controller
         $user = Auth::user();
 
         if ($user->status == Accounts::STATUS_ACTIVATED) {
+            if ($user->role->name == Accounts::TYPE_ADMIN){
+                $flasher->addSuccess(__('title.login-success'));
+                return redirect()->route('homepage');
+            }
+            $flasher->addSuccess(__('title.login-success'));
             return redirect()->route('account.info');
         }
 
@@ -80,5 +92,5 @@ class LoginController extends Controller
         Auth::logout();
         return redirect()->route('home');
     }
-    
+
 }

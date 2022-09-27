@@ -22,7 +22,7 @@
             </div>
 
             <div class="col-3">
-                <input type="text" name="work_areas_code" class="form-control">
+                <input maxlength="6" type="text" name="work_areas_code" class="form-control">
             </div>
 
             <div class="col-auto">
@@ -46,7 +46,7 @@
             </div>
 
             <div class="col-3">
-                <input type="text" name="name" class="form-control">
+                <input maxlength="6" type="text" name="name" class="form-control">
             </div>
 
             <div class="col-auto">
@@ -57,7 +57,7 @@
                     <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
                 </p>
             </div>
-            
+
         </div>
 
     </div>

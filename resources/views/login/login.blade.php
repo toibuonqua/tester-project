@@ -51,7 +51,7 @@
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                                 </div>
 
-                                <input name="email" type="text" value="" class="input form-control"
+                                <input name="email" maxlength="200" type="email" class="input form-control"
                                     id="email" placeholder="{{ __('title.email') }}" aria-label="Username"
                                     aria-describedby="basic-addon1" />
 
@@ -66,14 +66,14 @@
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
                                 </div>
 
-                                <input name="password" type="password" value="" class="input form-control"
-                                    id="password" placeholder="{{ __('title.password') }}" required="true"
+                                <input name="password" type="password" maxlength="200" class="input form-control"
+                                    id="password" placeholder="{{ __('title.password') }}"
                                     aria-label="password" aria-describedby="basic-addon1" />
 
                                 <div class="input-group-append">
                                     <span class="input-group-text" onclick="password_show_hide();">
-                                        <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
-                                        <i class="fas fa-eye" id="show_eye"></i>
+                                        <i class="fas fa-eye-slash" id="hide_eye"></i>
+                                        <i class="fas fa-eye d-none" id="show_eye"></i>
                                     </span>
                                 </div>
                             </div>

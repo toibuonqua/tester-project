@@ -13,7 +13,7 @@
           <div class="row">
             <form class="d-flex" method="get" action="{{ route('worksm.search') }}">
             @csrf
-                <input style="width: 380px" class="form-control me-2" name="query" type="text" placeholder="{{ __('title.search') }}">
+                <input style="width: 380px" class="form-control me-3" name="query" type="text" value="{{ session('query') }}" placeholder="Nhập từ khóa cần tìm kiếm">
                 <button style="width: 180px" class="btn btn-outline-success" type="submit">{{ __('title.search') }}</button>
             </form>
           </div>
@@ -39,7 +39,6 @@
             'name-work-area' => 'name',
             'creater' => 'creater',
             'time_create' => 'created_at',
-            'time_update' => 'updated_at',
             'modify' => 'pattern.modified',
             'view' => 'pattern.view',
             'delete' => 'pattern.delete',

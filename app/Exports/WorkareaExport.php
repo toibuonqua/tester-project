@@ -18,7 +18,6 @@ class WorkareaExport implements FromArray, WithHeadings
             'name',
             'creater',
             'created_at',
-            'updated_at',
         ]);
         $this->workareas = $result;
     }
@@ -35,7 +34,6 @@ class WorkareaExport implements FromArray, WithHeadings
             __('title.name-work-area'),
             __('title.creater'),
             __('title.time_create'),
-            __('title.time_update'),
         ];
     }
 

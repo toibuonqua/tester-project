@@ -118,7 +118,7 @@ class DepartmentController extends Controller
     public function export(Request $request)
     {
         $keyword = $request->session()->get('query');
-        $departments = Department::where('name', 'like', '%'.$keyword.'%')->get();
+        $departments = Department::where('name', 'like', '%'.$keyword.'%')->orderBy('created_at', 'DESC')->get();
         $time = Carbon::now()->format('YmdHi');
         return Excel::download(new DepartmentExport($departments),  'DanhSachPhongBan_'.$time.'.xlsx');
     }
