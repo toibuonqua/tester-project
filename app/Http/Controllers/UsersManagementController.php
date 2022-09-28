@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Models\Workarea;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\PasswordRequest;
 use App\Http\Controllers\Web\WebResponseTrait;
 use App\Common\ExportExceptOnScreen;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,7 @@ use App\Http\Controllers\ControllerTrait\GetEmployees;
 use App\Models\DefaultPassword;
 use Carbon\Carbon;
 use Flasher\Toastr\Prime\ToastrFactory;
+
 
 
 
@@ -50,11 +52,14 @@ class UsersManagementController extends Controller
         $roles = Role::all();
         $workareas = Workarea::all();
 
-        $error = $request->session()->get('errors');
+        // check $error
+        // $error = $request->session()->get('errors');
 
-        if ($error) {
-            $this->updateFailMessage($request, $this->backString($request, $error));
-        }
+        // if ($error) {
+        //     dd($request);
+        //     $this->updateFailMessage($request, $this->backString($request, $error));
+        // }
+
         return view('userManagement.adduser', compact('departments', 'roles', 'workareas'));
     }
 
@@ -98,18 +103,9 @@ class UsersManagementController extends Controller
     }
 
     // Add new user
-    public function store(Request $request, ToastrFactory $flasher)
+    public function store(StoreUserRequest $request, ToastrFactory $flasher)
     {
-        $request->validate([
-            'email' => 'required|email|unique:accounts|max:100',
-            'username' => 'required|max:200',
-            'phone_number' => 'required|max:30',
-            'code_user' => 'required|integer|digits:4',
-            'department_id' => 'required|',
-            'role_id' => 'required',
-            'workarea_id' => 'required',
-        ]);
-
+        $validated = $request->validated();
 
         $defaultpassword = new DefaultPassword;
         $account = new Accounts;
@@ -198,26 +194,15 @@ class UsersManagementController extends Controller
     {
         $email = Auth::user()->email;
 
-        $error = $request->session()->get('errors');
-
-        if ($error) {
-            $this->updateFailMessage($request, $this->backString($request, $error));
-        }
-
         return view('ChangePassword.changepassword', compact('email'));
     }
 
     // Change password
-    public function passwordUpdate(Request $request)
+    public function passwordUpdate(PasswordRequest $request)
     {
 
         // Validate field in view change password
-        $request->validate([
-            'old-password' => 'required',
-            'new-password' => 'required',
-            'confirm-new-password' => 'required',
-
-        ]);
+        $request->validated();
 
         // Check old password.
         if(!Auth::attempt(['email' => Auth::user()->email,'password' => $request->input('old-password')]))

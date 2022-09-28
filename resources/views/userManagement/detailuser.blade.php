@@ -33,6 +33,25 @@
             <div class="col-auto"><label>{{ $account->phone_number }}</label></div>
         </div>
 
+        <br><br>
+
+        {{-- status --}}
+        <div class="row">
+            <div class="col-2">
+                <label>{{ __('title.status') }}:</label>
+            </div>
+            <div class="col-auto">
+                <label style="margin-left: 20px" class="switch">
+                @if ($account->status === 'active')
+                    <input name='status' type="checkbox" checked>
+                @else
+                    <input name='status' type="checkbox">
+                @endif
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+
     </div>
 
     <div class="container">
@@ -53,6 +72,14 @@
 
         <br><br>
 
+        {{-- Workarea --}}
+        <div class="row">
+            <div class="col-3"><label>{{ __('title.work-area') }} :</label></div>
+            <div class="col-auto"><label>{{ $account->workarea->work_areas_code }}</label></div>
+        </div>
+
+        <br><br>
+
         {{-- Code user --}}
         <div class="row">
             <div class="col-3"><label>{{ __('title.code-user') }} :</label></div>
@@ -64,27 +91,6 @@
 </div>
 
 <br><br>
-
-{{-- status --}}
-<div style="margin-left: 6%" class="row">
-    <div style="display: flex" class="col-md-6">
-        <div class="col-2">
-            <label>{{ __('title.status') }}:</label>
-        </div>
-        <div class="col-auto">
-            <label style="margin-left: 20px" class="switch">
-            @if ($account->status === 'active')
-                <input name='status' type="checkbox" checked>
-            @else
-                <input name='status' type="checkbox">
-            @endif
-                <span class="slider round"></span>
-            </label>
-        </div>
-    </div>
-</div>
-
-
 
 <div class="display-but">
 

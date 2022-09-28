@@ -1,4 +1,12 @@
 <div class="row">
+    <div class="col-3"></div>
+    <div class="col-5">
+        @error($name)
+            <span class="text-error">{{ $message }}</span>
+        @enderror
+    </div>
+</div>
+<div class="row">
     <div class="col-3">
     <label for="{{ $name }}" class="col-form-label">{{ __("title.$name") }} * :</label>
     </div>

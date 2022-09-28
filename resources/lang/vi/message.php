@@ -28,6 +28,7 @@ return [
     'exam-structure-not-setup-yet' => "Cấu trúc đề thi chưa được thiết lập",
     'exceed-exam-created' => 'Bạn đã tạo 5 bài thi trong hôm nay. Hãy nghỉ ngơi và quay lại vào ngày mai nhé!',
     'exceed-exam-time' => 'Bạn đã làm bài quá 5 tiếng trong hôm nay. Hãy nghỉ ngơi và quay lại vào ngày mai nhé!',
+    'field-isnt-empty' => 'không được để trống trường này',
     'generate-exam-success' => 'Sinh đề thi thành công',
     'get-course-failed' => 'Không thể lấy dữ liệu khóa học này. Hãy kiểm tra lại.',
     'invalid-db-credentials' => 'Kết nối đến CSDL không hợp lệ',

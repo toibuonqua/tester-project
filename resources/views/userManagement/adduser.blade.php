@@ -17,7 +17,15 @@
 
             {{-- username --}}
             <div class="row">
-                <div class="col-3"><label>{{ __('title.fullname') }} * :</label></div>
+                <div class="col-3"></div>
+                <div class="col-5">
+                    @error('username')
+                        <span class="text-error">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3"><label>{{ __('title.fullname') }} * :</div>
                 <div class="col-5"><input maxlength="200" class="form-control" name="username" type="text"></div>
                 <div class="col-auto">
                     <p data-bs-toggle="tooltip" data-bs-placement="right" title="trường bắt buộc">
@@ -29,6 +37,14 @@
             <br><br>
 
             {{-- email --}}
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-5">
+                    @error('email')
+                        <span class="text-error">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
             <div class="row">
                 <div class="col-3"><label>{{ __('title.email') }} * :</label></div>
                 <div class="col-5"><input maxlength="100" class="form-control" name="email" type="text"></div>
@@ -44,7 +60,11 @@
             {{-- Phone number --}}
             <div class="row">
                 <div class="col-3"></div>
-                <div class="col-5"></div>
+                <div class="col-5">
+                    @error('phone_number')
+                        <span class="text-error">{{ $message }}</span>
+                    @enderror
+                </div>
             </div>
             <div class="row">
                 <div class="col-3"><label>{{ __('title.phone-number') }} * :</label></div>
@@ -97,7 +117,11 @@
             {{-- Code user --}}
             <div class="row">
                 <div class="col-3"></div>
-                <div class="col-5"></div>
+                <div class="col-5">
+                    @error('code_user')
+                        <span class="text-error">{{ $message }}</span>
+                    @enderror
+                </div>
             </div>
             <div class="row">
                 <div class="col-3"><label>{{ __('title.code-user') }} * :</label></div>

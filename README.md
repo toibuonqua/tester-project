@@ -32,7 +32,7 @@ DB_PASSWORD= Mật khẩu đăng nhập
 #### 3. Migrate data
 - Chạy lệnh tạo bảng:
 ```
-php artisan migrate
+php artisan migrate:refresh
 ```
 
 - Chạy lệnh để tạo dữ liệu:
@@ -52,8 +52,11 @@ php artisan serve
                             password: codestar`ddmmyyyy` || vd: codestar20092022 || `ddmmyyyy` sẽ là ngày tháng năm hiện tại (UTC+7)
 
 ### Common Known Issues
+#### 1. Cài đặt thư viện maatwebsite/excel
 - Với thư viện `maatwebsite/excel`, nếu bạn bị lỗi do phiên bản PHP 8.1 sẽ phải chạy một câu lệnh khác để cài đăt thư viện
 - chạy lệnh:
 ```
 composer require psr/simple-cache:^2.0 maatwebsite/excel
 ```
+#### 2. File migration get_users 
+- Syntax của mysql 5.7 vẫn hoạt động tốt trên mysql version 8.x

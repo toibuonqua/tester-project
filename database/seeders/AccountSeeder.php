@@ -24,7 +24,7 @@ class AccountSeeder extends Seeder
     {
         $workareas = Workarea::pluck('id')->toArray();
         $departments = Department::pluck('id')->toArray();
-        $admin_role = Role::where('name', "Admin/IT")->first();
+        $admin_role = Role::where('name', Accounts::TYPE_ADMIN)->first();
         Accounts::create(
             [
                 'username' => 'Admin',

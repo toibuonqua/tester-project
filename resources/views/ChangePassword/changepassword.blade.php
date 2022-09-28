@@ -19,9 +19,17 @@
         <div class="col-3"><label>{{ $email }}</label></div>
         </div>
 
-        <br>
+        <br><br>
 
         {{-- old password --}}
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-3">
+                @error('old-password')
+                    <span class="text-error">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
         <div class="row">
             <div class="col-2"><label>{{ __('title.old-password') }}:</label></div>
             <div class="col-3"><input class="form-control" name="old-password" type="password"></div>
@@ -37,16 +45,33 @@
             </div>
         </div>
 
+        <br>
 
         {{-- new password --}}
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-3">
+                @error('new-password')
+                    <span class="text-error">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
         <div class="row">
             <div class="col-2"><label>{{ __('title.new-password') }}:</label></div>
             <div class="col-3"><input class="form-control" name="new-password" type="password"></div>
         </div>
 
-        <br>
+        <br><br>
 
         {{--Confirm new password --}}
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-3">
+                @error('confirm-new-password')
+                    <span class="text-error">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
         <div class="row">
             <div class="col-2"><label>{{ __('title.confirm-password') }}:</label></div>
             <div class="col-3"><input class="form-control" name="confirm-new-password" type="password"></div>
