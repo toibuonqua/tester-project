@@ -16,6 +16,7 @@ use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\WorkareaExport;
 use Carbon\Carbon;
+use App\Http\Requests\WorkareaRequest;
 
 class WorkSpaceManagementController extends Controller
 {
@@ -45,11 +46,6 @@ class WorkSpaceManagementController extends Controller
 
         $title = __('title.add-work-area');
 
-        $error = $request->session()->get('errors');
-
-        if ($error) {
-            $this->updateFailMessage($request, $this->backString($request, $error));
-        }
         return view('workSpaceManagement.addworkarea', compact('title'));
     }
 
@@ -92,13 +88,10 @@ class WorkSpaceManagementController extends Controller
     }
 
     // Add new Workarea
-    public function store(Request $request, ToastrFactory $flasher)
+    public function store(WorkareaRequest $request, ToastrFactory $flasher)
     {
 
-        $request->validate([
-            'work_areas_code' => 'required|unique:workarea|max:6',
-            'name' => 'required|max:6',
-        ]);
+        $request->validated();
 
         $workarea = new Workarea;
         $workarea->name = $request->input('name');

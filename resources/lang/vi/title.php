@@ -172,6 +172,7 @@ return [
     'notice-delete-department-success' => 'Xóa phòng ban thành công',
     'notice-delete-work-area' => 'Bạn có thực sự muốn xóa khu vực này',
     'notice-delete-work-area-success' => 'Xóa khu vực làm việc thành công',
+    'notice-modify-department-success' => 'Chỉnh sửa phòng ban thành công',
     'notice-modify-user-success' => 'Chỉnh sửa thông tin người dùng thành công',
     'notice-modify-workarea-success' => 'Chỉnh sửa thông tin khu vực thành công',
     'notice-reset-password' => 'Bạn có thực sực muốn làm mới mật khẩu của người dùng này',

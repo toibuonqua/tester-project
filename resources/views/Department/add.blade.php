@@ -16,7 +16,11 @@
         {{-- Department name --}}
         <div class="row">
             <div class="col-2"></div>
-            <div class="col-4"></div>
+            <div class="col-4">
+                @error('name')
+                    <span class="text-error">{{ $message }}</span>
+                @enderror
+            </div>
         </div>
         <div class="row">
             <div class="col-2"><label>{{ __('title.department') }} * :</label></div>

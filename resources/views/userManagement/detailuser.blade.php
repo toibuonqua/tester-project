@@ -30,6 +30,7 @@
         {{-- Phone number --}}
         <div class="row">
             <div class="col-3"><label>{{ __('title.phone-number') }} :</label></div>
+            <div class="col-auto"><label>+84</label></div>
             <div class="col-auto"><label>{{ $account->phone_number }}</label></div>
         </div>
 

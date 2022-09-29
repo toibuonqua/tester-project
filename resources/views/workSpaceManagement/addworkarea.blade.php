@@ -16,6 +16,14 @@
 
         {{-- Mã KVLV --}}
         <div class="row">
+            <div class="col-2"></div>
+            <div class="col-3">
+                @error('work_areas_code')
+                    <span class="text-error">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
+        <div class="row">
 
             <div class="col-2">
                 <label>{{ __('title.code-work-area') }} * :</label>
@@ -27,9 +35,9 @@
 
             <div class="col-auto">
                 <p data-bs-toggle="tooltip" data-bs-placement="right" title="
-                    - Linmit 1 - 100 characters.
-                    - Only accept numbers and letters in input
-                    - Not allow white space, symbols and non letter in put">
+- Limit 1 - 100 characters.
+- Only accept numbers and letters in input
+- Not allow white space, symbols and non letter in put">
                     <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
                 </p>
             </div>
@@ -39,6 +47,14 @@
         <br><br>
 
         {{-- Tên KVLV --}}
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-3">
+                @error('work_areas_code')
+                    <span class="text-error">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
         <div class="row">
 
             <div class="col-2">
@@ -51,9 +67,9 @@
 
             <div class="col-auto">
                 <p data-bs-toggle="tooltip" data-bs-placement="right" title="
-                    - Linmit 1 - 100 characters.
-                    - Only accept numbers and letters in input
-                    - Not allow white space, symbols and non letter in put">
+- Linmit 1 - 100 characters.
+- Only accept numbers and letters in input
+- Not allow white space, symbols and non letter in put">
                     <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
                 </p>
             </div>
