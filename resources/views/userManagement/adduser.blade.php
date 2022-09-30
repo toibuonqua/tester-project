@@ -177,6 +177,4 @@
 
 <br>
 
-@include('common.block.flash-message')
-
 @endsection
