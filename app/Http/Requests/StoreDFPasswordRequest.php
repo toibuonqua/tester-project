@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\F;
 
-class StoreDepartmentRequest extends FormRequest
+class StoreDFPasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,17 +24,18 @@ class StoreDepartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|regex:/^[\w\s]{0,}$/u|max:256|unique:department',
+            'new-password-default' => 'required|min:8',
+            'new-password-default-confirm' => 'required|min:8',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => __('message.field-isnt-empty'),
-            'name.regex' => 'Trường này chỉ chứa số, ký tự và khoảng trắng',
-            'name.max' => 'Trường này tối đa là 256 ký tự',
-            'name.unique' => 'Tên phòng ban đã tồn tại',
+            'new-password-default.required' => __('message.field-isnt-empty'),
+            'new-password-default.min' => 'Trường này ít nhất là 8 ký tự',
+            'new-password-default-confirm.required' => __('message.field-isnt-empty'),
+            'new-password-default-confirm.min' => 'Trường này ít nhất là 8 ký tự',
         ];
     }
 }

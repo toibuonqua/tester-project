@@ -34,7 +34,7 @@ class AccountSeeder extends Seeder
                 'role_id' => $admin_role->id,
                 'workarea_id' => Arr::random($workareas),
                 'code_user' => 1000,
-                'phone_number' => "0123456789",
+                'phone_number' => "123-456-789",
                 'manager_id' => null,
                 'department_id' => Arr::random($departments),
             ]

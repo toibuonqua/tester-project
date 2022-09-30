@@ -17,20 +17,28 @@
 
         {{-- Mã KVLV --}}
         <div class="row">
+            <div class="col-2"></div>
+            <div class="col-3">
+                @error('work_areas_code')
+                    <span class="text-error">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
+        <div class="row">
 
             <div class="col-2">
                 <label>{{ __('title.code-work-area') }} * :</label>
             </div>
 
             <div class="col-3">
-                <input type="text" maxlength="6" name="work_areas_code" value="{{ $workarea->work_areas_code }}" class="form-control">
+                <input type="text" maxlength="100" name="work_areas_code" value="{{ $workarea->work_areas_code }}" class="form-control">
             </div>
 
             <div class="col-auto">
                 <p data-bs-toggle="tooltip" data-bs-placement="right" title="
-                    - Linmit 1 - 100 characters.
-                    - Only accept numbers and letters in input
-                    - Not allow white space, symbols and non letter in put">
+- Limit 1 - 100 characters.
+- Only accept numbers and letters in input
+- Not allow white space, symbols and non letter in put">
                     <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
                 </p>
             </div>
@@ -41,20 +49,28 @@
 
         {{-- Tên KVLV --}}
         <div class="row">
+            <div class="col-2"></div>
+            <div class="col-3">
+                @error('name')
+                    <span class="text-error">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
+        <div class="row">
 
             <div class="col-2">
                 <label>{{ __('title.name-work-area') }} * :</label>
             </div>
 
             <div class="col-3">
-                <input type="text" maxlength="6" name="name" value="{{ $workarea->name }}"  class="form-control">
+                <input type="text" maxlength="100" name="name" value="{{ $workarea->name }}"  class="form-control">
             </div>
 
             <div class="col-auto">
                 <p data-bs-toggle="tooltip" data-bs-placement="right" title="
-                    - Linmit 1 - 100 characters.
-                    - Only accept numbers and letters in input
-                    - Not allow white space, symbols and non letter in put">
+- Linmit 1 - 100 characters.
+- Only accept numbers and letters in input
+- Not allow symbols and non letter in input">
                     <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
                 </p>
             </div>

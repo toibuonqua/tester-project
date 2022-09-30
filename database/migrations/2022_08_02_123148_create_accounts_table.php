@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('status');
             $table->unsignedBigInteger('role_id');
             $table->unsignedBigInteger('workarea_id');
-            $table->integer('code_user');
+            $table->integer('code_user')->unique();
             $table->string('phone_number');
             $table->unsignedBigInteger('manager_id')->nullable();
             $table->unsignedBigInteger('department_id');

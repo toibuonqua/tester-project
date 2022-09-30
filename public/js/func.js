@@ -1,7 +1,7 @@
-function password_show_hide() {
-    var x = document.getElementById("password");
-    var show_eye = document.getElementById("show_eye");
-    var hide_eye = document.getElementById("hide_eye");
+function password_show_hide(idInput="", showEye="show_eye", hideEye="hide_eye") {
+    var x = document.getElementById(idInput);
+    var show_eye = document.getElementById(showEye);
+    var hide_eye = document.getElementById(hideEye);
     show_eye.classList.remove("d-none");
     if (x.type === "password") {
       x.type = "text";

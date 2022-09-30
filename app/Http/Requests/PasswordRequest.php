@@ -25,8 +25,8 @@ class PasswordRequest extends FormRequest
     {
         return [
             'old-password' => 'required',
-            'new-password' => 'required|min:8',
-            'confirm-new-password' => 'required|min:8',
+            'new-password' => 'required|regex:/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/u',
+            'confirm-new-password' => 'required|regex:/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/u',
         ];
     }
 
@@ -35,9 +35,9 @@ class PasswordRequest extends FormRequest
         return [
             'old-password.required' => __('message.field-isnt-empty'),
             'new-password.required' => __('message.field-isnt-empty'),
-            'new-password.min' => 'Trường này không được ít hơn 8 ký tự',
+            'new-password.regex' => 'Mật khẩu mới không hợp lệ',
             'confirm-new-password.required' => __('message.field-isnt-empty'),
-            'confirm-new-password.min' => 'Trường này không được ít hơn 8 ký tự',
+            'confirm-new-password.regex' => 'Mật khẩu mới không hợp lệ',
         ];
     }
 }

@@ -30,7 +30,7 @@
             </div>
 
             <div class="col-3">
-                <input maxlength="6" type="text" name="work_areas_code" class="form-control">
+                <input maxlength="100" type="text" name="work_areas_code" class="form-control">
             </div>
 
             <div class="col-auto">
@@ -50,7 +50,7 @@
         <div class="row">
             <div class="col-2"></div>
             <div class="col-3">
-                @error('work_areas_code')
+                @error('name')
                     <span class="text-error">{{ $message }}</span>
                 @enderror
             </div>
@@ -62,14 +62,14 @@
             </div>
 
             <div class="col-3">
-                <input maxlength="6" type="text" name="name" class="form-control">
+                <input maxlength="100" type="text" name="name" class="form-control">
             </div>
 
             <div class="col-auto">
                 <p data-bs-toggle="tooltip" data-bs-placement="right" title="
 - Linmit 1 - 100 characters.
 - Only accept numbers and letters in input
-- Not allow white space, symbols and non letter in put">
+- Not allow symbols and non letter in input">
                     <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
                 </p>
             </div>

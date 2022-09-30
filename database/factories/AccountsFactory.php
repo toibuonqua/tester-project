@@ -33,7 +33,7 @@ class AccountsFactory extends Factory
             'role_id' => Arr::random($role_admin),
             'workarea_id' => Arr::random($workareas),
             'code_user' => $this->faker->unique()->numberBetween(1001, 9999),
-            'phone_number' => $this->faker->phoneNumber(),
+            'phone_number' => $this->faker->numberBetween(100,999)."-".$this->faker->numberBetween(100,999)."-".$this->faker->numberBetween(100,999),
             'manager_id' => $admin->id,
             'department_id' => Arr::random($departments),
         ];

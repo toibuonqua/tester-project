@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Models\Workarea;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\PasswordRequest;
 use App\Http\Controllers\Web\WebResponseTrait;
 use App\Common\ExportExceptOnScreen;
@@ -87,19 +88,24 @@ class UsersManagementController extends Controller
     }
 
     // update user info
-    public function update($id, Request $request, ToastrFactory $flasher)
+    public function update($id, UpdateUserRequest $request, ToastrFactory $flasher)
     {
-        try{
-            $account = Accounts::query()->findOrFail($id);
-            $data = $request->only('username', 'phone_number', 'status', 'code_user', 'department_id', 'role_id', 'workarea_id');
-            $account->update($data);
-            $flasher->addSuccess(__('title.notice-modify-user-success'));
-            return redirect()->route('homepage');
-        }
-        catch(\Illuminate\Database\QueryException){
-            $flasher->addError('Thông tin người dùng không được để trống, cập nhật thông tin thất bại');
+        $account = Accounts::find($id);
+        $codeUser = $request->input('code_user');
+        $check_codeUser = Accounts::where('code_user', $codeUser)->get();
+        if ($account->code_user != $codeUser) {
+
+            if (count($check_codeUser) > 0) {
+            $flasher->addError('Mã người dùng bị trùng lặp, cập nhật thông tin thất bại');
             return back();
+            }
         }
+        $request->validated();
+
+        $data = $request->only('username', 'phone_number', 'status', 'code_user', 'department_id', 'role_id', 'workarea_id');
+        $account->update($data);
+        $flasher->addSuccess(__('title.notice-modify-user-success'));
+        return redirect()->route('homepage');
     }
 
     // Add new user
@@ -208,6 +214,12 @@ class UsersManagementController extends Controller
         if(!Auth::attempt(['email' => Auth::user()->email,'password' => $request->input('old-password')]))
         {
             return redirect()->route('account.changepw')->with('error-old-pw', __('title.error-old-password'));
+        }
+
+        // check new password
+        if($request->input('new-password') == $request->input('old-password'))
+        {
+            return redirect()->route('account.changepw')->with('error-new-pw', __('title.error-new-password'));
         }
 
         // Check confirm new password.

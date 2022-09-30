@@ -17,6 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\WorkareaExport;
 use Carbon\Carbon;
 use App\Http\Requests\WorkareaRequest;
+use App\Http\Requests\UpdateWorkareaRequest;
 
 class WorkSpaceManagementController extends Controller
 {
@@ -69,22 +70,27 @@ class WorkSpaceManagementController extends Controller
     }
 
     // update info workarea
-    public function update($id, Request $request, ToastrFactory $flasher)
+    public function update($id, UpdateWorkareaRequest $request, ToastrFactory $flasher)
     {
-        try {
-            $workarea = Workarea::query()->findOrFail($id);
-            $workarea->name = $request->input('name');
-            $workarea->work_areas_code = $request->input('work_areas_code');
-            $workarea->save();
-            $flasher->addSuccess(__('title.notice-modify-workarea-success'));
-            return redirect()->route('worksm.homepage');
+        $workarea = Workarea::find($id);
+        $checkCodeWorkare = $request->input('work_areas_code');
+        if ($workarea->work_areas_code != $checkCodeWorkare){
+            $checkCode = Workarea::where('work_areas_code', $checkCodeWorkare)->get();
+            if (count($checkCode) > 0){
+                Log::error('code work area was exist');
+                $exception = __('title.code-workarea-exist');
+                $flasher->addError($exception);
+                return back();
+            }
         }
-        catch(\Illuminate\Database\QueryException $exception){
-            Log::error('code work area was exist');
-            $exception = __('title.code-workarea-exist');
-            $flasher->addError($exception);
-            return back();
-        }
+
+        $request->validated();
+
+        $workarea->name = $request->input('name');
+        $workarea->work_areas_code = $request->input('work_areas_code');
+        $workarea->save();
+        $flasher->addSuccess(__('title.notice-modify-workarea-success'));
+        return redirect()->route('worksm.homepage');
     }
 
     // Add new Workarea

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreDepartmentRequest;
+use App\Http\Requests\UpdateDepartmentRequest;
 
 class DepartmentController extends Controller
 {
@@ -57,21 +58,25 @@ class DepartmentController extends Controller
     }
 
     // Update department
-    public function update($id, Request $request, ToastrFactory $flasher)
+    public function update($id, UpdateDepartmentRequest $request, ToastrFactory $flasher)
     {
-        try {
-            $department = Department::query()->findOrFail($id);
-            $department->name = $request->input('name');
-            $department->save();
-            $flasher->addSuccess(__('title.notice-modify-department-success'));
-            return redirect()->route('department.homepage');
+        $department = Department::find($id);
+        $nameDepartment = $request->input('name');
+        if ($department->name != $nameDepartment) {
+            $check_nameDepartment = Department::where('name', $nameDepartment)->get();
+            if (count($check_nameDepartment) > 0) {
+                Log::error('field in FE of department duplicate in database');
+                $exception = "Phòng ban đã tồn tại";
+                $flasher->addError($exception);
+                return back();
+            }
         }
-        catch(\Illuminate\Database\QueryException $exception){
-            Log::error('field in FE of department is empty or duplicate in database');
-            $exception = "Phòng ban đã tồn tài hoặc ô điền bị trống";
-            $flasher->addError($exception);
-            return back();
-        }
+        $request->validated();
+
+        $department->name = $request->input('name');
+        $department->save();
+        $flasher->addSuccess(__('title.notice-modify-department-success'));
+        return redirect()->route('department.homepage');
     }
 
     // view detail

@@ -52,6 +52,14 @@
 
         <br><br>
 
+        {{-- Workarea --}}
+        <div class="row">
+            <div class="col-4"><label>{{ __('title.work-area') }} :</label></div>
+            <div class="col-auto"><label>{{ $account->workarea->work_areas_code }}</label></div>
+        </div>
+
+        <br><br>
+
         {{-- Code user --}}
         <div class="row">
             <div class="col-4"><label>{{ __('title.code-user') }} :</label></div>

@@ -24,7 +24,15 @@
         </div>
         <div class="row">
             <div class="col-2"><label>{{ __('title.department') }} * :</label></div>
-            <div class="col-4"><input class="form-control" name="name" type="text"></div>
+            <div class="col-4"><input maxlength="256" class="form-control" name="name" type="text"></div>
+            <div class="col-auto">
+                <p data-bs-toggle="tooltip" data-bs-placement="right"
+                    title="- Maxlength là 256 kí tự
+- Chỉ chấp nhận ký tự số, chữ cái và khoảng trắng
+- Không được phép nhập các ký tự đặc biệt">
+                    <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
+                </p>
+            </div>
         </div>
 
     </div>

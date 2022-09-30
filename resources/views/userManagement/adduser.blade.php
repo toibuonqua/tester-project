@@ -80,8 +80,9 @@
                 <div class="col-auto">
                     <p data-bs-toggle="tooltip" data-bs-placement="right"
                         title="- Maxlength is 15 numbers
-- Only accept numbers.
-- Not allow symbols, white space and non letter in input.">
+- format: XXXsXXXsXXX
+- X là số, s là các ký tự (.), (-), một khoảng trắng
+- VD: 123-456-798">
                         <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
                     </p>
                 </div>

@@ -7,6 +7,7 @@ use App\Models\DefaultPassword;
 use Flasher\Toastr\Prime\ToastrFactory;
 use App\Http\Controllers\Web\WebResponseTrait;
 use App\Common\ExportExceptOnScreen;
+use App\Http\Requests\StoreDFPasswordRequest;
 
 class PasswordDefaultController extends Controller
 {
@@ -29,13 +30,10 @@ class PasswordDefaultController extends Controller
 
     }
 
-    public function update(Request $request, ToastrFactory $flasher)
+    public function update(StoreDFPasswordRequest $request, ToastrFactory $flasher)
     {
 
-        $request->validate([
-            'new-password-default' => 'required|min:8',
-            'new-password-default-confirm' => 'required|min:8',
-        ]);
+        $request->validated();
 
         $dfpwNew = $request->input('new-password-default');
         $dfpwNewConfirm = $request->input('new-password-default-confirm');
@@ -50,5 +48,5 @@ class PasswordDefaultController extends Controller
         return redirect()->route('dfpassword');
 
     }
-    
+
 }

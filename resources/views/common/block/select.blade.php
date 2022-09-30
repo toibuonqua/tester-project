@@ -20,7 +20,7 @@
         </select>
     </div>
     <div style="display: {{ $display ?? $display = 'none' }}" class="col-auto">
-        <p data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $tooltips ?? $tooltips = 'Trường bắt buộc' }}">
+        <p data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $tooltips ?? $tooltips = __('title.required-field') }}">
             <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
         </p>
     </div>
