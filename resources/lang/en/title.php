@@ -175,6 +175,7 @@ return [
     'notice-delete-department-success' => 'Delete department succcess',
     'notice-delete-work-area-success' => 'Are you sure you want to delete this work area',
     'notice-delete-workarea-success' => 'Delete work area success',
+    'notice-logout' => 'Are you sure want to log out',
     'notice-modify-user-success' => 'Modify information user successs',
     'notice-modify-workarea-success' => 'Modify information work area success',
     'notice-reset-password' => 'Are you sure you want to reset password this user',

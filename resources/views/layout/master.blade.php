@@ -46,16 +46,16 @@
                         class="d-inline-block align-text-top">
                     <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ __('title.account') }}
+                        {{ Auth::user()->username }}
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" href="{{ route('account.info') }}">{{ __('title.my-account') }}</a>
                         <a class="dropdown-item"
                             href="{{ route('account.changepw') }}">{{ __('title.change-password') }}</a>
-                        <form action="{{ route('user.logout') }}">
+                        <form id="logout" action="{{ route('user.logout') }}">
                             @csrf
-                            <button type="submit" class="dropdown-item">{{ __('title.logout') }}</button>
+                            <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#MyModal">{{ __('title.logout') }}</button>
                         </form>
                     </div>
                 </div>
@@ -93,6 +93,13 @@
             </div>
 
     </div>
+
+    @include('common.modal.confirm_option',[
+        $id_modal = "MyModal",
+        $id_form = "logout",
+        $content = __('title.notice-logout'),
+        $name_but = __('title.logout'),
+    ])
 
 </body>
 
