@@ -48,6 +48,7 @@ return [
     'update-fail' => 'There is an error updating data!',
     'get-course-fail' => 'Cannot get info of this course!',
     'email-cant-login' => 'This email is not allowed to log into the system. Contact admin for permission',
+    'field-isnt-empty' => 'Field is not empty',
     'exceed-num-attempts' => 'You can not do this exam for over :num_attempts attempts',
     'password-not-match' => 'Incorrect password',
     'save-progress-failed' => 'Save progression failed. Please try again later. If you continue seeing this messsage, please contact class assistants for help.',

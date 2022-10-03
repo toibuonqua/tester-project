@@ -71,7 +71,7 @@
                                     aria-label="password" aria-describedby="basic-addon1" />
 
                                 <div class="input-group-append">
-                                    <span class="input-group-text" onclick="password_show_hide();">
+                                    <span class="input-group-text" onclick="password_show_hide(idInput='password');">
                                         <i class="fas fa-eye-slash" id="hide_eye"></i>
                                         <i class="fas fa-eye d-none" id="show_eye"></i>
                                     </span>

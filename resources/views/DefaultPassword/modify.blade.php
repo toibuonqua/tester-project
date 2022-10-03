@@ -16,6 +16,7 @@
 
     <div class="container">
 
+        {{-- default password --}}
         <div class="row">
         <div class="col-3"><label>{{ __('title.default-password') }}:</label></div>
         <div class="col-3"><label>{{ $pwdefault->password }}</label></div>
@@ -23,6 +24,15 @@
 
         <br>
 
+        {{-- new default password --}}
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-auto">
+                @error('new-password-default')
+                    <span class="text-error">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
         <div class="row">
             <div class="col-3"><label>{{ __('title.default-password-new') }}:</label></div>
             <div class="col-3"><input class="form-control" name="new-password-default" type="password"></div>
@@ -30,14 +40,22 @@
 
         <br>
 
+        {{-- confirm new default password --}}
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-auto">
+                @error('new-password-default-confirm')
+                    <span class="text-error">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
         <div class="row">
             <div class="col-3"><label>{{ __('title.default-password-new-confirm') }}:</label></div>
             <div class="col-3"><input class="form-control" name="new-password-default-confirm" type="password"></div>
         </div>
-
         <div class="row">
             <div class="col-3"></div>
-            <div class="col-3">
+            <div class="col-auto">
                 @if (session('validate'))
                     <p class="text-error">{{ session('validate') }}</p>
                 @endif
@@ -70,7 +88,5 @@
 ])
 
 <br>
-
-@include('common.block.flash-message')
 
 @endsection

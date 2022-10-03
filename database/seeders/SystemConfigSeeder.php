@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\DefaultPassword;
+use App\Models\SystemConfig;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class PasswordSeeder extends Seeder
+class SystemConfigSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,9 @@ class PasswordSeeder extends Seeder
      */
     public function run()
     {
-        DefaultPassword::create(
+        SystemConfig::create(
             [
-                'password' => '12345678',
+                'password' => SystemConfig::DEFAULT_PASSWORD,
             ]
         );
     }

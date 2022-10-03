@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class StoreUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +25,9 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|regex:/^[^\s]{0,}$/u|unique:accounts|max:200',
-            'username' => 'required|regex:/^[\w\s]{0,}$/u|max:100',
+            'username' => 'required|regex:/^[\w\s.]{0,}$/u|max:100',
             'phone_number' => 'required|regex:/^([\d]{3} [\d]{3} [\d]{3})*([\d]{3}-[\d]{3}-[\d]{3})*([\d]{3}\.[\d]{3}\.[\d]{3})*([\d]{3}[\d]{3}[\d]{3})*$/u|max:15',
-            'code_user' => 'required|numeric|unique:accounts|digitsbetween:1,10',
+            'code_user' => 'required|numeric|digitsbetween:1,10|unique:accounts,code_user,'.$this->id."'",   // $this->id: it's id in request
             'department_id' => 'required',
             'role_id' => 'required',
             'workarea_id' => 'required',
@@ -37,11 +37,6 @@ class StoreUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.email' => 'Email không đúng định dạng',
-            'email.required' => __('message.field-isnt-empty'),
-            'email.regex' => 'Không được phép nhập ký tự trắng',
-            'email.unique' => 'Email đã tồn tại',
-            'email.max' => 'Trường này tối đa 200 ký tự',
             'username.required' => __('message.field-isnt-empty'),
             'username.regex' => 'Trường này chỉ nhận ký tự và số',
             'username.max' => 'Trường này không được quá 100 ký tự',

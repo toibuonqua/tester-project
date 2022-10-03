@@ -36,6 +36,11 @@ class Accounts extends BaseAccount
         return $this->belongsTo(Workarea::class);
     }
 
+    public function makeWorkarea()
+    {
+        return $this->hasMany(Workarea::class);
+    }
+
     const DEFAULT_PAGINATION = 10;
     const STATUS_DEACTIVATED = 'deactive';
     const STATUS_ACTIVATED = 'active';
@@ -79,7 +84,7 @@ class Accounts extends BaseAccount
 
     public function resetPassword()
     {
-        $resetPassword = new DefaultPassword;
+        $resetPassword = new SystemConfig;
         $this->password = Hash::make($resetPassword->defaultPassword());
         return $this;
     }

@@ -9,15 +9,18 @@ use App\Models\Role;
 use App\Models\Workarea;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\PasswordRequest;
 use App\Http\Controllers\Web\WebResponseTrait;
 use App\Common\ExportExceptOnScreen;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AccountsExport;
 use App\Http\Controllers\ControllerTrait\GetEmployees;
-use App\Models\DefaultPassword;
+use App\Models\SystemConfig;
 use Carbon\Carbon;
 use Flasher\Toastr\Prime\ToastrFactory;
+
 
 
 
@@ -50,11 +53,14 @@ class UsersManagementController extends Controller
         $roles = Role::all();
         $workareas = Workarea::all();
 
-        $error = $request->session()->get('errors');
+        // check $error
+        // $error = $request->session()->get('errors');
 
-        if ($error) {
-            $this->updateFailMessage($request, $this->backString($request, $error));
-        }
+        // if ($error) {
+        //     dd($request);
+        //     $this->updateFailMessage($request, $this->backString($request, $error));
+        // }
+
         return view('userManagement.adduser', compact('departments', 'roles', 'workareas'));
     }
 
@@ -82,36 +88,22 @@ class UsersManagementController extends Controller
     }
 
     // update user info
-    public function update($id, Request $request, ToastrFactory $flasher)
+    public function update($id, UpdateUserRequest $request, ToastrFactory $flasher)
     {
-        try{
-            $account = Accounts::query()->findOrFail($id);
-            $data = $request->only('username', 'phone_number', 'status', 'code_user', 'department_id', 'role_id', 'workarea_id');
-            $account->update($data);
-            $flasher->addSuccess(__('title.notice-modify-user-success'));
-            return redirect()->route('homepage');
-        }
-        catch(\Illuminate\Database\QueryException){
-            $flasher->addError('Thông tin người dùng không được để trống, cập nhật thông tin thất bại');
-            return back();
-        }
+        $request->validated();
+        $account = Accounts::find($id);
+        $data = $request->only('username', 'phone_number', 'status', 'code_user', 'department_id', 'role_id', 'workarea_id');
+        $account->update($data);
+        $flasher->addSuccess(__('title.notice-modify-user-success'));
+        return redirect()->route('homepage');
     }
 
     // Add new user
-    public function store(Request $request, ToastrFactory $flasher)
+    public function store(StoreUserRequest $request, ToastrFactory $flasher)
     {
-        $request->validate([
-            'email' => 'required|email|unique:accounts|max:100',
-            'username' => 'required|max:200',
-            'phone_number' => 'required|max:30',
-            'code_user' => 'required|integer|digits:4',
-            'department_id' => 'required|',
-            'role_id' => 'required',
-            'workarea_id' => 'required',
-        ]);
+        $validated = $request->validated();
 
-
-        $defaultpassword = new DefaultPassword;
+        $defaultpassword = new SystemConfig;
         $account = new Accounts;
         $account->username = $request->input('username');
         $account->email = $request->input('email');
@@ -198,31 +190,26 @@ class UsersManagementController extends Controller
     {
         $email = Auth::user()->email;
 
-        $error = $request->session()->get('errors');
-
-        if ($error) {
-            $this->updateFailMessage($request, $this->backString($request, $error));
-        }
-
         return view('ChangePassword.changepassword', compact('email'));
     }
 
     // Change password
-    public function passwordUpdate(Request $request)
+    public function passwordUpdate(PasswordRequest $request)
     {
 
         // Validate field in view change password
-        $request->validate([
-            'old-password' => 'required',
-            'new-password' => 'required',
-            'confirm-new-password' => 'required',
-
-        ]);
+        $request->validated();
 
         // Check old password.
         if(!Auth::attempt(['email' => Auth::user()->email,'password' => $request->input('old-password')]))
         {
             return redirect()->route('account.changepw')->with('error-old-pw', __('title.error-old-password'));
+        }
+
+        // check new password
+        if($request->input('new-password') == $request->input('old-password'))
+        {
+            return redirect()->route('account.changepw')->with('error-new-pw', __('title.error-new-password'));
         }
 
         // Check confirm new password.

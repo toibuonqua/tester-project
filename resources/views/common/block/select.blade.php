@@ -1,4 +1,12 @@
 <div class="row">
+    <div class="col-3"></div>
+    <div class="col-5">
+        @error($name)
+            <span class="text-error">{{ $message }}</span>
+        @enderror
+    </div>
+</div>
+<div class="row">
     <div class="col-3">
     <label for="{{ $name }}" class="col-form-label">{{ __("title.$name") }} * :</label>
     </div>
@@ -12,7 +20,7 @@
         </select>
     </div>
     <div style="display: {{ $display ?? $display = 'none' }}" class="col-auto">
-        <p data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $tooltips ?? $tooltips = 'Trường bắt buộc' }}">
+        <p data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $tooltips ?? $tooltips = __('title.required-field') }}">
             <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
         </p>
     </div>

@@ -12,6 +12,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\StoreDepartmentRequest;
+use App\Http\Requests\UpdateDepartmentRequest;
 
 class DepartmentController extends Controller
 {
@@ -30,22 +32,14 @@ class DepartmentController extends Controller
     // view add
     public function add(Request $request)
     {
-        $error = $request->session()->get('errors');
-
-        if ($error) {
-            $this->updateFailMessage($request, $this->backString($request, $error));
-        }
-
         return view('Department.add');
     }
 
     // add new department
-    public function store(Request $request, ToastrFactory $flasher)
+    public function store(StoreDepartmentRequest $request, ToastrFactory $flasher)
     {
 
-        $request->validate([
-            'name' => 'required|unique:department',
-        ]);
+        $request->validated();
 
         $department = new Department;
         $department->name = $request->input('name');
@@ -64,21 +58,14 @@ class DepartmentController extends Controller
     }
 
     // Update department
-    public function update($id, Request $request, ToastrFactory $flasher)
+    public function update($id, UpdateDepartmentRequest $request, ToastrFactory $flasher)
     {
-        try {
-            $department = Department::query()->findOrFail($id);
-            $department->name = $request->input('name');
-            $department->save();
-            $flasher->addSuccess(__('title.notice-modify-department'));
-            return redirect()->route('department.homepage');
-        }
-        catch(\Illuminate\Database\QueryException $exception){
-            Log::error('field in FE of department is empty or duplicate in database');
-            $exception = "Phòng ban đã tồn tài hoặc ô điền bị trống";
-            $flasher->addError($exception);
-            return back();
-        }
+        $request->validated();
+        $department = Department::find($id);
+        $department->name = $request->input('name');
+        $department->save();
+        $flasher->addSuccess(__('title.notice-modify-department-success'));
+        return redirect()->route('department.homepage');
     }
 
     // view detail

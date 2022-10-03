@@ -24,7 +24,7 @@ class AccountSeeder extends Seeder
     {
         $workareas = Workarea::pluck('id')->toArray();
         $departments = Department::pluck('id')->toArray();
-        $admin_role = Role::where('name', "Admin/IT")->first();
+        $admin_role = Role::where('name', Accounts::TYPE_ADMIN)->first();
         Accounts::create(
             [
                 'username' => 'Admin',
@@ -34,7 +34,7 @@ class AccountSeeder extends Seeder
                 'role_id' => $admin_role->id,
                 'workarea_id' => Arr::random($workareas),
                 'code_user' => 1000,
-                'phone_number' => "0123456789",
+                'phone_number' => "123-456-789",
                 'manager_id' => null,
                 'department_id' => Arr::random($departments),
             ]

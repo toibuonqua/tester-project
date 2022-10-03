@@ -1,12 +1,16 @@
 @extends('layout.master')
 @section('title', 'User Management')
-@section('nav-name-title', __('title.account-info'))
+@section('nav-name-title', __('title.info-creater'))
 
 @section('content')
 
+<br>
+
+<h1 style="text-align: center" class="text" >Thông tin chi tiết</h1>
+
 <br><br>
 
-<div class="text-des" style="margin-left: 5%; display:flex">
+<div class="text-des" style="margin-left: 10%; display:flex">
 
     <div class="container">
 
@@ -16,7 +20,7 @@
             <div class="col-auto"><label>{{ $account->username }}</label></div>
         </div>
 
-        <br><br>
+        <br>
 
         {{-- email --}}
         <div class="row">
@@ -24,7 +28,7 @@
             <div class="col-auto"><label>{{ $account->email }}</label></div>
         </div>
 
-        <br><br>
+        <br>
 
         {{-- Phone number --}}
         <div class="row">
@@ -42,7 +46,7 @@
             <div class="col-auto"><label>{{ $account->department->name }}</label></div>
         </div>
 
-        <br><br>
+        <br>
 
         {{-- Role --}}
         <div class="row">
@@ -50,7 +54,7 @@
             <div class="col-auto"><label>{{ $account->role->name }}</label></div>
         </div>
 
-        <br><br>
+        <br>
 
         {{-- Workarea --}}
         <div class="row">
@@ -58,7 +62,7 @@
             <div class="col-auto"><label>{{ $account->workarea->work_areas_code }}</label></div>
         </div>
 
-        <br><br>
+        <br>
 
         {{-- Code user --}}
         <div class="row">
