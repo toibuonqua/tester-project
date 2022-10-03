@@ -16,9 +16,10 @@ class PasswordDefaultController extends Controller
 
     public function modify(Request $request)
     {
-        $pwdefault = SystemConfig::first();
+        $system = new SystemConfig;
+        $defaultpassword = $system->getdefaultPassword();
 
-        return view('DefaultPassword.modify', compact('pwdefault'));
+        return view('DefaultPassword.modify', compact('defaultpassword'));
     }
 
     public function update(StoreDFPasswordRequest $request, ToastrFactory $flasher)
@@ -32,8 +33,8 @@ class PasswordDefaultController extends Controller
             return redirect()->route('dfpassword')->with('validate', __('title.new-password-not-match'));
         }
 
-        $defaultpassword = SystemConfig::first();
-        $defaultpassword->password = $dfpwNewConfirm;
+        $system = new SystemConfig;
+        $defaultpassword = $system->setdefaultPassword($dfpwNewConfirm);
         $defaultpassword->save();
         $flasher->addSuccess(__('title.notice-update-new-default-password-success'));
         return redirect()->route('dfpassword');

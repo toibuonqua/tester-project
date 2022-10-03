@@ -19,7 +19,7 @@
         {{-- default password --}}
         <div class="row">
         <div class="col-3"><label>{{ __('title.default-password') }}:</label></div>
-        <div class="col-3"><label>{{ $pwdefault->password }}</label></div>
+        <div class="col-3"><label>{{ $defaultpassword }}</label></div>
         </div>
 
         <br>

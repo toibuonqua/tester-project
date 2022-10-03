@@ -15,8 +15,16 @@ class SystemConfig extends Model
 
     const DEFAULT_PASSWORD = "12345678";
 
-    public function defaultPassword()
+    public function getdefaultPassword()
     {
-        return $this->first()->password;
+        $dfpw = SystemConfig::first();
+        return $dfpw->password;
+    }
+
+    public function setdefaultPassword($newPass)
+    {
+        $dfpw = SystemConfig::first();
+        $dfpw->password = $newPass;
+        return $dfpw;
     }
 }

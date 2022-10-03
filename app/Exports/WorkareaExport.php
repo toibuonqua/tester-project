@@ -5,9 +5,10 @@ namespace App\Exports;
 use App\Models\Workarea;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use App\Common\MakeArray;
 
-class WorkareaExport implements FromArray, WithHeadings
+class WorkareaExport implements FromArray, WithHeadings, ShouldAutoSize
 {
     use MakeArray;
 

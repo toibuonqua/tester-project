@@ -2,13 +2,13 @@
 
 namespace App\Exports;
 
-use App\Models\Accounts;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use App\Common\MakeArray;
 
 
-class AccountsExport implements FromArray, WithHeadings
+class AccountsExport implements FromArray, WithHeadings, ShouldAutoSize
 {
     use MakeArray;
 

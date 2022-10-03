@@ -32,7 +32,7 @@ DB_PASSWORD= Mật khẩu đăng nhập
 #### 3. Migrate data
 - Chạy lệnh tạo bảng:
 ```
-php artisan migrate:refresh
+php artisan migrate
 ```
 
 - Chạy lệnh để tạo dữ liệu:
@@ -40,11 +40,15 @@ php artisan migrate:refresh
 php artisan db:seed
 ```
 
-#### 4. Serve trên localhost:
+#### 4. Serve trên localhost
 ```
 php artisan serve
 ```
 
+#### 5. Làm mới database
+```
+php artisan migrate:refresh
+```
 ### Accounts
 -   Admin default account -> email: admin@gmail.com
                             password: 12345678

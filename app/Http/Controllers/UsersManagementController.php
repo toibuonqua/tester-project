@@ -18,6 +18,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AccountsExport;
 use App\Http\Controllers\ControllerTrait\GetEmployees;
 use App\Models\SystemConfig;
+use App\Http\Controllers\ControllerTrait\MakeAttribute;
 use Carbon\Carbon;
 use Flasher\Toastr\Prime\ToastrFactory;
 
@@ -26,19 +27,19 @@ use Flasher\Toastr\Prime\ToastrFactory;
 
 class UsersManagementController extends Controller
 {
-    use WebResponseTrait, ExportExceptOnScreen, GetEmployees;
+    use WebResponseTrait, ExportExceptOnScreen, GetEmployees, MakeAttribute;
 
     // view Index
     public function index(Request $request)
     {
 
-        $accounts = Accounts::with('role', 'department', 'workarea')->paginate(Accounts::DEFAULT_PAGINATION);
+        $accounts_data = Accounts::with('role', 'department', 'workarea')->paginate(Accounts::DEFAULT_PAGINATION);
 
-        foreach ($accounts as $account) {
-            $account->role_name = $account->role->name;
-            $account->department_name = $account->department->name;
-            $account->workarea_code = $account->workarea->work_areas_code;
-        };
+        $accounts = $this->addAttribute($accounts_data, [
+            "role_name" => "role.name",
+            "department_name" => "department.name",
+            "workarea_code" => "workarea.work_areas_code",
+        ]);
 
         $query = '';
         $request->session()->put('query', $query);
@@ -52,14 +53,6 @@ class UsersManagementController extends Controller
         $departments = Department::all();
         $roles = Role::all();
         $workareas = Workarea::all();
-
-        // check $error
-        // $error = $request->session()->get('errors');
-
-        // if ($error) {
-        //     dd($request);
-        //     $this->updateFailMessage($request, $this->backString($request, $error));
-        // }
 
         return view('userManagement.adduser', compact('departments', 'roles', 'workareas'));
     }
@@ -113,7 +106,7 @@ class UsersManagementController extends Controller
         $account->role_id = $request->input('role_id');
         $account->workarea_id = $request->input('workarea_id');
         $account->manager_id = Auth::id();
-        $account->password = $defaultpassword->defaultPassword();
+        $account->password = $defaultpassword->getdefaultPassword();
         $account->hashPassword();
         $account->save();
         $flasher->addSuccess(__('title.notice-add-user-success'));
@@ -124,13 +117,13 @@ class UsersManagementController extends Controller
     public function search(Request $request)
     {
         $query = $request->input("query");
-        $accounts = Accounts::where('username', 'like', '%' . $query . '%')->with('role', 'department', 'workarea')->paginate(Accounts::DEFAULT_PAGINATION);
+        $accounts_data = Accounts::where('username', 'like', '%' . $query . '%')->with('role', 'department', 'workarea')->paginate(Accounts::DEFAULT_PAGINATION);
 
-        foreach ($accounts as $account) {
-            $account->role_name = $account->role->name;
-            $account->department_name = $account->department->name;
-            $account->workarea_code = $account->workarea->work_areas_code;
-        };
+        $accounts = $this->addAttribute($accounts_data, [
+            "role_name" => "role.name",
+            "department_name" => "department.name",
+            "workarea_code" => "workarea.work_areas_code",
+        ]);
 
         $request->session()->put('query', $query);
 
@@ -141,12 +134,12 @@ class UsersManagementController extends Controller
     public function export(Request $request)
     {
         $query = $request->session()->get('query');
-        $accounts = Accounts::with('role', 'department', 'workarea')->where('username', 'like', '%'.$query.'%')->orderBy('created_at', 'DESC')->get();
-        foreach ($accounts as $account) {
-            $account->role_name = $account->role->name;
-            $account->department_name = $account->department->name;
-            $account->workarea_code = $account->workarea->work_areas_code;
-        };
+        $accounts_data = Accounts::with('role', 'department', 'workarea')->where('username', 'like', '%'.$query.'%')->orderBy('created_at', 'DESC')->get();
+        $accounts = $this->addAttribute($accounts_data, [
+            "role_name" => "role.name",
+            "department_name" => "department.name",
+            "workarea_code" => "workarea.work_areas_code",
+        ]);
         $time = Carbon::now()->format('YmdHi');
         return Excel::download(new AccountsExport($accounts), 'danhsachnguoidung_'.$time.'.xlsx');
     }
@@ -232,4 +225,15 @@ class UsersManagementController extends Controller
         return view('ChangePassword.noticeLogout');
     }
 
+    // function has not been used
+    public function makeErrorList(Request $request)
+    {
+        // check $error
+        $error = $request->session()->get('errors');
+
+        if ($error) {
+            dd($request);
+            $this->updateFailMessage($request, $this->backString($request, $error));
+        }
+    }
 }

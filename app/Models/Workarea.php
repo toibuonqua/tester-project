@@ -25,7 +25,7 @@ class Workarea extends Model
         return $this->hasMany(Accounts::class);
     }
 
-    public function createrAccount()
+    public function creator()
     {
         return $this->belongsTo(Accounts::class, 'createrId', 'id');
     }

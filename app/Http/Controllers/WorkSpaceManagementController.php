@@ -25,9 +25,9 @@ class WorkSpaceManagementController extends Controller
 
     // view index
     public function index(Request $request) {
-        $workareas = Workarea::with('createrAccount')->paginate(Workarea::DEFAUL_PAGINATION);
+        $workareas = Workarea::with('creator')->paginate(Workarea::DEFAUL_PAGINATION);
         foreach ($workareas as $workarea) {
-            $workarea->creater = $workarea->createrAccount->username;
+            $workarea->creater = $workarea->creator->username;
         }
         $exception = '';
         $query = '';
@@ -94,9 +94,9 @@ class WorkSpaceManagementController extends Controller
     public function search(Request $request)
     {
         $query = $request->input("query");
-        $workareas = Workarea::with('createrAccount')->where('name', 'like', '%'.$query.'%')->paginate(Workarea::DEFAUL_PAGINATION);
+        $workareas = Workarea::with('creator')->where('name', 'like', '%'.$query.'%')->paginate(Workarea::DEFAUL_PAGINATION);
         foreach ($workareas as $workarea) {
-            $workarea->creater = $workarea->createrAccount->username;
+            $workarea->creater = $workarea->creator->username;
         }
 
         $exception = '';
@@ -109,9 +109,9 @@ class WorkSpaceManagementController extends Controller
     public function export(Request $request)
     {
         $query = $request->session()->get('query');
-        $workareas = Workarea::with('createrAccount')->where('name', 'like', '%'.$query.'%')->orderBy('created_at', 'DESC')->get();
+        $workareas = Workarea::with('creator')->where('name', 'like', '%'.$query.'%')->orderBy('created_at', 'DESC')->get();
         foreach ($workareas as $workarea) {
-            $workarea->creater = $workarea->createrAccount->username;
+            $workarea->creater = $workarea->creator->username;
         }
         $time = Carbon::now()->format('YmdHi');
         return Excel::download(new WorkareaExport($workareas),  'DanhSachKVLV_'.$time.'.xlsx');
