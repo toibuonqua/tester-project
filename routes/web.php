@@ -88,6 +88,8 @@ Route::prefix('work-space-management')->middleware('check.admin')->group( functi
 
     Route::get('/detail/{id}', [WorkSpaceManagementController::class,'detail']) -> name('worksm.detail');
 
+    Route::get('/info-creater/{id}', [WorkSpaceManagementController::class, 'infoCreater']) -> name('info.user');
+
 });
 
 Route::prefix('department')->middleware('check.admin')->group( function()

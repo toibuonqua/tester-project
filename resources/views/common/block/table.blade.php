@@ -46,6 +46,12 @@
                             {{ __('title.' . ($reset_text ?? 'reset-pw')) }}
                         </a>
                     </td>
+                @elseif ($value === 'pattern.link')
+                    <td>
+                        <a href="{{ route($link_route, [$id_param ?? 'id' => $item->$id_link]) }}">
+                            {{ $item->$text_link ?? 'link'}}
+                        </a>
+                    </td>
                 @elseif ($value === 'pattern.image')
                     <td>
                         @if ($item->image)

@@ -60,19 +60,8 @@ class DepartmentController extends Controller
     // Update department
     public function update($id, UpdateDepartmentRequest $request, ToastrFactory $flasher)
     {
-        $department = Department::find($id);
-        $nameDepartment = $request->input('name');
-        if ($department->name != $nameDepartment) {
-            $check_nameDepartment = Department::where('name', $nameDepartment)->get();
-            if (count($check_nameDepartment) > 0) {
-                Log::error('field in FE of department duplicate in database');
-                $exception = "Phòng ban đã tồn tại";
-                $flasher->addError($exception);
-                return back();
-            }
-        }
         $request->validated();
-
+        $department = Department::find($id);
         $department->name = $request->input('name');
         $department->save();
         $flasher->addSuccess(__('title.notice-modify-department-success'));

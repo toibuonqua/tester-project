@@ -37,7 +37,7 @@
         'fields' => [
             'code-work-area' => 'work_areas_code',
             'name-work-area' => 'name',
-            'creater' => 'creater',
+            'creater' => 'pattern.link',
             'time_create' => 'created_at',
             'modify' => 'pattern.modified',
             'view' => 'pattern.view',
@@ -47,6 +47,9 @@
         'view_route' => 'worksm.detail',
         'edit_route' => 'worksm.modify',
         'delete_route' => 'worksm.delete',
+        'link_route' => 'info.user',
+        'text_link' => 'creater',
+        'id_link' => 'createrId',
         $notice_delete = __('title.notice-delete-work-area')
     ])
 

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -25,8 +26,8 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'username' => 'required|regex:/^[\w\s.]{0,}$/u|max:100',
-            'phone_number' => 'required|regex:/^([\d]{3} [\d]{3} [\d]{3})*([\d]{3}-[\d]{3}-[\d]{3})*([\d]{3}\.[\d]{3}\.[\d]{3})*$/u|max:15',
-            'code_user' => 'required|numeric|digitsbetween:1,10',
+            'phone_number' => 'required|regex:/^([\d]{3} [\d]{3} [\d]{3})*([\d]{3}-[\d]{3}-[\d]{3})*([\d]{3}\.[\d]{3}\.[\d]{3})*([\d]{3}[\d]{3}[\d]{3})*$/u|max:15',
+            'code_user' => 'required|numeric|digitsbetween:1,10|unique:accounts,code_user,'.$this->id."'",   // $this->id: it's id in request
             'department_id' => 'required',
             'role_id' => 'required',
             'workarea_id' => 'required',
@@ -45,6 +46,7 @@ class UpdateUserRequest extends FormRequest
             'code_user.required' => __('message.field-isnt-empty'),
             'code_user.numeric' => 'Trường này phải là số',
             'code_user.digitsbetween' => 'trường này từ 1 đến 10 chữ số',
+            'code_user.unique' => 'Mã người dùng đã tồn tại',
             'department_id.required' => __('message.field-isnt-empty'),
             'role_id.required' => __('message.field-isnt-empty'),
             'workarea_id.required' => __('message.field-isnt-empty'),

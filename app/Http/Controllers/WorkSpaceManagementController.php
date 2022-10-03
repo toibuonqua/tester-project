@@ -25,15 +25,9 @@ class WorkSpaceManagementController extends Controller
 
     // view index
     public function index(Request $request) {
-        $workareas = Workarea::paginate(Workarea::DEFAUL_PAGINATION);
+        $workareas = Workarea::with('createrAccount')->paginate(Workarea::DEFAUL_PAGINATION);
         foreach ($workareas as $workarea) {
-            if ($workarea->createrId == null){
-                $workarea->creater = '';
-            }
-            else{
-                $creater = Accounts::find($workarea->createrId);
-                $workarea->creater = $creater->username;
-            }
+            $workarea->creater = $workarea->createrAccount->username;
         }
         $exception = '';
         $query = '';
@@ -72,20 +66,8 @@ class WorkSpaceManagementController extends Controller
     // update info workarea
     public function update($id, UpdateWorkareaRequest $request, ToastrFactory $flasher)
     {
-        $workarea = Workarea::find($id);
-        $checkCodeWorkare = $request->input('work_areas_code');
-        if ($workarea->work_areas_code != $checkCodeWorkare){
-            $checkCode = Workarea::where('work_areas_code', $checkCodeWorkare)->get();
-            if (count($checkCode) > 0){
-                Log::error('code work area was exist');
-                $exception = __('title.code-workarea-exist');
-                $flasher->addError($exception);
-                return back();
-            }
-        }
-
         $request->validated();
-
+        $workarea = Workarea::find($id);
         $workarea->name = $request->input('name');
         $workarea->work_areas_code = $request->input('work_areas_code');
         $workarea->save();
@@ -112,15 +94,9 @@ class WorkSpaceManagementController extends Controller
     public function search(Request $request)
     {
         $query = $request->input("query");
-        $workareas = Workarea::where('name', 'like', '%'.$query.'%')->paginate(Workarea::DEFAUL_PAGINATION);
+        $workareas = Workarea::with('createrAccount')->where('name', 'like', '%'.$query.'%')->paginate(Workarea::DEFAUL_PAGINATION);
         foreach ($workareas as $workarea) {
-            if ($workarea->createrId == null){
-                $workarea->creater = '';
-            }
-            else{
-                $creater = Accounts::find($workarea->createrId);
-                $workarea->creater = $creater->username;
-            }
+            $workarea->creater = $workarea->createrAccount->username;
         }
 
         $exception = '';
@@ -133,15 +109,9 @@ class WorkSpaceManagementController extends Controller
     public function export(Request $request)
     {
         $query = $request->session()->get('query');
-        $workareas = Workarea::where('name', 'like', '%'.$query.'%')->orderBy('created_at', 'DESC')->get();
+        $workareas = Workarea::with('createrAccount')->where('name', 'like', '%'.$query.'%')->orderBy('created_at', 'DESC')->get();
         foreach ($workareas as $workarea) {
-            if ($workarea->createrId == null){
-                $workarea->creater = '';
-            }
-            else{
-                $creater = Accounts::find($workarea->createrId);
-                $workarea->creater = $creater->username;
-            }
+            $workarea->creater = $workarea->createrAccount->username;
         }
         $time = Carbon::now()->format('YmdHi');
         return Excel::download(new WorkareaExport($workareas),  'DanhSachKVLV_'.$time.'.xlsx');
@@ -165,4 +135,10 @@ class WorkSpaceManagementController extends Controller
         return back();
     }
 
+    public function infoCreater($id, Request $request)
+    {
+        $account = Accounts::with('role', 'workarea', 'department')->find($id);
+
+        return view('workSpaceManagement.createrInfo', compact('account'));
+    }
 }

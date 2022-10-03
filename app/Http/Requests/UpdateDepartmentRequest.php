@@ -24,7 +24,7 @@ class UpdateDepartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|regex:/^[\w\s]{0,}$/u|max:256',
+            'name' => 'required|regex:/^[\w\s]{0,}$/u|max:256|unique:department,name,'.$this->id."'",
         ];
     }
 
@@ -34,6 +34,7 @@ class UpdateDepartmentRequest extends FormRequest
             'name.required' => __('message.field-isnt-empty'),
             'name.regex' => 'Trường này chỉ chứa số, ký tự và khoảng trắng',
             'name.max' => 'Trường này tối đa là 256 ký tự',
+            'name.unique' => 'Tên phòng ban đã tồn tại',
         ];
     }
 }

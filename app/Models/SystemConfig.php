@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DefaultPassword extends Model
+class SystemConfig extends Model
 {
     use HasFactory;
 
-    protected $table = 'defaultpassword';
+    protected $table = 'systemconfig';
 
     protected $fillable = ['id', 'password'];
 

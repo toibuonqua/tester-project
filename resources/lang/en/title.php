@@ -135,6 +135,7 @@ return [
     'generate-question' => 'Generate question',
     'hide-exam' => 'Hide exam',
     'incorrect' => 'Incorrect',
+    'info-user' => 'Info Creater',
     'knowledge' => 'Knowledge',
     'last' => 'Last',
     'limit-user' => 'Limit user functionalities',

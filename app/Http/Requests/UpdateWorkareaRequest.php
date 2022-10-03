@@ -24,7 +24,7 @@ class UpdateWorkareaRequest extends FormRequest
     public function rules()
     {
         return [
-            'work_areas_code' => 'required|regex:/^[\w]{0,}$/u|max:100',
+            'work_areas_code' => 'required|regex:/^[\w]{0,}$/u|max:100|unique:workarea,work_areas_code,'.$this->id."'",
             'name' => 'required|regex:/^[\w\s]{0,}$/u|max:100',
         ];
     }
@@ -35,6 +35,7 @@ class UpdateWorkareaRequest extends FormRequest
             'work_areas_code.required' => __('message.field-isnt-empty'),
             'work_areas_code.regex' => 'Trường này chỉ chứa ký tự và số',
             'work_areas_code.max' => 'Mã khu vực tối đa 100 ký tự',
+            'work_areas_code.unique' => 'Mã khu vực đã tồn tại',
             'name.required' => __('message.field-isnt-empty'),
             'name.regex' => 'Trường này chỉ chứa ký tự, số và khoảng trắng',
             'name.max' => 'Tên khu vực tối đa 100 ký tự',

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AccountsExport;
 use App\Http\Controllers\ControllerTrait\GetEmployees;
-use App\Models\DefaultPassword;
+use App\Models\SystemConfig;
 use Carbon\Carbon;
 use Flasher\Toastr\Prime\ToastrFactory;
 
@@ -90,18 +90,8 @@ class UsersManagementController extends Controller
     // update user info
     public function update($id, UpdateUserRequest $request, ToastrFactory $flasher)
     {
-        $account = Accounts::find($id);
-        $codeUser = $request->input('code_user');
-        $check_codeUser = Accounts::where('code_user', $codeUser)->get();
-        if ($account->code_user != $codeUser) {
-
-            if (count($check_codeUser) > 0) {
-            $flasher->addError('Mã người dùng bị trùng lặp, cập nhật thông tin thất bại');
-            return back();
-            }
-        }
         $request->validated();
-
+        $account = Accounts::find($id);
         $data = $request->only('username', 'phone_number', 'status', 'code_user', 'department_id', 'role_id', 'workarea_id');
         $account->update($data);
         $flasher->addSuccess(__('title.notice-modify-user-success'));
@@ -113,7 +103,7 @@ class UsersManagementController extends Controller
     {
         $validated = $request->validated();
 
-        $defaultpassword = new DefaultPassword;
+        $defaultpassword = new SystemConfig;
         $account = new Accounts;
         $account->username = $request->input('username');
         $account->email = $request->input('email');

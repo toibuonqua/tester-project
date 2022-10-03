@@ -134,6 +134,7 @@ return [
     'generate-question' => 'Sinh câu hỏi',
     'hide-exam' => 'Ẩn đề thi',
     'incorrect' => 'Sai',
+    'info-creater' => 'Thông tin người tạo',
     'knowledge' => 'Kiến thức',
     'last' => 'Cuối',
     'limit-user' => 'Giới hạn chức năng người dùng',

@@ -26,7 +26,7 @@ class StoreUserRequest extends FormRequest
         return [
             'email' => 'required|email|regex:/^[^\s]{0,}$/u|unique:accounts|max:200',
             'username' => 'required|regex:/^[\w\s]{0,}$/u|max:100',
-            'phone_number' => 'required|regex:/^([\d]{3} [\d]{3} [\d]{3})*([\d]{3}-[\d]{3}-[\d]{3})*([\d]{3}\.[\d]{3}\.[\d]{3})*$/u|max:15',
+            'phone_number' => 'required|regex:/^([\d]{3} [\d]{3} [\d]{3})*([\d]{3}-[\d]{3}-[\d]{3})*([\d]{3}\.[\d]{3}\.[\d]{3})*([\d]{3}[\d]{3}[\d]{3})*$/u|max:15',
             'code_user' => 'required|numeric|unique:accounts|digitsbetween:1,10',
             'department_id' => 'required',
             'role_id' => 'required',
