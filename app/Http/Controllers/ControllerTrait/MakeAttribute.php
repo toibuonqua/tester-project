@@ -9,6 +9,15 @@ use Maatwebsite\Excel\Concerns\ToArray;
 
 trait MakeAttribute
 {
+    /**
+     *
+     * addAttribute function
+     *
+     * @param [data model type] $items
+     * @param [array type] $fields
+     * @return data model with new attribute
+     *
+     */
     public function addAttribute($items, $fields)
     {
         foreach ($items as $item) {

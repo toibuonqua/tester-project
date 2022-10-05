@@ -8,6 +8,7 @@ use App\Models\Department;
 use App\Models\Role;
 use App\Models\Workarea;
 use App\Http\Controllers\Web\WebResponseTrait;
+use App\Http\Controllers\ControllerTrait\MakeAttribute;
 use App\Common\ExportExceptOnScreen;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -21,14 +22,14 @@ use App\Http\Requests\UpdateWorkareaRequest;
 
 class WorkSpaceManagementController extends Controller
 {
-    use WebResponseTrait, ExportExceptOnScreen;
+    use WebResponseTrait, ExportExceptOnScreen, MakeAttribute;
 
     // view index
     public function index(Request $request) {
-        $workareas = Workarea::with('creator')->paginate(Workarea::DEFAUL_PAGINATION);
-        foreach ($workareas as $workarea) {
-            $workarea->creater = $workarea->creator->username;
-        }
+        $workareas_data = Workarea::with('creator')->paginate(Workarea::DEFAUL_PAGINATION);
+        $workareas = $this->addAttribute($workareas_data, [
+            'creater' => 'creator.username',
+        ]);
         $exception = '';
         $query = '';
         $request->session()->put('query', $query);
@@ -94,11 +95,10 @@ class WorkSpaceManagementController extends Controller
     public function search(Request $request)
     {
         $query = $request->input("query");
-        $workareas = Workarea::with('creator')->where('name', 'like', '%'.$query.'%')->paginate(Workarea::DEFAUL_PAGINATION);
-        foreach ($workareas as $workarea) {
-            $workarea->creater = $workarea->creator->username;
-        }
-
+        $workareas_data = Workarea::with('creator')->where('name', 'like', '%'.$query.'%')->paginate(Workarea::DEFAUL_PAGINATION);
+        $workareas = $this->addAttribute($workareas_data, [
+            'creater' => 'creator.username',
+        ]);
         $exception = '';
         $request->session()->put('query', $query);
 
@@ -109,10 +109,10 @@ class WorkSpaceManagementController extends Controller
     public function export(Request $request)
     {
         $query = $request->session()->get('query');
-        $workareas = Workarea::with('creator')->where('name', 'like', '%'.$query.'%')->orderBy('created_at', 'DESC')->get();
-        foreach ($workareas as $workarea) {
-            $workarea->creater = $workarea->creator->username;
-        }
+        $workareas_data = Workarea::with('creator')->where('name', 'like', '%'.$query.'%')->orderBy('created_at', 'DESC')->get();
+        $workareas = $this->addAttribute($workareas_data, [
+            'creater' => 'creator.username',
+        ]);
         $time = Carbon::now()->format('YmdHi');
         return Excel::download(new WorkareaExport($workareas),  'DanhSachKVLV_'.$time.'.xlsx');
     }
