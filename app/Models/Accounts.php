@@ -85,7 +85,7 @@ class Accounts extends BaseAccount
     public function resetPassword()
     {
         $resetPassword = new SystemConfig;
-        $this->password = Hash::make($resetPassword->defaultPassword());
+        $this->password = Hash::make($resetPassword->getdefaultPassword());
         return $this;
     }
 

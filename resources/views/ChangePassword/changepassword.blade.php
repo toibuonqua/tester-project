@@ -148,7 +148,7 @@
         </div>
 
         <div style="margin-top: 50px">
-            <button style="width: 180px" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#MyModal" type="button">{{ __('title.change-password') }}</button>
+            <button style="width: 180px" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#changePwModal" type="button">{{ __('title.change-password') }}</button>
         </div>
 
     </div>
@@ -170,7 +170,7 @@
 </form>
 
 @include('common.modal.confirm_option', [
-    $id_modal = "MyModal",
+    $id_modal = "changePwModal",
     $id_form = "changepw",
     $content = __('title.notice-change-password'),
     $name_but = __('title.change')
