@@ -36,6 +36,10 @@
                     </p>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-3"></div>
+                <div id="username_validate" class="col-5 text-error"></div>
+            </div>
 
             <br><br>
 
@@ -69,6 +73,10 @@
                         <img src="{{ asset('img/info.png') }}" alt="" width="18" height="18">
                     </p>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-3"></div>
+                <div id="phone_number_validate" class="col-5 text-error"></div>
             </div>
 
             <br><br>
@@ -124,6 +132,10 @@
                 'display' => 'block',
                 'select' => $account->department->id,
             ])
+            <div class="row">
+                <div class="col-3"></div>
+                <div id="department_validate" class="col-5 text-error"></div>
+            </div>
 
             <br><br>
 
@@ -136,6 +148,10 @@
                 'display' => 'block',
                 'select' => $account->role->id,
             ])
+            <div class="row">
+                <div class="col-3"></div>
+                <div id="role_validate" class="col-5 text-error"></div>
+            </div>
 
             <br><br>
 
@@ -148,6 +164,10 @@
                 'display' => 'block',
                 'select' => $account->workarea->id,
             ])
+            <div class="row">
+                <div class="col-3"></div>
+                <div id="workarea_validate" class="col-5 text-error"></div>
+            </div>
 
             <br><br>
 
@@ -172,6 +192,10 @@
                     </p>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-3"></div>
+                <div id="code_user_validate" class="col-5 text-error"></div>
+            </div>
 
         </div>
 
@@ -186,10 +210,13 @@
         </div>
 
         <div style="margin-top: 50px">
-            <button style="width: 180px" class="btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#myModal">{{ __('title.save') }}</button>
+            <button style="width: 180px" class="btn btn-outline-success" type="button" onclick="submit_modify_user()">{{ __('title.save') }}</button>
         </div>
 
     </div>
+
+    {{-- button submit --}}
+    <input id="submitModifyUser" style="display: none" type="button" data-bs-toggle="modal" data-bs-target="#myModal">
 
 </form>
 
