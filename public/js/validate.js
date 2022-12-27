@@ -1,3 +1,10 @@
+// message validate
+var emptyFieldMessage = 'Không được để trống trường này'
+var errorFormatMessage = 'Dữ liệu nhập vào sai định dạng'
+var oldPasswordIncorrect = 'Mật khẩu cũ không chính xác'
+var oldAndNewPasswordIsTheSame = 'Mật khẩu cũ và mật khẩu mới không được trùng nhau'
+var repeatNewPasswordError = 'Nhập khẩu nhập lại không khớp'
+
 function  submit_new_user() {
     let check = validate_user('#add_user')
     if (check) {
@@ -12,6 +19,120 @@ function submit_modify_user() {
     }
 }
 
+function submit_new_workarea() {
+    let check = validate_workarea('#add_workarea')
+    if (check) {
+        document.querySelector('#submitNewWorkarea').click()
+    }
+}
+
+function submit_modify_workarea() {
+    let check = validate_workarea('#mod_workarea')
+    if (check) {
+        document.querySelector('#submitModifyWorkarea').click()
+    }
+}
+
+async function submit_password() {
+    let check = await validate_password('#changepw')
+    if (check) {
+        document.querySelector('#submitPassword').click()
+    }
+}
+
+async function validate_password(formSelector) {
+
+    const form = document.querySelector(formSelector)
+
+    // get data from formInput
+    let old_password = form.querySelector('#old-password').value
+    let new_password = form.querySelector('#new-password').value
+    let confirm_new_password = form.querySelector('#confirm-new-password').value
+
+    // regex password
+    let val_password = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/i
+
+    // check flag
+    let checkFlag = true
+
+    // validate old password
+    if (old_password == '') {
+        showValidateMessage('#old-password-validate', emptyFieldMessage)
+        checkFlag = false
+    }
+    else {
+        const token = form.querySelector('[name="_token"]').value
+        const result = await api.checkPasswordUser({ old_password, token })
+
+        if (result.status == 200)
+        {
+            let resultData = await result.json()
+            if (!resultData.data.isOldPassword) {
+                showValidateMessage('#old-password-validate', oldPasswordIncorrect)
+                checkFlag = false
+            }
+        }
+    }
+
+    // validate new password
+    if (new_password == '') {
+        showValidateMessage('#new-password-validate', emptyFieldMessage)
+        checkFlag = false
+    } else if (new_password == old_password) {
+        showValidateMessage('#new-password-validate', oldAndNewPasswordIsTheSame)
+        checkFlag = false
+    } else if ((new_password.match(val_password)) == null) {
+        showValidateMessage('#new-password-validate', errorFormatMessage)
+        checkFlag = false
+    }
+
+    if (confirm_new_password == '') {
+        showValidateMessage('#confirm-new-password-validate', emptyFieldMessage)
+        checkFlag = false
+    } else if (confirm_new_password != new_password) {
+        showValidateMessage('#confirm-new-password-validate', repeatNewPasswordError)
+        checkFlag = false
+    } else if ((confirm_new_password.match(val_password)) == null) {
+        showValidateMessage('#confirm-new-password-validate', errorFormatMessage)
+        checkFlag = false
+    }
+
+    return checkFlag
+
+}
+
+function validate_workarea(formSelector) {
+
+    const form = document.querySelector(formSelector)
+
+    let workarea_code = form.querySelector('[name="work_areas_code"]').value
+    let name = form.querySelector('[name="name"]').value
+
+    let val_workarea_code = /^([a-zA-Z0-9]{1,})$/i
+    let val_name = /^([a-zA-Z0-9\s]{1,})$/i
+
+    let checkFlag = true
+
+    if (workarea_code == '') {
+        showValidateMessage('#workarea_validate', emptyFieldMessage)
+        checkFlag = false
+    } else if ((workarea_code.match(val_workarea_code)) == null) {
+        showValidateMessage('#workarea_validate', errorFormatMessage)
+        checkFlag = false
+    }
+
+
+    if (name == '') {
+        showValidateMessage('#name_validate', emptyFieldMessage)
+        checkFlag = false
+    } else if ((name.match(val_name)) == null) {
+        showValidateMessage('#name_validate', errorFormatMessage)
+        checkFlag = false
+    }
+
+    return checkFlag
+
+}
 
 function validate_user(formSelector, fieldEmail=true) {
 
@@ -31,9 +152,6 @@ function validate_user(formSelector, fieldEmail=true) {
     let val_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/i
     let val_number = /^([\d]{3} [\d]{3} [\d]{3})*([\d]{3}-[\d]{3}-[\d]{3})*([\d]{3}\.[\d]{3}\.[\d]{3})*([\d]{3}[\d]{3}[\d]{3})*$/i
     let val_code_user = /^([0-9]{1,})$/i
-
-    let emptyFieldMessage = 'Không được để trống trường này'
-    let errorFormatMessage = 'Nhập dữ liệu sai định dạng'
 
     let checkFlag = true
 

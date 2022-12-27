@@ -44,6 +44,10 @@
             </div>
 
         </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div id="workarea_validate" class="col-3 text-error"></div>
+        </div>
 
         <br><br>
 
@@ -76,6 +80,10 @@
             </div>
 
         </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div id="name_validate" class="col-3 text-error"></div>
+        </div>
 
     </div>
 
@@ -88,10 +96,14 @@
         </div>
 
         <div style="margin-top: 50px">
-            <button style="width: 180px" class="btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#myModal">{{ __('title.save') }}</button>
+            <button style="width: 180px" class="btn btn-outline-success" type="button" onclick="submit_modify_workarea()">{{ __('title.save') }}</button>
         </div>
 
     </div>
+
+    {{-- button submit --}}
+    <input id="submitModifyWorkarea" style="display: none" type="button" data-bs-toggle="modal" data-bs-target="#myModal">
+
 
 </form>
 

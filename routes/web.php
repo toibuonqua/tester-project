@@ -9,6 +9,7 @@ use App\Http\Controllers\WorkSpaceManagementController;
 use App\Http\Controllers\NewArrivalManagementController;
 use App\Http\Controllers\PasswordDefaultController;
 use App\Http\Controllers\ResetAdminController;
+use App\Http\Controllers\Api\UsersManagementController as ApiUsersManagementController;
 use App\Models\DefaultPassword;
 use App\Models\Role;
 
@@ -35,12 +36,13 @@ Route::get('/change_pw', [UsersManagementController::class, 'changePassword'])->
 
 Route::post('/change_pw', [UsersManagementController::class, 'passwordUpdate'])->name('password.update');
 
+Route::post('/change_pw/user_password', [ApiUsersManagementController::class, 'checkPasswordUser'])->name('password.user');
+
 Route::get('/notice-login', [UsersManagementController::class, 'noticeLogin'])->name('back.login');
 
 Route::get('/reset-admin', [ResetAdminController::class, 'index'])->name('ra.index');
 
 Route::get('/reset-admin/confirm', [ResetAdminController::class, 'confirm'])->name('ra.confirm');
-
 
 Route::prefix('user')->middleware('check.admin')->group(function ()
 {

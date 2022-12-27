@@ -232,8 +232,9 @@ class UsersManagementController extends Controller
         $error = $request->session()->get('errors');
 
         if ($error) {
-            dd($request);
             $this->updateFailMessage($request, $this->backString($request, $error));
         }
+
+        return 0;
     }
 }

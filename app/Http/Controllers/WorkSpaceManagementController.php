@@ -30,6 +30,7 @@ class WorkSpaceManagementController extends Controller
         $workareas = $this->addAttribute($workareas_data, [
             'creater' => 'creator.username',
         ]);
+        // TODO: fix creater -> creator
         $exception = '';
         $query = '';
         $request->session()->put('query', $query);

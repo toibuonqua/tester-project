@@ -50,7 +50,7 @@
         </div>
         <div class="row">
             <div class="col-2"></div>
-            <div class="col-auto">
+            <div id="old-password-validate" class="col-auto text-error">
                 @if (session('error-old-pw'))
                     <p class="text-error">{{ session('error-old-pw') }}</p>
                 @else
@@ -90,7 +90,7 @@
         </div>
         <div class="row">
             <div class="col-2"></div>
-            <div class="col-auto">
+            <div id="new-password-validate" class="col-auto text-error">
                 @if (session('error-new-pw'))
                     <p class="text-error">{{ session('error-new-pw') }}</p>
                 @else
@@ -130,7 +130,7 @@
         </div>
         <div class="row">
             <div class="col-2"></div>
-            <div class="col-auto">
+            <div id="confirm-new-password-validate" class="col-auto text-error">
                 @if (session('error-confirm'))
                     <p class="text-error">{{ session('error-confirm') }}</p>
                 @else
@@ -148,10 +148,13 @@
         </div>
 
         <div style="margin-top: 50px">
-            <button style="width: 180px" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#changePwModal" type="button">{{ __('title.change-password') }}</button>
+            <button style="width: 180px" class="btn btn-outline-success" type="button" onclick="submit_password()">{{ __('title.change-password') }}</button>
         </div>
 
     </div>
+
+    {{-- button submit --}}
+    <input id="submitPassword" style="display: none" type="button" data-bs-toggle="modal" data-bs-target="#changePwModal">
 
     <br><br>
 
@@ -160,10 +163,10 @@
             <label class="text-des">Lưu ý :</label>
         </div>
         <div>
-            <labe>- Mật khẩu gồm ít nhất 8 ký tự trong đó cả chữ hoa, chữ thường, số và ký tự đặc biệt [!@#$&*]</label>
+            <label>- Mật khẩu gồm ít nhất 8 ký tự trong đó cả chữ hoa, chữ thường, số và ký tự đặc biệt [!@#$&*]</label>
         </div>
         <div>
-            <labe>- Mật khẩu mới không được giống mật khẩu cũ</label>
+            <label>- Mật khẩu mới không được giống mật khẩu cũ</label>
         </div>
     </div>
 
