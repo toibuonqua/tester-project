@@ -37,7 +37,7 @@
                 @elseif ($value === 'pattern.status')
                     <td>
                         <a href="{{ route($status_route, [$id_param ?? 'id' => $item->id]) }}" style="width: 100%" class="{{ $item->status == 'active' ? 'btn btn-danger' : 'btn btn-success' }}" onclick="return confirm('{{ $notice_active }}')">
-                            {{ __('title.' . ( $item->status == 'active' ? 'close-action' : 'open-action')) }}
+                            {{ __('title.' . ( $item->status == 'active' ? 'lock-account' : 'activated')) }}
                         </a>
                     </td>
                 @elseif ($value === 'pattern.reset')
